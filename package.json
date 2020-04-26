@@ -1,0 +1,26 @@
+{
+  "name": "perpustakaan_online",
+  "version": "1.0.0",
+  "description": "perpustakaan online",
+  "main": "index.js",
+  "scripts": {
+    "test": "perpustakaan online"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masjitsubekti/perpustakaan_online.git"
+  },
+  "keywords": [
+    "12345678"
+  ],
+  "author": "Subekti Devcode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masjitsubekti/perpustakaan_online/issues"
+  },
+  "homepage": "https://github.com/masjitsubekti/perpustakaan_online#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "vue": "^2.6.11"
+  }
+}
