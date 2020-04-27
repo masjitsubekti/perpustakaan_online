@@ -141,5 +141,6 @@ class Auth extends CI_Controller {
 		$data['message'] = "Anda Berhasil Logout !";
 		$data['page'] = "Auth";
 		echo json_encode($data);
+		// insert_log($username, "Login Aplikasi", 'Password Tidak Cocok', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());
 	}
 }

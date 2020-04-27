@@ -7,3 +7,4 @@
 <!-- Sweet Alert-->
 <link href="<?=base_url()?>assets/themes/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 <link href="<?=base_url()?>assets/all/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<?=base_url()?>assets/all/css/sort-table.css" rel="stylesheet" type="text/css" />

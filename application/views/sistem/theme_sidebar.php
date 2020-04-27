@@ -38,11 +38,11 @@
                 if($jml_menu2!=0){ ?>
                     
                     <li>
-                        <a href="<?= site_url($m1->link_menu)?>" class="has-arrow waves-effect">
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="<?=$m1->class_icon?>"></i>
                             <span><?=$m1->nama_menu?></span>
                         </a>
-                        <ul class="sub-menu" aria-expanded="false">
+                        <ul class="sub-menu">
                             <?php foreach ($menu2->result() as $m2) { ?>					
                                 
                                 <li><a href="<?= site_url($m2->link_menu)?>"><?=$m2->nama_menu?></a></li>

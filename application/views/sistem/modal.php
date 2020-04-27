@@ -24,7 +24,7 @@
                             <tr>
                                 <th scope="row">
                                     <div>
-                                        <img src="assets/images/product/img-7.png" alt="" class="avatar-sm">
+                                        <img src="<?=base_url()?>assets/themes/images/product/img-7.png" alt="" class="avatar-sm">
                                     </div>
                                 </th>
                                 <td>
@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="row">
                                     <div>
-                                        <img src="assets/images/product/img-4.png" alt="" class="avatar-sm">
+                                        <img src="<?=base_url()?>assets/themes/images/product/img-4.png" alt="" class="avatar-sm">
                                     </div>
                                 </th>
                                 <td>

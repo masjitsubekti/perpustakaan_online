@@ -460,3 +460,17 @@ function rata_rata_prepost($jum_nilai,$total){
     $average = sprintf('%0.2f', $nilai);
     return $average;
 }
+
+function insert_log($username = "", $action = "", $catatan = "", $ip_address = "", $browser = "", $keterangan = "", $device="Web"){
+    $CI =& get_instance();
+    $data = array(
+        "username" => $username,
+        "actions" => $action,
+        "ip_address" => $ip_address,
+        "browser" => $browser,
+        "keterangan" => $keterangan,
+        "catatan" => $catatan,
+        "device" => $device,
+    );
+    $CI->db->insert("log_aktivitas", $data);
+}

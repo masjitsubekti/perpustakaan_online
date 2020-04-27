@@ -99,3 +99,7 @@ label.error-block {
     background-color:#ecf0f1 !important;
     border-radius:100%;
 }
+
+.card {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
