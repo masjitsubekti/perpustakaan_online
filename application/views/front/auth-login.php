@@ -47,8 +47,8 @@
                                 <form class="form-horizontal" @submit.prevent="login">
     
                                     <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input type="text" class="form-control" v-model="user_login" id="user_login" name="user_login" placeholder="Enter Username" autocomplete="off">
+                                        <label for="username">Username / Email</label>
+                                        <input type="text" class="form-control" v-model="user_login" id="user_login" name="user_login" placeholder="Enter Username / Email" autocomplete="off">
                                     </div>
             
                                     <div class="form-group">

@@ -17,7 +17,7 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No. </th>
-        <th width="50%" class="sortable" id="column_nama_kategori" data-sort="asc" onclick="sort_table('#column_nama_kategori','nama_kategori')">Kategori Buku</th>
+        <th width="50%" class="sortable" id="column_nama_penerbit" data-sort="" onclick="sort_table('#column_nama_penerbit','nama_penerbit')">Penerbit</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
@@ -27,10 +27,10 @@
     foreach ($list->result() as $row) { $no++; ?>
     <tr>
         <td style="text-align:center;" ><?=$no;?>.</td>
-        <td><?=$row->nama_kategori?></td>
+        <td><?=$row->nama_penerbit?></td>
         <td style="text-align:center; padding-top:5px;">
-            <a href="javascript:;" data-id="<?=$row->id_kategori?>" data-name="<?=$row->nama_kategori?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_kategori?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-			<a href="javascript:;" data-id="<?=$row->id_kategori?>" data-name="<?=$row->nama_kategori?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_kategori?>"><i class="fa fa-trash"></i></a>	    
+            <a href="javascript:;" data-id="<?=$row->id_penerbit?>" data-name="<?=$row->nama_penerbit?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_penerbit?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
+			<a href="javascript:;" data-id="<?=$row->id_penerbit?>" data-name="<?=$row->nama_penerbit?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_penerbit?>"><i class="fa fa-trash"></i></a>	    
         </td>
     </tr>
     <?php } ?>
@@ -63,7 +63,7 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;">NO. </th>
-        <th width="50%">Kategori Buku</th>
+        <th width="50%">Penerbit</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
@@ -99,7 +99,7 @@
 		$('#div_dimscreen').show();
         var id = $(this).attr('data-id');
 		$.ajax({
-			url: "<?php echo site_url('Kategori_buku/load_modal/')?>",
+			url: "<?php echo site_url('Penerbit/load_modal/')?>",
 			type: 'post',
 			dataType: 'html',
             data:{id:id},
@@ -121,8 +121,8 @@
         var title = $(this).attr('data-name');
   
 		Swal.fire({
-			title: 'Nonaktifkan Kategori Buku',
-			text: "Apakah Anda yakin menonaktifkan kategori buku  : " + title + " !",
+			title: 'Nonaktifkan Penerbit',
+			text: "Apakah Anda yakin menonaktifkan Penerbit  : " + title + " !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',
@@ -135,7 +135,7 @@
 					$.ajax({
 						method: 'POST',
 						dataType: 'json',
-						url: site_url + 'Kategori_buku/nonaktifkan',
+						url: site_url + 'Penerbit/nonaktifkan',
 						data: {
 							id: id
 						},

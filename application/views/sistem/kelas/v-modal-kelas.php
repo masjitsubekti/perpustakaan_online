@@ -3,9 +3,9 @@
 		<div class="modal-content">
 			<div class="modal-header modal-success">
 				<h5 class="modal-title" id="modal_title_add" style="display:none;"><i class="bx bx-layer"></i>
-					Tambah Kategori Buku</h5>
+					Tambah Kelas</h5>
 				<h5 class="modal-title" id="modal_title_update" style="display:none;"><i
-						class="bx bx-layer"></i> Edit Kategori Buku</h5>
+						class="bx bx-layer"></i> Edit Kelas</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -13,19 +13,19 @@
 			<form action="" id="form">
 				<div class="modal-body">
                     <input type="hidden" name="modeform" id="modeform">
-                    <input type="hidden" name="id_kategori" id="id_kategori" value="<?php if(isset($data_kategori)){ echo $data_kategori['id_kategori']; } ?>">
+                    <input type="hidden" name="id_kelas" id="id_kelas" value="<?php if(isset($data_kelas)){ echo $data_kelas['id_kelas']; } ?>">
             	    <div class="form-group">
-						<label for="title">Nama Kategori Buku</label>
+						<label for="title">Nama kelas</label>
 						<input 
 							class="form-control" 
-							id="nama_kategori" 
-							name="nama_kategori" 
+							id="nama_kelas" 
+							name="nama_kelas" 
 							type="text" 
-							placeholder="Nama Kategori Buku . . ." 
+							placeholder="Nama Kelas . . ." 
 							autocomplete="off" 
 							value="<?php 
-										if(isset($data_kategori)){
-											echo $data_kategori['nama_kategori'];
+										if(isset($data_kelas)){
+											echo $data_kelas['nama_kelas'];
 										} 
 									?>"
 						required >
@@ -54,8 +54,8 @@
         }
 
 		Swal.fire({
-			title: ket1 + ' Kategori Buku',
-			text: "Apakah Anda yakin "+ ket2 +" Kategori Buku !",
+			title: ket1 + ' kelas',
+			text: "Apakah Anda yakin "+ ket2 +" kelas !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3498db',
@@ -66,7 +66,7 @@
 			preConfirm: function () {
 				return new Promise(function (resolve) {
 						$.ajax({
-						url: '<?= site_url() ?>'+'Kategori_buku/simpan',
+						url: '<?= site_url() ?>'+'Kelas/simpan',
 						method: 'POST',
 						dataType: 'json',	
 						data: new FormData($('#form')[0]),

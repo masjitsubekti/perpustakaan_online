@@ -3,9 +3,9 @@
 		<div class="modal-content">
 			<div class="modal-header modal-success">
 				<h5 class="modal-title" id="modal_title_add" style="display:none;"><i class="bx bx-layer"></i>
-					Tambah Kategori Buku</h5>
+					Tambah Penerbit</h5>
 				<h5 class="modal-title" id="modal_title_update" style="display:none;"><i
-						class="bx bx-layer"></i> Edit Kategori Buku</h5>
+						class="bx bx-layer"></i> Edit Penerbit</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -13,19 +13,19 @@
 			<form action="" id="form">
 				<div class="modal-body">
                     <input type="hidden" name="modeform" id="modeform">
-                    <input type="hidden" name="id_kategori" id="id_kategori" value="<?php if(isset($data_kategori)){ echo $data_kategori['id_kategori']; } ?>">
+                    <input type="hidden" name="id_penerbit" id="id_penerbit" value="<?php if(isset($data_penerbit)){ echo $data_penerbit['id_penerbit']; } ?>">
             	    <div class="form-group">
-						<label for="title">Nama Kategori Buku</label>
+						<label for="title">Nama Penerbit</label>
 						<input 
 							class="form-control" 
-							id="nama_kategori" 
-							name="nama_kategori" 
+							id="nama_penerbit" 
+							name="nama_penerbit" 
 							type="text" 
-							placeholder="Nama Kategori Buku . . ." 
+							placeholder="Nama Penerbit . . ." 
 							autocomplete="off" 
 							value="<?php 
-										if(isset($data_kategori)){
-											echo $data_kategori['nama_kategori'];
+										if(isset($data_penerbit)){
+											echo $data_penerbit['nama_penerbit'];
 										} 
 									?>"
 						required >
@@ -42,7 +42,7 @@
 <script>
     $('#form').submit(function (event) {
 		event.preventDefault();
-		var modeform = $('#modeform').val();
+        var modeform = $('#modeform').val();
         var ket1 = '';
         var ket2 = '';
         if(modeform=='ADD'){
@@ -54,8 +54,8 @@
         }
 
 		Swal.fire({
-			title: ket1 + ' Kategori Buku',
-			text: "Apakah Anda yakin "+ ket2 +" Kategori Buku !",
+			title: ket1 + ' Penerbit',
+			text: "Apakah Anda yakin "+ ket2 +" Penerbit !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3498db',
@@ -66,7 +66,7 @@
 			preConfirm: function () {
 				return new Promise(function (resolve) {
 						$.ajax({
-						url: '<?= site_url() ?>'+'Kategori_buku/simpan',
+						url: '<?= site_url() ?>'+'Penerbit/simpan',
 						method: 'POST',
 						dataType: 'json',	
 						data: new FormData($('#form')[0]),

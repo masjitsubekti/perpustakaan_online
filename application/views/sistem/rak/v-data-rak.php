@@ -17,7 +17,8 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No. </th>
-        <th width="50%" class="sortable" id="column_nama_kategori" data-sort="asc" onclick="sort_table('#column_nama_kategori','nama_kategori')">Kategori Buku</th>
+        <th width="10%" class="sortable" id="column_kode_rak" data-sort="" onclick="sort_table('#column_kode_rak','kode_rak')">Kode Rak Buku</th>
+        <th width="40%" class="sortable" id="column_nama_rak" data-sort="" onclick="sort_table('#column_nama_rak','nama_rak')">Rak Buku</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
@@ -27,10 +28,11 @@
     foreach ($list->result() as $row) { $no++; ?>
     <tr>
         <td style="text-align:center;" ><?=$no;?>.</td>
-        <td><?=$row->nama_kategori?></td>
+        <td><?=$row->kode_rak?></td>
+        <td><?=$row->nama_rak?></td>
         <td style="text-align:center; padding-top:5px;">
-            <a href="javascript:;" data-id="<?=$row->id_kategori?>" data-name="<?=$row->nama_kategori?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_kategori?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-			<a href="javascript:;" data-id="<?=$row->id_kategori?>" data-name="<?=$row->nama_kategori?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_kategori?>"><i class="fa fa-trash"></i></a>	    
+            <a href="javascript:;" data-id="<?=$row->id_rak?>" data-name="<?=$row->nama_rak?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_rak?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
+			<a href="javascript:;" data-id="<?=$row->id_rak?>" data-name="<?=$row->nama_rak?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_rak?>"><i class="fa fa-trash"></i></a>	    
         </td>
     </tr>
     <?php } ?>
@@ -63,13 +65,14 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;">NO. </th>
-        <th width="50%">Kategori Buku</th>
+        <th width="10%">Kode Rak Buku</th>
+        <th width="40%">Rak Buku</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
 	<tbody>
 		<tr>
-			<td colspan="3">Data tidak ditemukan !</td>
+			<td colspan="4">Data tidak ditemukan !</td>
 		</tr>
 	</tbody>
 </table>
@@ -99,7 +102,7 @@
 		$('#div_dimscreen').show();
         var id = $(this).attr('data-id');
 		$.ajax({
-			url: "<?php echo site_url('Kategori_buku/load_modal/')?>",
+			url: "<?php echo site_url('Rak/load_modal/')?>",
 			type: 'post',
 			dataType: 'html',
             data:{id:id},
@@ -121,8 +124,8 @@
         var title = $(this).attr('data-name');
   
 		Swal.fire({
-			title: 'Nonaktifkan Kategori Buku',
-			text: "Apakah Anda yakin menonaktifkan kategori buku  : " + title + " !",
+			title: 'Nonaktifkan Rak Buku',
+			text: "Apakah Anda yakin menonaktifkan Rak  : " + title + " !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',
@@ -135,7 +138,7 @@
 					$.ajax({
 						method: 'POST',
 						dataType: 'json',
-						url: site_url + 'Kategori_buku/nonaktifkan',
+						url: site_url + 'Rak/nonaktifkan',
 						data: {
 							id: id
 						},

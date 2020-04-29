@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card shade">
             <div class="card-body">
-                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Kategori Buku</h4>
+                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Kelas</h4>
                 <br>
                 <!--  -->
                 <div class="row">
@@ -63,7 +63,7 @@
 		var limit = $('#limit').val();
 		var cari = $('#cari').val();
 		$.ajax({
-			url: "<?php echo site_url('Kategori_buku/read_data/')?>" + i,
+			url: "<?php echo site_url('Kelas/read_data/')?>" + i,
 			type: 'post',
 			dataType: 'html',
 			data: {
@@ -84,7 +84,7 @@
     $("#btn-add").click(function() {
 		$('#div_dimscreen').show();
 		$.ajax({
-			url: "<?php echo site_url('Kategori_buku/load_modal/')?>",
+			url: "<?php echo site_url('Kelas/load_modal/')?>",
 			type: 'post',
 			dataType: 'html',
 			beforeSend: function () {},
