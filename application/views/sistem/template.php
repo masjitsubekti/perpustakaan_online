@@ -45,7 +45,6 @@
     </div>
 
     <!-- RIGHT SIDEBAR -->
-    <?php include('theme_right_sidebar.php') ?>
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
