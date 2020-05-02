@@ -327,5 +327,50 @@
             }
         }
                  
-    }
+	}
+	
+	function lakukan_upload_file_mobile_objek($foto,$folder,$tipe_extensi){
+		$CI                       =& get_instance();
+		if($foto!=""){
+			$image = base64_decode($foto);
+
+			$new_name = 'mobile';
+			$filename = $new_name . '_' . md5(uniqid(rand(), true)) . '.' . 'png';
+			$path = '.' . $folder;
+			file_put_contents($path . $filename, $image);
+			return $filename;
+		}else{
+			return "";
+		}
+	}
+
+	function upload_file_mobile_objek_nonbase64($foto,$folder,$tipe_extensi){
+		$CI                       =& get_instance();
+		$foto = ($CI->input->post($input_file) != "") ? $CI->input->post($input_file) : "";
+		if($foto!=""){
+			$image = $foto;
+
+			$new_name = 'mobile';
+			$filename = $new_name . '_' . md5(uniqid(rand(), true)) . '.' . 'png';
+			$path = '.' . $folder;
+			file_put_contents($path . $filename, $image);
+			return $filename;
+		}else{
+			return "";
+		}
+	}
+
+	function generate_barcode($kode,$folder){
+		if($kode!=""){
+			$new_name = 'BARCODE';
+			$filename = $new_name . '_' . $kode . '_' . md5(uniqid(rand(), true)) . '.' . 'jpg';
+
+			$path = $folder;
+			$generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+			file_put_contents($path . $filename, $generator->getBarcode($kode, $generator::TYPE_CODE_128));	
+			return $filename;
+		}else{
+			return "";
+		}
+	}
 ?>

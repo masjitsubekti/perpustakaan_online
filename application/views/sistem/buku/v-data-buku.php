@@ -29,8 +29,8 @@
         <td style="text-align:center;" ><?=$no;?>.</td>
         <td><?=$row->judul?></td>
         <td style="text-align:center; padding-top:5px;">
-            <a href="javascript:;" data-id="<?=$row->id_buku?>" data-name="<?=$row->judul?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->judul?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-			<a href="javascript:;" data-id="<?=$row->id_buku?>" data-name="<?=$row->judul?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->judul?>"><i class="fa fa-trash"></i></a>	    
+            <a href="<?= site_url('Buku/form_edit/'.$row->kode_buku) ?>" data-id="<?=$row->kode_buku?>" data-name="<?=$row->judul?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->judul?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
+			<a href="javascript:;" data-id="<?=$row->kode_buku?>" data-name="<?=$row->judul?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->judul?>"><i class="fa fa-trash"></i></a>	    
         </td>
     </tr>
     <?php } ?>

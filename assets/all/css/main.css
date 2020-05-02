@@ -113,3 +113,15 @@ label.error-block {
 	color: white;
 	text-align: center;
 }
+
+.select2{
+	width:100% !important;
+}
+.select2-container .select2-selection--single {
+	height:34px !important;
+	padding : 2px !important;
+	border : 1px solid #d8dbe0 !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	top : 4px !important;
+}

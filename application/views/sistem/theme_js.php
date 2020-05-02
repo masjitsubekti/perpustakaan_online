@@ -12,6 +12,10 @@
 <script src="<?php echo base_url('node_modules/axios/dist/axios.js')?>"></script>
 <script src="<?php echo base_url('assets/all/vue/vue.js')?>"></script>
 <script src="<?php echo base_url('assets/all/js/sort-table.js')?>"></script>
+
+<script src="<?php echo base_url('assets/themes/libs/select2/js/select2.min.js')?>"></script>
+<script src="<?php echo base_url('assets/themes/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+<script src="<?php echo base_url('assets/themes/libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
     
 <script>
     var Toast = Swal.mixin({

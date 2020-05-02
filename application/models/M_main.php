@@ -61,16 +61,16 @@ class M_main extends CI_Model{
         return $kodemax;
 	}
 
-	public function getKodeMaster4($awal,$clm,$table){
-        $q = $this->db->query("SELECT MAX(RIGHT($clm,4)) AS idmax FROM $table");
+	public function getKodeMaster7($awal,$clm,$table){
+        $q = $this->db->query("SELECT MAX(RIGHT($clm,7)) AS idmax FROM $table");
         $kd = "";
         if($q->num_rows()>0){
             foreach($q->result() as $k){
                 $tmp = ((int)$k->idmax)+1;
-            	$kd = sprintf("%04s", $tmp);
+            	$kd = sprintf("%07s", $tmp);
             }
         }else{
-            $kd = "0001";
+            $kd = "0000001";
         }
         $kar = "$awal";
         $kodemax =  $awal.$kd;
