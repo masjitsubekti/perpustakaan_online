@@ -28,6 +28,21 @@ class Beranda extends CI_Controller {
         $data['content'] = "beranda/v-beranda.php";
         $this->parser->parse('sistem/template', $data);
     }    
+
+
+    public function cetak(){
+        $data = array(
+            "dataku" => array(
+                "nama" => "Petani Kode",
+                "url" => "http://petanikode.com"
+            )
+        );
+
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "REKAP EVALUASI PENYELENGGARAAN.pdf";
+        $this->pdf->load_view('sistem/beranda/cetak.php', $data);
+    }
 }
 
 /* End of file Beranda.php */

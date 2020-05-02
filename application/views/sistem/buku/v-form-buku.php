@@ -2,12 +2,19 @@
     <div class="col-12">
         <div class="card shade">
             <div class="card-body">
-                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Buku</h4>
+                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Form Buku</h4>
                 <br>
                 <!--  -->
                 <div class="row">
                     <div class="col-md-12">
-                        form
+                        <div class="form-group">
+                            <label for="title">Kode Buku</label>
+                            <input class="form-control" id="nama_kategori" name="nama_kategori" type="text" placeholder="Nama Kategori Buku . . ." autocomplete="off" value="<?php if(isset($data_kategori)){ echo $data_kategori['nama_kategori']; } ?>"required >
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Judul Buku</label>
+                            <input class="form-control" id="nama_kategori" name="nama_kategori" type="text" placeholder="Nama Kategori Buku . . ." autocomplete="off" value="<?php if(isset($data_kategori)){ echo $data_kategori['nama_kategori']; } ?>"required >
+                        </div>
                     </div>
                 </div>
                 <br>
