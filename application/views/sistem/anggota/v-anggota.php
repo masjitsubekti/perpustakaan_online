@@ -2,12 +2,12 @@
     <div class="col-12">
         <div class="card shade">
             <div class="card-body">
-                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Daftar Buku</h4>
+                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Daftar Anggota</h4>
                 <br>
                 <!--  -->
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="<?= site_url('Buku/form_add') ?>" class="btn btn-success" id="btn-add"> <b> <i class="bx bx-plus-circle"></i> </b> Tambah</a>
+                        <a href="<?= site_url('Anggota/form_add') ?>" class="btn btn-success" id="btn-add"> <b> <i class="bx bx-plus-circle"></i> </b> Tambah</a>
                     </div>
                     <div class="col-md-2">
                         <select class="form-control" name="limit" id="limit" onchange="pageLoad(1)">
@@ -63,7 +63,7 @@
 		var limit = $('#limit').val();
 		var cari = $('#cari').val();
 		$.ajax({
-			url: "<?php echo site_url('Buku/read_data/')?>" + i,
+			url: "<?php echo site_url('Anggota/read_data/')?>" + i,
 			type: 'post',
 			dataType: 'html',
 			data: {
@@ -80,5 +80,4 @@
 			}
 		});
     }
-    
 </script>

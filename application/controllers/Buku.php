@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Buku extends CI_Controller {
 
-    private $nama_menu  = "Buku";     
+    private $nama_menu  = "Data Buku";     
 
     public function __construct()
     {
@@ -123,7 +123,7 @@ class Buku extends CI_Controller {
         $stok = strip_tags(trim($this->input->post('stok')));
         $keterangan = strip_tags(trim($this->input->post('keterangan')));
         $foto_sampul = lakukan_upload_file('foto_sampul','/assets/data/foto_buku/','jpg|png|jpeg');
-        $barcode = generate_barcode($kode_buku,'assets/data/barcode/');
+        $barcode = generate_barcode($kode_buku,'assets/data/barcode_buku/');
         
         if($modeform == 'ADD'){
             
@@ -156,7 +156,7 @@ class Buku extends CI_Controller {
             $response['message'] = "Data Buku Berhasil Disimpan";
             
             $username = $this->session->userdata('auth_username');
-            insert_log($username, "Tambah buku", 'Berhasil Tambah buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+            insert_log($username, "Tambah Buku", 'Berhasil Tambah Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
         
         }else if($modeform == 'UPDATE'){
             $kode_buku_ubah = $this->input->post('kode_buku_ubah');

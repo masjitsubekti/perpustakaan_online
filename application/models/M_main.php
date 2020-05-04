@@ -78,19 +78,19 @@ class M_main extends CI_Model{
 	}
 
 	function get_no_otomatis($tbl,$kolom,$awal){
-        $q = $this->db->query("SELECT MAX(RIGHT($kolom,3)) AS kd_max FROM $tbl WHERE DATE(created_at)=current_date");
+        $q = $this->db->query("SELECT MAX(RIGHT($kolom,4)) AS kd_max FROM $tbl WHERE DATE(created_at)=current_date");
         $kd = "";
         if($q->num_rows()>0){
             $data = $q->row_array();
             foreach($q->result() as $k){
                 $tmp = intval($k->kd_max)+1;
-                $kd = sprintf("%03s", $tmp);
+                $kd = sprintf("%04s", $tmp);
             }
         }else{
-            $kd = "001";
+            $kd = "0001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return $awal.date('dmy').$kd;
+        return $awal.date('dmyy').$kd;
     }
 }
 /* End of file M_main.php */

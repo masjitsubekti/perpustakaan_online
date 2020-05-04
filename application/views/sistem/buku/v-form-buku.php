@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label>Tahun Terbit</label>
                                     <div class="input-group">
-                                        <input type="text" name="tahun_terbit" name="tahun_terbit" placeholder="Tahun Terbit . . ." class="form-control" data-date-min-view-mode="2" data-date-format="yyyy" data-provide="datepicker" value="<?php if(isset($data_buku)){ echo $data_buku['tahun_terbit']; } ?>" data-date-autoclose="true">
+                                        <input type="text" name="tahun_terbit" name="tahun_terbit" placeholder="Tahun Terbit . . ." class="form-control" data-date-min-view-mode="2" data-date-format="yyyy" data-provide="datepicker" value="<?php if(isset($data_buku)){ echo $data_buku['tahun_terbit']; } ?>" data-date-autoclose="true" autocomplete="off">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
@@ -181,7 +181,7 @@
                         <br><br>
                         <hr>
                         <div class="pull-right">
-                            <a class="btn btn-danger" href="<?= site_url('Peserta') ?>" id="kembali_page5"><i class="fa fa-times"></i>&nbsp;Batal</a>
+                            <a class="btn btn-dark" href="<?= site_url('Buku') ?>" ><i class="fa fa-times"></i>&nbsp;Batal</a>
                             <button class="btn btn-primary" type="submit" id="lanjut_page5" style="background-color:#3867d6;color:white;"> <i class="fa fa-check"></i>&nbsp;Simpan</button>
                         </div>
       
