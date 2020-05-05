@@ -91,7 +91,8 @@ class Anggota extends CI_Controller {
         
         $data['modeform'] = 'UPDATE';
         $data['data_anggota'] = $this->M_main->get_where('t_anggota','id_anggota',$id_anggota)->row_array();
-        
+        $data['jenkel'] = $this->M_main->get_all('m_jenkel')->result();
+
         $data['content'] = "anggota/v-form-anggota.php";
         $this->parser->parse('sistem/template', $data);
     }

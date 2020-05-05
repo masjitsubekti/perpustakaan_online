@@ -32,6 +32,43 @@ class Buku extends CI_Controller {
         $data['content'] = "buku/v-buku.php";
         $this->parser->parse('sistem/template', $data);
     }
+
+    public function katalog()
+    {
+        $this->Menu_m->role_has_access($this->nama_menu);
+
+        $data['app'] = $this->apl;
+        $data['nama_menu'] = $this->nama_menu;
+        $data['title'] = $this->nama_menu." | ".$this->apl['nama_sistem'];
+
+        // Breadcrumbs
+        $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
+        $this->mybreadcrumb->add('Katalog', site_url('Buku/katalog'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        // End Breadcrumbs
+ 
+        $data['content'] = "buku/v-katalog.php";
+        $this->parser->parse('sistem/template', $data);
+    }
+
+    public function detail_katalog()
+    {
+        $this->Menu_m->role_has_access($this->nama_menu);
+
+        $data['app'] = $this->apl;
+        $data['nama_menu'] = $this->nama_menu;
+        $data['title'] = $this->nama_menu." | ".$this->apl['nama_sistem'];
+
+        // Breadcrumbs
+        $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
+        $this->mybreadcrumb->add('Katalog', site_url('Buku/katalog'));
+        $this->mybreadcrumb->add('Detail Katalog', site_url('Buku/detail_katalog'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        // End Breadcrumbs
+ 
+        $data['content'] = "buku/v-detail-katalog.php";
+        $this->parser->parse('sistem/template', $data);
+    }
     
     public function form_add()
     {
@@ -103,6 +140,25 @@ class Buku extends CI_Controller {
 		$data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
 
 		$this->load->view('sistem/buku/v-data-buku',$data);
+    }
+
+    public function read_katalog($pg=1)
+	{
+		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+		$limit	= $this->input->post("limit");
+		$offset = ($limit*$pg)-$limit;
+		$column = $this->input->post('column');
+        $sort = $this->input->post('sort');
+		
+		$page              = array();
+		$page['limit']     = $limit;
+		$page['count_row'] = $this->Buku_m->list_count($key)['jml'];
+        $page['current']   = $pg;
+		$page['list']      = gen_paging($page);
+		$data['paging']    = $page;
+		$data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
+
+		$this->load->view('sistem/buku/v-data-katalog',$data);
     }
 
     public function simpan(){
