@@ -19,6 +19,17 @@
             ");
             return $query;
         }
+
+        function get_anggota($id_anggota,$status="1"){
+            $query = "
+                select ta.*, mja.nama_jenis_anggota, mja.lama_pinjam, mja.max_peminjaman, mja.max_perpanjangan, mja.jumlah_denda from t_anggota ta 
+                    left join m_jenis_anggota mja on ta.id_jenis_anggota = mja.id_jenis_anggota 
+                where 
+                    ta.status = '$status'
+                    and ta.id_anggota = '$id_anggota'        
+            ";
+            return $this->db->query($query);
+        }
     }
     /* End of file Kategori_buku_m.php */    
 ?>
