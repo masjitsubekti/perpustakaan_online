@@ -142,6 +142,7 @@ class Peminjaman extends CI_Controller {
                 'tgl_pinjam'            => $tgl_pinjam[$i],
                 'tgl_kembali'           => $tgl_kembali[$i],
                 'jumlah'                => 1,
+                'flag_perpanjangan'     => '0',
                 'status'                => '1',
                 'created_at'            => date('Y-m-d H:i:s'),
             );

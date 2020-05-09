@@ -34,6 +34,7 @@
                 </div>
                 <div id="data_anggota" style="display:none;">
                     <!-- Data Peminjaman -->
+                    <div class="table-responsive">
                     <table class="table borderless table-hover">
                         <tr>
                             <th style="text-align:left; width:15%;">ID Anggota</th>
@@ -63,7 +64,8 @@
                     <input type="hidden" id="max_pinjam" name="max_pinjam">
                     <input type="hidden" id="jml_tanggungan" name="jml_tanggungan">
                     <hr>
-                    <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Data Buku</h4>
+                    </div>
+                    <h4 class="card-title" style="font-size:15px;"> <i class="bx bx-layer"></i> Daftar Peminjaman</h4>
                     <br>
                     <div class="form-group row mb-4">
                         <label for="billing-name" class="col-md-2 col-form-label">Kode Buku</label>
@@ -78,10 +80,10 @@
                     <div class="table-responsive">
                     <input type="hidden" id="f_idAnggota" name="f_idAnggota" class="form-control">
                         <table class="table table-centered mb-0 table-nowrap" id="dataTable">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Foto</th>
-                                <th scope="col">Judul</th>
+                            <thead>
+                            <tr class="tr-head">
+                                <th style="text-align:left;" scope="col">Foto</th>
+                                <th style="text-align:left;" scope="col">Judul</th>
                                 <th style="text-align:center;" scope="col">Tanggal Pinjam</th>
                                 <th style="text-align:center;" scope="col">Tanggal Kembali</th>
                                 <th style="text-align:center;" scope="col">Aksi</th>
