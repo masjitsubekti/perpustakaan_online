@@ -91,6 +91,7 @@ class Buku extends CI_Controller {
         $data['penerbit'] = $this->M_main->get_where('m_penerbit','status','1')->result();
         $data['rak'] = $this->M_main->get_where('m_rak','status','1')->result();
         $data['sumber'] = $this->M_main->get_where('m_sumber','status','1')->result();
+        $data['pengarang'] = $this->M_main->get_where('m_pengarang','status','1')->result();
         
         $data['content'] = "buku/v-form-buku.php";
         $this->parser->parse('sistem/template', $data);
@@ -118,6 +119,7 @@ class Buku extends CI_Controller {
         $data['rak'] = $this->M_main->get_where('m_rak','status','1')->result();
         $data['sumber'] = $this->M_main->get_where('m_sumber','status','1')->result();
         $data['data_buku'] = $this->M_main->get_where('t_buku','kode_buku',$kode_buku)->row_array();
+        $data['pengarang'] = $this->M_main->get_where('m_pengarang','status','1')->result();
         
         $data['content'] = "buku/v-form-buku.php";
         $this->parser->parse('sistem/template', $data);
@@ -179,16 +181,16 @@ class Buku extends CI_Controller {
         $stok = strip_tags(trim($this->input->post('stok')));
         $keterangan = strip_tags(trim($this->input->post('keterangan')));
         $foto_sampul = lakukan_upload_file('foto_sampul','/assets/data/foto_buku/','jpg|png|jpeg');
-        $barcode = generate_barcode($kode_buku,'assets/data/barcode_buku/');
         
         if($modeform == 'ADD'){
+            $barcode = generate_barcode($kode_buku,'assets/data/barcode_buku/');
             
             $id = $this->uuid->v4(false);
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
                 'kode_buku'     =>$kode_buku,
                 'judul'         =>$judul,
-                'pengarang'     =>$pengarang,
+                'id_pengarang'     =>$pengarang,
                 'id_kategori'   =>$kategori,
                 'id_sumber'     =>$sumber,
                 'id_rak'        =>$lokasi_rak,
@@ -201,7 +203,7 @@ class Buku extends CI_Controller {
                 'edisi'         =>$edisi,
                 'isbn'          =>$isbn,
                 'tanggal'       =>date('Y-m-d'),
-                'foto'          =>$foto_sampul['file_name'],
+                'foto'          =>(!empty($_FILES["foto_sampul"]["tmp_name"])) ? $foto_sampul['file_name'] : "",
                 'barcode'       =>$barcode,
                 'keterangan'    =>$keterangan,
                 'status'        =>'1',
@@ -221,7 +223,7 @@ class Buku extends CI_Controller {
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
                 'judul'         =>$judul,
-                'pengarang'     =>$pengarang,
+                'id_pengarang'  =>$pengarang,
                 'id_kategori'   =>$kategori,
                 'id_sumber'     =>$sumber,
                 'id_rak'        =>$lokasi_rak,

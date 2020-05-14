@@ -8,7 +8,7 @@
                 <form action="" id="form">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="alert alert-info"><b>PENTING!</b><ol class="pl-3 mb-0"><li>Lengkapi data formulir berikut. Kolom yang memiliki tanda bintang "*", maka wajib diisi.</li><li>Sesuaikan identitas pribadi dengan data di KTP-el.</li><li>Isilah sesuai dengan kaidah-kaidah penulisan bahasa Indonesia untuk mempermudah proses verifikasi.</li></ol></div>
+                        <div class="alert alert-info"><b>PENTING!</b><ol class="pl-3 mb-0"><li>Lengkapi data formulir berikut. Kolom yang memiliki tanda bintang "*", maka wajib diisi.</li><li>Isilah sesuai dengan kaidah-kaidah penulisan bahasa Indonesia untuk mempermudah proses pencarian buku.</li></ol></div>
                         <input type="hidden" id="modeform" name="modeform" value="<?= $modeform ?>">
                         <input type="hidden" id="kode_buku_ubah" name="kode_buku_ubah" value="<?php if(isset($data_buku)){ echo $data_buku['kode_buku']; } ?>">
                         <?php if($modeform=="ADD"){ ?>
@@ -18,20 +18,35 @@
                             </div>
                         <?php } ?>
                         <div class="form-group">
-                            <label for="title">Judul Buku</label>
-                            <input class="form-control" id="judul" name="judul" type="text" placeholder="Judul Buku . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['judul']; } ?>"required >
+                            <label for="title">Judul Buku<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="judul" name="judul" type="text" placeholder="Judul Buku . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['judul']; } ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="isbn">ISBN</label>
-                            <input class="form-control" id="isbn" name="isbn" type="text" placeholder="ISBN . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['isbn']; } ?>"required >
+                            <input class="form-control" id="isbn" name="isbn" type="text" placeholder="ISBN . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['isbn']; } ?>">
                         </div>
                         <div class="form-group">
-                            <label for="title">Pengarang</label>
-                            <input class="form-control" id="pengarang" name="pengarang" type="text" placeholder="Pengarang . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['pengarang']; } ?>"required >
+                            <label for="pengarang">Pengarang<span style="font-size:16px;">*</span></label>
+                            <select class="form-control pengarang" name="pengarang" id="pengarang" required>
+                                <option value=""></option>
+                                <?php foreach ($pengarang as $kt) {?>
+                                <option 
+                                    <?php 
+                                        if(isset($data_buku)){
+                                            if($data_buku['id_pengarang']==$kt->id_pengarang){
+                                                echo " selected ";
+                                            }
+                                        } 
+                                        ?>
+                                        value="<?=$kt->id_pengarang?>">
+                                    <?=$kt->nama_pengarang?>
+                                </option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="kategori">Kategori</label>
-                            <select class="form-control kategori" name="kategori" id="kategori">
+                            <label for="kategori">Kategori<span style="font-size:16px;">*</span></label>
+                            <select class="form-control kategori" name="kategori" id="kategori" required>
                                 <option value=""></option>
                                 <?php foreach ($kategori as $kt) {?>
                                 <option 
@@ -49,8 +64,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="rak">Lokasi / Rak</label>
-                            <select class="form-control rak" name="lokasi_rak" id="rak_lokasi">
+                            <label for="rak">Lokasi / Rak<span style="font-size:16px;">*</span></label>
+                            <select class="form-control rak" name="lokasi_rak" id="rak_lokasi" required>
                                 <option value=""></option>
                                 <?php foreach ($rak as $rk) {?>
                                 <option 
@@ -62,14 +77,14 @@
                                         } 
                                         ?>	
                                         value="<?=$rk->id_rak?>">
-                                    <?=$rk->nama_rak?>
+                                    <?=$rk->kode_rak?> - <?=$rk->nama_rak?>
                                 </option>
                                 <?php } ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="sumber">Sumber / Supplier</label>
-                            <select class="form-control sumber" name="sumber" id="sumber">
+                            <label for="sumber">Sumber / Supplier<span style="font-size:16px;">*</span></label>
+                            <select class="form-control sumber" name="sumber" id="sumber" required>
                                 <option value=""></option>
                                 <?php foreach ($sumber as $sb) {?>
                                 <option 
@@ -87,8 +102,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Penerbit</label>
-                            <select class="form-control penerbit" name="penerbit" id="penerbit">
+                            <label class="control-label">Penerbit<span style="font-size:16px;">*</span></label>
+                            <select class="form-control penerbit" name="penerbit" id="penerbit" required>
                                 <option value=""></option>
                                 <?php foreach ($penerbit as $pb) {?>
                                 <option 
@@ -109,7 +124,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tempat_terbit">Tempat Terbit</label>
-                                    <input class="form-control" id="tempat_terbit" name="tempat_terbit" type="text" placeholder="Tempat Terbit . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['tempat_terbit']; } ?>" required >
+                                    <input class="form-control" id="tempat_terbit" name="tempat_terbit" type="text" placeholder="Tempat Terbit . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['tempat_terbit']; } ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -132,34 +147,34 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="halaman">Halaman</label>
-                                    <input class="form-control" id="halaman" name="halaman" type="text" placeholder="Halaman . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['halaman']; } ?>"required >
+                                    <input class="form-control" id="halaman" name="halaman" type="text" placeholder="Halaman . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['halaman']; } ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tinggi">Tinggi</label>
-                                    <input class="form-control" id="tinggi" name="tinggi" type="text" placeholder="Tinggi . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['tinggi']; } ?>"required >
+                                    <input class="form-control" id="tinggi" name="tinggi" type="text" placeholder="Tinggi . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['tinggi']; } ?>">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="stok">Edisi</label>
-                            <input class="form-control" id="edisi" name="edisi" type="text" placeholder="Edisi . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['edisi']; } ?>"required >
+                            <input class="form-control" id="edisi" name="edisi" type="text" placeholder="Edisi . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['edisi']; } ?>">
                         </div>
                         <div class="form-group">
-                            <label for="stok">Stok / Jumlah</label>
-                            <input class="form-control" id="stok" name="stok" type="text" placeholder="Stok / Jumlah . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['stok']; } ?>"required >
+                            <label for="stok">Stok / Jumlah<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="stok" name="stok" type="text" placeholder="Stok / Jumlah . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['stok']; } ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
-                            <input class="form-control" id="keterangan" name="keterangan" type="text" placeholder="Keterangan . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['keterangan']; } ?>"required >
+                            <input class="form-control" id="keterangan" name="keterangan" type="text" placeholder="Keterangan . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['keterangan']; } ?>">
                         </div>
                         <!-- foto -->
                         <br>
                         <h3 style="font-size:18px;"> <i class=""></i> Foto Sampul Buku</h3>
                         <br>
-                        <div class="alert alert-info"><b>Ketentuan:</b><ol class="pl-3 mb-0"><li>Pas foto formal terbaru (bukan foto <i>selfie</i>!). Muka harus terlihat jelas.</li><li>Ukuran foto 3×4, format PNG atau JPEG.</li></ol></div>
+                        <!-- <div class="alert alert-info"><b>Ketentuan:</b><ol class="pl-3 mb-0"><li>Pas foto formal terbaru (bukan foto <i>selfie</i>!). Muka harus terlihat jelas.</li><li>Ukuran foto 3×4, format PNG atau JPEG.</li></ol></div> -->
                         <br>
                         <div class="row">
                             <div class="col-md-12 col-sm-12 box-upload">
@@ -181,8 +196,8 @@
                         <br><br>
                         <hr>
                         <div class="pull-right">
-                            <a class="btn btn-dark" href="<?= site_url('Buku') ?>" ><i class="fa fa-times"></i>&nbsp;Batal</a>
-                            <button class="btn btn-primary" type="submit" id="lanjut_page5" style="background-color:#3867d6;color:white;"> <i class="fa fa-check"></i>&nbsp;Simpan</button>
+                            <a class="btn btn-secondary" href="<?= site_url('Buku') ?>" ><i class="fa fa-times"></i>&nbsp;Batal</a>
+                            <button class="btn btn-primary" type="submit"> <i class="fa fa-check"></i>&nbsp;Simpan</button>
                         </div>
       
                     </div>
@@ -206,6 +221,11 @@
 <script>
     $(document).ready(function () {
         
+    });
+
+    $('.pengarang').select2({
+        placeholder: "Pilih Pengarang . . . ",
+        allowClear: true,
     });
 
     $('.kategori').select2({

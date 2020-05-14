@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sumber extends CI_Controller {
+class Pengarang extends CI_Controller {
 
-    private $nama_menu  = "Sumber";     
+    private $nama_menu  = "Pengarang";     
 
     public function __construct()
     {
@@ -11,7 +11,7 @@ class Sumber extends CI_Controller {
         $this->apl = get_apl();
         $this->load->model('Menu_m');
         $this->load->model('M_main');
-        $this->load->model('Sumber_m');
+        $this->load->model('Pengarang_m');
         must_login();
     }
     
@@ -25,11 +25,11 @@ class Sumber extends CI_Controller {
 
         // Breadcrumbs
         $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
-        $this->mybreadcrumb->add($this->nama_menu, site_url('Sumber'));
+        $this->mybreadcrumb->add($this->nama_menu, site_url('Pengarang'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
         // End Breadcrumbs
  
-        $data['content'] = "sumber/v-sumber.php";
+        $data['content'] = "pengarang/v-pengarang.php";
         $this->parser->parse('sistem/template', $data);
     }    
 
@@ -43,72 +43,64 @@ class Sumber extends CI_Controller {
 		
 		$page              = array();
 		$page['limit']     = $limit;
-		$page['count_row'] = $this->Sumber_m->list_count($key)['jml'];
+		$page['count_row'] = $this->Pengarang_m->list_count($key)['jml'];
         $page['current']   = $pg;
 		$page['list']      = gen_paging($page);
 		$data['paging']    = $page;
-		$data['list']      = $this->Sumber_m->list_data($key, $limit, $offset, $column, $sort);
+		$data['list']      = $this->Pengarang_m->list_data($key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/sumber/v-data-sumber',$data);
+		$this->load->view('sistem/pengarang/v-data-pengarang',$data);
     }
 
     public function load_modal(){
         $id = $this->input->post('id');
         if ($id!=""){
             $data['mode'] = "UPDATE";
-            $data['data_sumber'] = $this->M_main->get_where('m_sumber','id_sumber',$id)->row_array();
+            $data['data_pengarang'] = $this->M_main->get_where('m_pengarang','id_pengarang',$id)->row_array();
         }else{
             $data['mode'] = "ADD";
             $data['kosong'] = "";
         }
-        $this->load->view('sistem/sumber/v-modal-sumber',$data);
+        $this->load->view('sistem/pengarang/v-modal-pengarang',$data);
     }
 
     public function simpan(){
         $modeform = $this->input->post('modeform');
-        $nama_sumber = strip_tags(trim($this->input->post('nama_sumber')));
-        $no_telp = strip_tags(trim($this->input->post('no_telp')));
-        $email = strip_tags(trim($this->input->post('email')));
-        $alamat = strip_tags(trim($this->input->post('alamat')));
+        $nama_pengarang = strip_tags(trim($this->input->post('nama_pengarang')));
         if($modeform == 'ADD'){
+            
             $id = $this->uuid->v4(false);
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
-                'id_sumber' => $id,
-                'nama_sumber'=>$nama_sumber,
-                'no_telp'=>$no_telp,
-                'email'=>$email,
-                'alamat'=>$alamat,
+                'id_pengarang' => $id,
+                'nama_pengarang'=>$nama_pengarang,
                 'status'=>'1',
                 'created_at'=>date('Y-m-d H:i:s')
             );
-            $this->db->insert('m_sumber', $data_object);
+            $this->db->insert('m_pengarang', $data_object);
             $response['success'] = TRUE;
-            $response['message'] = "Data Sumber Buku Berhasil Disimpan";
+            $response['message'] = "Data Pengarang Berhasil Disimpan";
             
             $username = $this->session->userdata('auth_username');
-            insert_log($username, "Tambah Sumber Buku", 'Berhasil Tambah Sumber Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+            insert_log($username, "Tambah Pengarang", 'Berhasil Tambah Pengarang', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
         
         }else if($modeform == 'UPDATE'){
-            $id_sumber = $this->input->post('id_sumber');
+            $id_pengarang = $this->input->post('id_pengarang');
             
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
-                'nama_sumber'=>$nama_sumber,
-                'no_telp'=>$no_telp,
-                'email'=>$email,
-                'alamat'=>$alamat,
+                'nama_pengarang'=>$nama_pengarang,
                 'updated_at'=>date('Y-m-d H:i:s')
             );
 				
-            $this->db->where('id_sumber',$id_sumber);
-            $this->db->update('m_sumber', $data_object);
+            $this->db->where('id_pengarang',$id_pengarang);
+            $this->db->update('m_pengarang', $data_object);
 
             $response['success'] = true;
-            $response['message'] = "Data Sumber Buku Berhasil Diperbarui !";
+            $response['message'] = "Data Pengarang Berhasil Diperbarui !";
             
             $username = $this->session->userdata('auth_username');
-            insert_log($username, "Edit Sumber Buku", 'Berhasil Edit Sumber Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+            insert_log($username, "Edit Pengarang", 'Berhasil Edit Pengarang', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
         }
         echo json_encode($response);   
     }
@@ -121,14 +113,14 @@ class Sumber extends CI_Controller {
 				'status' => '0',
 				'deleted_at' => date('Y-m-d H:i:s'),
 			);
-			$this->db->where('id_sumber', $id);
-			$this->db->update('m_sumber', $object);
+			$this->db->where('id_pengarang', $id);
+			$this->db->update('m_pengarang', $object);
 			
 			$response['success'] = true;
             $response['message'] = "Data berhasil dinonaktifkan !";
             
             $username = $this->session->userdata('auth_username');
-            insert_log($username, "Hapus Sumber Buku", 'Berhasil Hapus Sumber Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+            insert_log($username, "Hapus Pengarang", 'Berhasil Hapus Pengarang', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
         
 		}else{
 			$response['success'] = false;
@@ -138,4 +130,4 @@ class Sumber extends CI_Controller {
 	}
 }
 
-/* End of file sumber.php */
+/* End of file pengarang.php */

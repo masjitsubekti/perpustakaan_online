@@ -54,6 +54,7 @@ class Kategori_buku extends CI_Controller {
 
     public function load_modal(){
         $id = $this->input->post('id');
+        $data['tipe_kategori'] = $this->M_main->get_where('m_tipe_kategori','status','1')->result();
         if ($id!=""){
             $data['mode'] = "UPDATE";
             $data['data_kategori'] = $this->M_main->get_where('m_kategori_buku','id_kategori',$id)->row_array();
@@ -66,30 +67,40 @@ class Kategori_buku extends CI_Controller {
 
     public function simpan(){
         $modeform = $this->input->post('modeform');
+        $kode_kategori = strip_tags(trim($this->input->post('kode_kategori')));
         $nama_kategori = strip_tags(trim($this->input->post('nama_kategori')));
+        $tipe_kategori = strip_tags(trim($this->input->post('tipe_kategori')));
         if($modeform == 'ADD'){
-            
-            $id = $this->uuid->v4(false);
-            date_default_timezone_set('Asia/Jakarta');
-            $data_object = array(
-                'id_kategori' => $id,
-                'nama_kategori'=>$nama_kategori,
-                'status'=>'1',
-                'created_at'=>date('Y-m-d H:i:s')
-            );
-            $this->db->insert('m_kategori_buku', $data_object);
-            $response['success'] = TRUE;
-            $response['message'] = "Data Kategori Buku Berhasil Disimpan";
-            
-            $username = $this->session->userdata('auth_username');
-            insert_log($username, "Tambah Kategori Buku", 'Berhasil Tambah Kategori Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
-        
+            $cek_kode = $this->M_main->get_where('m_kategori_buku','kode_kategori',$kode_kategori);
+            if($cek_kode->num_rows()!=0){
+                $response['success'] = FALSE;
+                $response['message'] = "Maaf, Kode Kategori Sudah Digunakan !";
+            }else{
+                $id = $this->uuid->v4(false);
+                date_default_timezone_set('Asia/Jakarta');
+                $data_object = array(
+                    'id_kategori' => $id,
+                    'kode_kategori'=>$kode_kategori,
+                    'nama_kategori'=>$nama_kategori,
+                    'id_tipe_kategori'=>$tipe_kategori,
+                    'status'=>'1',
+                    'created_at'=>date('Y-m-d H:i:s')
+                );
+                $this->db->insert('m_kategori_buku', $data_object);
+                $response['success'] = TRUE;
+                $response['message'] = "Data Kategori Buku Berhasil Disimpan";
+                
+                $username = $this->session->userdata('auth_username');
+                insert_log($username, "Tambah Kategori Buku", 'Berhasil Tambah Kategori Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+            }
         }else if($modeform == 'UPDATE'){
             $id_kategori = $this->input->post('id_kategori');
             
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
+                'kode_kategori'=>$kode_kategori,
                 'nama_kategori'=>$nama_kategori,
+                'id_tipe_kategori'=>$tipe_kategori,
                 'updated_at'=>date('Y-m-d H:i:s')
             );
 				

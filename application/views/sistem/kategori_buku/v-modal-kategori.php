@@ -15,13 +15,29 @@
                     <input type="hidden" name="modeform" id="modeform">
                     <input type="hidden" name="id_kategori" id="id_kategori" value="<?php if(isset($data_kategori)){ echo $data_kategori['id_kategori']; } ?>">
             	    <div class="form-group">
-						<label for="title">Nama Kategori Buku</label>
+						<label for="title">Kode Kategori<span style="font-size:16px;">*</span></label>
+						<input 
+							class="form-control" 
+							id="kode_kategori" 
+							name="kode_kategori" 
+							type="text" 
+							placeholder="Kode Kategori . . ." 
+							autocomplete="off" 
+							value="<?php 
+										if(isset($data_kategori)){
+											echo $data_kategori['kode_kategori'];
+										} 
+									?>"
+						required >
+					</div>	
+					<div class="form-group">
+						<label for="title">Nama Kategori<span style="font-size:16px;">*</span></label>
 						<input 
 							class="form-control" 
 							id="nama_kategori" 
 							name="nama_kategori" 
 							type="text" 
-							placeholder="Nama Kategori Buku . . ." 
+							placeholder="Nama Kategori . . ." 
 							autocomplete="off" 
 							value="<?php 
 										if(isset($data_kategori)){
@@ -30,6 +46,25 @@
 									?>"
 						required >
 					</div>	
+					<div class="form-group">
+						<label for="kategori">Tipe Kategori<span style="font-size:16px;">*</span></label>
+						<select class="form-control tipe_kategori" name="tipe_kategori" id="tipe_kategori" required>
+							<option value=""></option>
+							<?php foreach ($tipe_kategori as $kt) {?>
+							<option 
+								<?php 
+									if(isset($data_kategori)){
+										if($data_kategori['id_tipe_kategori']==$kt->id_tipe_kategori){
+											echo " selected ";
+										}
+									} 
+									?>	
+									value="<?=$kt->id_tipe_kategori?>">
+								<?=$kt->nama_tipe_kategori?>
+							</option>
+							<?php } ?>
+						</select>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
@@ -40,6 +75,11 @@
 	</div>
 </div>
 <script>
+	$('.tipe_kategori').select2({
+        placeholder: "Pilih Tipe Kategori . . . ",
+        allowClear: true,
+    });
+
     $('#form').submit(function (event) {
 		event.preventDefault();
 		var modeform = $('#modeform').val();

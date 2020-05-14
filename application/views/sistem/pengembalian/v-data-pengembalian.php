@@ -65,7 +65,7 @@
         
     </div>
 <?php }else{ ?>
-    <table class="table table-centered mb-0 table-nowrap" id="dataTable">
+    <table class="table table-centered mb-0" id="dataTable">
         <thead class="">
         <tr class="tr-head">
             <th width="5%" style="text-align:left;">No </th>

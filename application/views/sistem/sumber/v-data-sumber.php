@@ -16,9 +16,12 @@
 <table class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead>
     <tr class="tr-head">
-        <th width="5%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No. </th>
-        <th width="50%" class="sortable" id="column_nama_sumber" data-sort="" onclick="sort_table('#column_nama_sumber','nama_sumber')">Nama Sumber</th>
-        <th width="10%" style="text-align:center;">Aksi</th>
+        <th width="5%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
+        <th width="20%" class="sortable" id="column_nama_sumber" data-sort="" onclick="sort_table('#column_nama_sumber','nama_sumber')">Nama Sumber</th>
+        <th width="10%" class="sortable" id="column_no_telp" data-sort="" onclick="sort_table('#column_no_telp','no_telp')">No Telp</th>
+        <th width="10%" class="sortable" id="column_email" data-sort="" onclick="sort_table('#column_email','email')">Email</th>
+        <th width="15%" class="sortable" id="column_alamat" data-sort="" onclick="sort_table('#column_alamat','alamat')">Alamat</th>
+        <th width="8%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +31,9 @@
     <tr>
         <td style="text-align:center;" ><?=$no;?>.</td>
         <td><?=$row->nama_sumber?></td>
+        <td><?=$row->no_telp?></td>
+        <td><?=$row->email?></td>
+        <td><?=$row->alamat?></td>
         <td style="text-align:center; padding-top:5px;">
             <a href="javascript:;" data-id="<?=$row->id_sumber?>" data-name="<?=$row->nama_sumber?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_sumber?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
 			<a href="javascript:;" data-id="<?=$row->id_sumber?>" data-name="<?=$row->nama_sumber?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_sumber?>"><i class="fa fa-trash"></i></a>	    
@@ -63,13 +69,16 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;">NO. </th>
-        <th width="50%">Nama Sumber</th>
+        <th width="20%">Nama Sumber</th>
+        <th width="10%">No Telp</th>
+        <th width="10%">Email</th>
+        <th width="10%">Alamat</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
 	<tbody>
 		<tr>
-			<td colspan="3">Data tidak ditemukan !</td>
+			<td colspan="6">Data tidak ditemukan !</td>
 		</tr>
 	</tbody>
 </table>

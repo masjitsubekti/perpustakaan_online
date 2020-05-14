@@ -3,9 +3,9 @@
 		<div class="modal-content">
 			<div class="modal-header modal-success">
 				<h5 class="modal-title" id="modal_title_add" style="display:none;"><i class="bx bx-layer"></i>
-					Tambah Sumber</h5>
+					Tambah Tipe Kategori</h5>
 				<h5 class="modal-title" id="modal_title_update" style="display:none;"><i
-						class="bx bx-layer"></i> Edit Sumber</h5>
+						class="bx bx-layer"></i> Edit Tipe Kategori</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -13,59 +13,23 @@
 			<form action="" id="form">
 				<div class="modal-body">
                     <input type="hidden" name="modeform" id="modeform">
-                    <input type="hidden" name="id_sumber" id="id_sumber" value="<?php if(isset($data_sumber)){ echo $data_sumber['id_sumber']; } ?>">
+                    <input type="hidden" name="id_tipe_kategori" id="id_tipe_kategori" value="<?php if(isset($data_tipe_kategori)){ echo $data_tipe_kategori['id_tipe_kategori']; } ?>">
             	    <div class="form-group">
-						<label for="title">Nama Sumber / Supplier<span style="font-size:18px;">*</span></label>
+						<label for="title">Tipe Kategori</label>
 						<input 
 							class="form-control" 
-							id="nama_sumber" 
-							name="nama_sumber" 
+							id="nama_tipe_kategori" 
+							name="nama_tipe_kategori" 
 							type="text" 
-							placeholder="Nama sumber . . ." 
+							placeholder="Tipe Kategori . . ." 
 							autocomplete="off" 
 							value="<?php 
-										if(isset($data_sumber)){
-											echo $data_sumber['nama_sumber'];
+										if(isset($data_tipe_kategori)){
+											echo $data_tipe_kategori['nama_tipe_kategori'];
 										} 
 									?>"
 						required >
-					</div>
-					<div class="form-group">
-						<label for="title">No Telp / HP</label>
-						<input 
-							class="form-control" 
-							id="no_telp" 
-							name="no_telp" 
-							type="text" 
-							placeholder="No Telp / HP . . ." 
-							autocomplete="off" 
-							value="<?php 
-										if(isset($data_sumber)){
-											echo $data_sumber['no_telp'];
-										} 
-									?>"
-						 >
-					</div>
-					<div class="form-group">
-						<label for="title">Email</label>
-						<input 
-							class="form-control" 
-							id="email" 
-							name="email" 
-							type="email" 
-							placeholder="Email . . ." 
-							autocomplete="off" 
-							value="<?php 
-										if(isset($data_sumber)){
-											echo $data_sumber['email'];
-										} 
-									?>"
-						 >
 					</div>	
-					<div class="form-group">
-						<label for="alamat">Alamat</label>
-						<textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat . . ." cols="30" rows="5"><?php if(isset($data_sumber)){ echo $data_sumber['alamat']; } ?></textarea>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
@@ -78,7 +42,7 @@
 <script>
     $('#form').submit(function (event) {
 		event.preventDefault();
-        var modeform = $('#modeform').val();
+		var modeform = $('#modeform').val();
         var ket1 = '';
         var ket2 = '';
         if(modeform=='ADD'){
@@ -90,8 +54,8 @@
         }
 
 		Swal.fire({
-			title: ket1 + ' sumber',
-			text: "Apakah Anda yakin "+ ket2 +" sumber !",
+			title: ket1 + ' Tipe Kategori',
+			text: "Apakah Anda yakin "+ ket2 +" Tipe Kategori !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3498db',
@@ -102,7 +66,7 @@
 			preConfirm: function () {
 				return new Promise(function (resolve) {
 						$.ajax({
-						url: '<?= site_url() ?>'+'Sumber/simpan',
+						url: '<?= site_url() ?>'+'Tipe_kategori/simpan',
 						method: 'POST',
 						dataType: 'json',	
 						data: new FormData($('#form')[0]),

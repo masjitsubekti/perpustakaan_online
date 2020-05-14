@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card shade">
             <div class="card-body">
-                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Kategori Buku</h4>
+                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Tipe Kategori</h4>
                 <br>
                 <!--  -->
                 <div class="row">
@@ -42,9 +42,6 @@
 
 <script src="<?=base_url()?>assets/themes/libs/jquery/jquery.min.js"></script>
 <script src="<?=base_url()?>assets/all/js/sort-table.js"></script>
-<script src="<?php echo base_url('assets/themes/libs/select2/js/select2.min.js')?>"></script>
-<script src="<?php echo base_url('assets/themes/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
-<script src="<?php echo base_url('assets/themes/libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
 <script>
     $(document).ready(function () {
 		pageLoad(1)
@@ -66,7 +63,7 @@
 		var limit = $('#limit').val();
 		var cari = $('#cari').val();
 		$.ajax({
-			url: "<?php echo site_url('Kategori_buku/read_data/')?>" + i,
+			url: "<?php echo site_url('Tipe_kategori/read_data/')?>" + i,
 			type: 'post',
 			dataType: 'html',
 			data: {
@@ -87,7 +84,7 @@
     $("#btn-add").click(function() {
 		$('#div_dimscreen').show();
 		$.ajax({
-			url: "<?php echo site_url('Kategori_buku/load_modal/')?>",
+			url: "<?php echo site_url('Tipe_kategori/load_modal/')?>",
 			type: 'post',
 			dataType: 'html',
 			beforeSend: function () {},
