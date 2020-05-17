@@ -25,7 +25,7 @@ class Buku extends CI_Controller {
 
         // Breadcrumbs
         $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
-        $this->mybreadcrumb->add($this->nama_menu, site_url('Buku'));
+        $this->mybreadcrumb->add('Daftar Buku', site_url('Buku'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
         // End Breadcrumbs
  
@@ -51,7 +51,7 @@ class Buku extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }
 
-    public function detail_katalog()
+    public function detail_katalog($kode_buku)
     {
         $this->Menu_m->role_has_access($this->nama_menu);
 
@@ -65,7 +65,8 @@ class Buku extends CI_Controller {
         $this->mybreadcrumb->add('Detail Katalog', site_url('Buku/detail_katalog'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
         // End Breadcrumbs
- 
+        
+        $data['book'] = $this->Buku_m->detail_buku($kode_buku)->row_array();
         $data['content'] = "buku/v-detail-katalog.php";
         $this->parser->parse('sistem/template', $data);
     }
@@ -80,7 +81,7 @@ class Buku extends CI_Controller {
 
         // Breadcrumbs
         $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
-        $this->mybreadcrumb->add($this->nama_menu, site_url('Buku'));
+        $this->mybreadcrumb->add('Daftar Buku', site_url('Buku'));
         $this->mybreadcrumb->add('Tambah Buku', site_url('Buku/form_add'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
         // End Breadcrumbs
@@ -107,7 +108,7 @@ class Buku extends CI_Controller {
 
         // Breadcrumbs
         $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
-        $this->mybreadcrumb->add($this->nama_menu, site_url('Buku'));
+        $this->mybreadcrumb->add('Daftar Buku', site_url('Buku'));
         $this->mybreadcrumb->add('Edit Buku', site_url('Buku/form_edit'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
         // End Breadcrumbs
@@ -151,6 +152,7 @@ class Buku extends CI_Controller {
 		$offset = ($limit*$pg)-$limit;
 		$column = $this->input->post('column');
         $sort = $this->input->post('sort');
+        $data['key'] = $key;
 		
 		$page              = array();
 		$page['limit']     = $limit;

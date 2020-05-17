@@ -16,9 +16,12 @@
 <table class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead>
     <tr class="tr-head">
-        <th width="5%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No. </th>
-        <th width="50%" class="sortable" id="column_nama_anggota" data-sort="" onclick="sort_table('#column_nama_anggota','nama_anggota')">Nama Anggota</th>
-        <th width="10%" style="text-align:center;">Aksi</th>
+        <th width="3%" style="text-align:left;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
+        <th width="20%" class="sortable" id="column_nama_anggota" data-sort="" onclick="sort_table('#column_nama_anggota','nama_anggota')">Nama Anggota</th>
+        <th width="6%" class="sortable" id="column_jenis_kelamin" data-sort="" onclick="sort_table('#column_jenis_kelamin','jenis_kelamin')">Jenkel</th>
+        <th width="10%" class="sortable" id="column_jenis_anggota" data-sort="" onclick="sort_table('#column_jenis_anggota','nama_jenis_anggota')">Jenis Anggota</th>
+        <th width="15%" class="sortable" id="column_alamat" data-sort="" onclick="sort_table('#column_alamat','alamat')">Alamat / Telp</th>
+        <th width="8%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
     <tbody>
@@ -26,8 +29,18 @@
     $no=($paging['current']-1)*$paging['limit']; 
     foreach ($list->result() as $row) { $no++; ?>
     <tr>
-        <td style="text-align:center;" ><?=$no;?>.</td>
-        <td><?=$row->nama_anggota?></td>
+        <td style="text-align:center;"><?=$no;?>.</td>
+        <td>
+			<h5 class="font-size-14 text-truncate"><span href="javascript:;" class="text-dark"><?=$row->nama_anggota?></span></h5>
+            <p class="text-muted mb-0">ID Anggota : <?= $row->id_anggota ?></p>
+            <p class="text-muted mb-0">No Identitas : <?= $row->no_identitas ?></p>
+     	</td>
+		<td style="text-align:center;"><?= $row->jenis_kelamin ?></td>
+		<td style="text-align:center;"><?= $row->nama_jenis_anggota ?></td>
+		<td>
+			<h5 class="font-size-14 text-truncate"><span href="javascript:;" class="text-dark"><?=$row->alamat?></span></h5>
+            <p class="text-muted mb-0">No Telp : <?= $row->no_telp ?></p>
+		</td>
         <td style="text-align:center; padding-top:5px;">
             <a href="<?= site_url('Anggota/form_edit/'.$row->id_anggota) ?>" data-id="<?=$row->id_anggota?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_anggota?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
 			<a href="javascript:;" data-id="<?=$row->id_anggota?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_anggota?>"><i class="fa fa-trash"></i></a>	    
@@ -94,26 +107,6 @@
     }
     
     var site_url = '<?= site_url() ?>/';
-
-    $(".btn-ubah").click(function() {
-		$('#div_dimscreen').show();
-        var id = $(this).attr('data-id');
-		$.ajax({
-			url: "<?php echo site_url('buku/load_modal/')?>",
-			type: 'post',
-			dataType: 'html',
-            data:{id:id},
-			beforeSend: function () {},
-			success: function (result) {    
-				$('#div-modal').html(result);
-				$('#div_dimscreen').fadeOut('slow');
-				$('#modal_title_update').show();
-				$('#modeform').val('UPDATE');
-				$('#modal-color').addClass('modal-warning');
-				$('#modal').modal('show');
-			}
-		});
-    });
     
 	$('[data-toggle="tooltip"]').tooltip();   
 	$('.btn-hapus').click(function (e) {
@@ -121,8 +114,8 @@
         var title = $(this).attr('data-name');
   
 		Swal.fire({
-			title: 'Nonaktifkan buku',
-			text: "Apakah Anda yakin menonaktifkan buku  : " + title + " !",
+			title: 'Nonaktifkan Anggota',
+			text: "Apakah Anda yakin menonaktifkan anggota  : " + title + " !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',
@@ -135,7 +128,7 @@
 					$.ajax({
 						method: 'POST',
 						dataType: 'json',
-						url: site_url + 'buku/nonaktifkan',
+						url: site_url + 'Anggota/nonaktifkan',
 						data: {
 							id: id
 						},
@@ -165,4 +158,5 @@
 		});
 		e.preventDefault();
 	});
+
 </script>

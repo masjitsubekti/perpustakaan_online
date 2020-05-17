@@ -3,10 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Load library phpspreadsheet
 
-use PhpOffice\PhpSpreadsheet\Helper\Sample;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// use PhpOffice\PhpSpreadsheet\Helper\Sample;
+// use PhpOffice\PhpSpreadsheet\IOFactory;
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // End load library phpspreadsheet
+
+// use Zend\Barcode\Barcode;
 
 class Cetak extends CI_Controller {
 
@@ -14,17 +16,76 @@ class Cetak extends CI_Controller {
 public function __construct()
 {
 parent::__construct();
-    $this->load->model('M_main');
+    $this->load->library('zend');
+    //load in folder Zend
+    // $this->zend->load('zend/barcode');
+    // $this->load->model('M_main');
 }
 
 // Main page
-public function index()
+// public function index()
+// {
+//     $provinsi = $this->provinsi_model->listing();
+//     $data = array( 'title' => 'Laporan Exel - Java Media',
+//     'provinsi' => $provinsi
+//     );
+//     $this->load->view('laporan', $data, FALSE);
+// }
+
+// public function index()
+// {
+//     //I'm just using rand() function for data example
+//     // $temp = rand(10000, 99999);
+//     $temp = 123456;
+//     // $this->set_barcode($temp);
+//     echo '<img style="width:180px; height:100px;" src="'. $this->set_barcode($temp) .'">';
+// }
+
+public function index() {
+    // $temp = rand(10000, 99999);
+    // echo $this->set_barcode($temp);
+}
+
+// private function set_barcode($code)
+// {
+//     return Zend_Barcode::render('code128', 'image', array('text'=>$code), array());
+// }
+
+// public function set_barcode($code)
+// {
+    //load library
+    
+    //generate barcode
+    // Zend_Barcode::render('code128', 'image', array('text'=>$code), array());
+    // $image_resource = Zend_Barcode::factory('code128', 'image', array('text'=>$code), array())->draw();
+    
+//     // Only the text to draw is required
+//     $barcodeOptions = array('text' => 'ZEND-FRAMEWORK');
+
+//     // No required options
+//     $rendererOptions = array();
+
+//     // Draw the barcode in a new image,
+//     // send the headers and the image
+//     Zend_Barcode::factory(
+//         'code39', 'image', $barcodeOptions, $rendererOptions
+//     )->render();
+// }
+
+function barcode($kode)
 {
-    $provinsi = $this->provinsi_model->listing();
-    $data = array( 'title' => 'Laporan Exel - Java Media',
-    'provinsi' => $provinsi
-    );
-    $this->load->view('laporan', $data, FALSE);
+    //kita load library nya ini membaca file Zend.php yang berisi loader
+    //untuk file yang ada pada folder Zend
+    // $this->load->library('zend');
+    
+    // //load yang ada di folder Zend
+    // $this->zend->load('Zend/Barcode');
+    
+    // //generate barcodenya
+    // $kode = "12345abc";
+    // $bar = Zend_Barcode::render('code128', 'image', array('text'=>$kode), array());
+
+    // echo '<img style="width:180px; height:100px;" src="'. $bar .'">';
 }
 
 // Export ke excel
@@ -80,7 +141,7 @@ $writer->save('php://output');
 exit;
 }
 
-public function barcode(){
+public function barcode1(){
     generate_barcode('BK0000007','assets/data/barcode/');
     // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
     // echo '<img style="width:180px; height:100px;" src="data:image/png;base64,' . base64_encode($generator->getBarcode('BK0000001', $generator::TYPE_CODE_128)) . '">';

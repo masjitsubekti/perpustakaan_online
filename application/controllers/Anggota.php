@@ -69,6 +69,7 @@ class Anggota extends CI_Controller {
         $data['modeform'] = 'ADD';
         $data['id_anggota'] = $this->M_main->get_no_otomatis('t_anggota','id_anggota','AG');
         $data['jenkel'] = $this->M_main->get_all('m_jenkel')->result();
+        $data['jenis_anggota'] = $this->M_main->get_where('m_jenis_anggota','status','1')->result();
         
         $data['content'] = "anggota/v-form-anggota.php";
         $this->parser->parse('sistem/template', $data);
@@ -92,6 +93,7 @@ class Anggota extends CI_Controller {
         $data['modeform'] = 'UPDATE';
         $data['data_anggota'] = $this->M_main->get_where('t_anggota','id_anggota',$id_anggota)->row_array();
         $data['jenkel'] = $this->M_main->get_all('m_jenkel')->result();
+        $data['jenis_anggota'] = $this->M_main->get_where('m_jenis_anggota','status','1')->result();
 
         $data['content'] = "anggota/v-form-anggota.php";
         $this->parser->parse('sistem/template', $data);
@@ -111,26 +113,17 @@ class Anggota extends CI_Controller {
         $email                  = strip_tags(trim($this->input->post('email')));
         $keterangan             = strip_tags(trim($this->input->post('keterangan')));
         $tanggal_registrasi     = strip_tags(trim($this->input->post('tanggal_registrasi')));
-        $berlaku_hingga         = strip_tags(trim($this->input->post('berlaku_hingga')));
         $password               = strip_tags(trim($this->input->post('password')));
         $konfirmasi_password    = strip_tags(trim($this->input->post('konfirmasi_password')));
-        $tipe_anggota           = '1';
-        // $tipe_anggota           = strip_tags(trim($this->input->post('tipe_anggota')));
-
-        $time1              = strtotime($tgl_lahir);
-        $time2              = strtotime($tanggal_registrasi);
-        $time3              = strtotime($berlaku_hingga);
-        $tgl_lahir          = date('Y-m-d',$time1);
-        $tanggal_registrasi = date('Y-m-d',$time2);
-        $berlaku_hingga     = date('Y-m-d',$time3);
+        $jenis_anggota          = $this->input->post('jenis_anggota');
+       
+        $time1                  = strtotime($tgl_lahir);
+        $time2                  = strtotime($tanggal_registrasi);
+        $tgl_lahir              = date('Y-m-d',$time1);
+        $tanggal_registrasi     = date('Y-m-d',$time2);
         
-        if($tipe_anggota=="1"){
-            // Siswa / Anggota
-            $role = 'HA05';
-        }else if($tipe_anggota=="2"){
-            // Guru
-            $role = 'HA04';
-        }
+        // Siswa / Anggota
+        $role = 'HA05';
 
         if($modeform == 'ADD'){
 
@@ -187,10 +180,10 @@ class Anggota extends CI_Controller {
                     'kode_pos'          =>$kode_pos,
                     'no_telp'           =>$no_telp,
                     'email'             =>$email,
-                    'id_jenis_anggota'  =>$tipe_anggota,
+                    'id_jenis_anggota'  =>$jenis_anggota,
                     'keterangan'        =>$keterangan,
                     'tgl_registrasi'    =>$tanggal_registrasi,
-                    'berlaku_hingga'    =>$berlaku_hingga,
+                    // 'berlaku_hingga'    =>$berlaku_hingga,
                     'foto'              =>$foto_anggota['file_name'],
                     'barcode'           =>$barcode,
                     'id_user'           =>$id_user,
@@ -210,6 +203,8 @@ class Anggota extends CI_Controller {
             $foto_anggota       = lakukan_upload_file('foto_anggota','/assets/data/foto_anggota/','jpg|png|jpeg');
             // cek upload
             $cek_upload = $this->M_main->get_where('t_anggota','id_anggota',$id_anggota_ubah)->row_array();
+            $id_user = $cek_upload['id_user'];
+            $users = $this->M_main->get_where('users','id_user',$id_user)->row_array();
             
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
@@ -222,16 +217,25 @@ class Anggota extends CI_Controller {
                 'kode_pos'          =>$kode_pos,
                 'no_telp'           =>$no_telp,
                 'email'             =>$email,
-                'id_jenis_anggota'  =>$tipe_anggota,
+                'id_jenis_anggota'  =>$jenis_anggota,
                 'keterangan'        =>$keterangan,
                 'tgl_registrasi'    =>$tanggal_registrasi,
-                'berlaku_hingga'    =>$berlaku_hingga,
                 'foto'              =>(!empty($_FILES["foto_anggota"]["tmp_name"])) ? $foto_anggota['file_name'] : $cek_upload['foto'],    
                 'updated_at'        =>date('Y-m-d H:i:s')
             );
 				
             $this->db->where('id_anggota',$id_anggota_ubah);
             $this->db->update('t_anggota', $data_object);
+
+            // Update user
+            date_default_timezone_set('Asia/Jakarta');
+            $data_user = array(
+                'password'      => ($password!="") ? md5(md5($password)) : $users['password'],
+                'updated_at'    => date('Y-m-d H:i:s'),
+            );
+
+            $this->db->where('id_user',$id_user);
+            $this->db->update('users', $data_user);
 
             $response['success'] = true;
             $response['message'] = "Data Anggota Berhasil Diperbarui !";
@@ -241,6 +245,30 @@ class Anggota extends CI_Controller {
         }
         echo json_encode($response);   
     }
+
+    public function nonaktifkan(){
+		if($this->input->post('id')){
+			$id = $this->input->post('id');
+			date_default_timezone_set('Asia/Jakarta');
+			$object = array(
+				'status' => '0',
+				'deleted_at' => date('Y-m-d H:i:s'),
+			);
+			$this->db->where('id_anggota', $id);
+			$this->db->update('t_anggota', $object);
+			
+			$response['success'] = true;
+            $response['message'] = "Data berhasil dinonaktifkan !";
+            
+            $username = $this->session->userdata('auth_username');
+            insert_log($username, "Hapus Anggota", 'Berhasil Hapus Anggota', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+        
+		}else{
+			$response['success'] = false;
+			$response['message'] = "Data tidak ditemukan !";
+		}
+		echo json_encode($response);
+	}
 }
 
-/* End of file Beranda.php */
+/* End of file Anggota.php */

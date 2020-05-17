@@ -18,29 +18,35 @@
                             </div>
                         <?php } ?>
                         <div class="form-group">
-                            <label for="nama_anggota">Nama Anggota</label>
-                            <input class="form-control" id="nama_anggota" name="nama_anggota" type="text" placeholder="Nama Anggota . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['nama_anggota']; } ?>"required >
+                            <label for="nama_anggota">Nama Anggota<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="nama_anggota" name="nama_anggota" type="text" placeholder="Nama Anggota . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['nama_anggota']; } ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="no_identitas">No Identitas</label>
-                            <input class="form-control" id="no_identitas" name="no_identitas" type="text" placeholder="No Identitas . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['no_identitas']; } ?>"required >
+                            <label for="no_identitas">No Identitas<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="no_identitas" name="no_identitas" type="text" placeholder="No Identitas . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['no_identitas']; } ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="tempat_lahir">Tempat Lahir</label>
-                            <input class="form-control" id="tempat_lahir" name="tempat_lahir" type="text" placeholder="Tempat Lahir . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['tempat_lahir']; } ?>"required >
+                            <label for="tempat_lahir">Tempat Lahir<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="tempat_lahir" name="tempat_lahir" type="text" placeholder="Tempat Lahir . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['tempat_lahir']; } ?>" required>
                         </div>
                         <div class="form-group">
-                            <label>Tanggal Lahir</label>
+                            <label>Tanggal Lahir<span style="font-size:16px;">*</span></label>
                             <div class="input-group">
-                                <input type="text" name="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal Lahir . . ." class="form-control" data-date-format="dd-mm-yyyy"  placeholder="Tanggal Lahir" data-provide="datepicker" data-date-autoclose="true" value="<?php if(isset($data_anggota)){ echo $data_anggota['tgl_lahir']; } ?>" autocomplete="off">
+                                <input type="text" name="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal Lahir . . ." class="form-control" data-date-format="dd-mm-yyyy"  placeholder="Tanggal Lahir" data-provide="datepicker" data-date-autoclose="true"
+                                 value="<?php if(isset($data_anggota)){
+                                            $time1      = strtotime($data_anggota['tgl_lahir']);
+                                            $tgl_lahir  = date('d-m-Y',$time1);
+                                            echo $tgl_lahir; 
+                                        } ?>" 
+                                autocomplete="off" required>
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>
                             </div><!-- input-group -->
                         </div>
                         <div class="form-group">
-                            <label for="kategori">Jenis Kelamin</label>
-                            <select class="form-control jenkel" name="jenkel" id="jenkel">
+                            <label for="kategori">Jenis Kelamin<span style="font-size:16px;">*</span></label>
+                            <select class="form-control jenkel" name="jenkel" id="jenkel" required>
                                 <option value=""></option>
                                 <?php foreach ($jenkel as $jk) {?>
                                 <option 
@@ -57,39 +63,60 @@
                                 <?php } ?>
                             </select>
                         </div>
-                    
+                        <div class="form-group">
+                            <label for="kategori">Jenis Anggota<span style="font-size:16px;">*</span></label>
+                            <select class="form-control jenis_anggota" name="jenis_anggota" id="jenis_anggota" required>
+                                <option value=""></option>
+                                <?php foreach ($jenis_anggota as $ja) {?>
+                                <option 
+                                    <?php 
+                                        if(isset($data_anggota)){
+                                            if($data_anggota['id_jenis_anggota']==$ja->id_jenis_anggota){
+                                                echo " selected ";
+                                            }
+                                        } 
+                                        ?>	
+                                        value="<?=$ja->id_jenis_anggota?>">
+                                    <?=$ja->nama_jenis_anggota?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
                         <br>
                         <h3 style="font-size:18px;"> <i class=""></i> Alamat & Kontak</h3>
                         <br>
                         <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <input class="form-control" id="alamat" name="alamat" type="text" placeholder="Alamat . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['alamat']; } ?>"required >
+                            <label for="no_telp">No Telp / HP<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="no_telp" name="no_telp" type="text" placeholder="No Telp / HP . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['no_telp']; } ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="kode_pos">Kode Pos</label>
-                            <input class="form-control" id="kode_pos" name="kode_pos" type="text" placeholder="Kode Pos . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['kode_pos']; } ?>"required >
+                            <input class="form-control" id="kode_pos" name="kode_pos" type="text" placeholder="Kode Pos . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['kode_pos']; } ?>">
                         </div>
                         <div class="form-group">
-                            <label for="no_telp">No Telp / HP</label>
-                            <input class="form-control" id="no_telp" name="no_telp" type="text" placeholder="No Telp / HP . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['no_telp']; } ?>"required >
+                            <label for="alamat">Alamat<span style="font-size:16px;">*</span></label>
+                            <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat . . ." cols="30" rows="3" required><?php if(isset($data_anggota)){ echo $data_anggota['alamat']; } ?></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control" id="email" name="email" type="email" placeholder="Email . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['email']; } ?>"required >
+                            <label for="alamat">Keterangan / Catatan</label>
+                            <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan / Catatan . . ." cols="30" rows="3"><?php if(isset($data_anggota)){ echo $data_anggota['keterangan']; } ?></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan / Catatan</label>
-                            <input class="form-control" id="keterangan" name="keterangan" type="text" placeholder="Keterangan . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['keterangan']; } ?>"required >
-                        </div>
-
                         <br>
                         <h3 style="font-size:18px;"> <i class=""></i> User Account</h3>
                         <br>
-                        
+                        <div class="alert alert-warning">Pastikan alamat e-mail <b>BENAR</b> dan <b>BISA DIAKSES</b>. Alamat e-mail yang salah akan menyebabkan notifikasi e-mail gagal terkirim. Banyak Anggota yang salah menuliskan alamat e-mail dan mengalami kesulitan saat lupa kata sandi.</div>
+                    
                         <div class="form-group">
-                            <label>Tanggal Registrasi</label>
+                            <label>Tanggal Registrasi<span style="font-size:16px;">*</span></label>
                             <div class="input-group">
-                                <input type="text" name="tanggal_registrasi" name="tanggal_registrasi" placeholder="Tanggal Registrasi . . ." class="form-control" data-date-format="dd-mm-yyyy"  placeholder="Tanggal Registrasi" data-provide="datepicker" data-date-autoclose="true" value="<?php if(isset($data_anggota)){ echo $data_anggota['tgl_registrasi']; } ?>" autocomplete="off">
+                                <input type="text" name="tanggal_registrasi" name="tanggal_registrasi" placeholder="Tanggal Registrasi . . ." class="form-control" data-date-format="dd-mm-yyyy"  placeholder="Tanggal Registrasi" data-provide="datepicker" data-date-autoclose="true" 
+                                    value="<?php if(isset($data_anggota)){ 
+                                                $time2      = strtotime($data_anggota['tgl_registrasi']);
+                                                $tgl_registrasi  = date('d-m-Y',$time2);
+                                                echo $tgl_registrasi; 
+                                            } ?>" 
+                                    autocomplete="off" required>
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>
@@ -97,21 +124,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Berlaku Hingga</label>
-                            <div class="input-group">
-                                <input type="text" name="berlaku_hingga" name="berlaku_hingga" placeholder="Berlaku Hingga . . ." class="form-control" data-date-format="dd-mm-yyyy"  placeholder="Berlaku Hingga" data-provide="datepicker" data-date-autoclose="true" value="<?php if(isset($data_anggota)){ echo $data_anggota['berlaku_hingga']; } ?>" autocomplete="off">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                </div>
-                            </div><!-- input-group -->
+                            <label for="email">Email<span style="font-size:16px;">*</span></label>
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Email . . ." autocomplete="off" value="<?php if(isset($data_anggota)){ echo $data_anggota['email']; } ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input class="form-control" id="password" name="password" type="password" placeholder="Password . . ." autocomplete="off">
+                            <label for="password">Password<span style="font-size:16px;"><?php if($modeform=="ADD"){ echo "*"; } ?></span></label>
+                            <input class="form-control" id="password" name="password" type="password" placeholder="Password . . ." autocomplete="off" <?php if($modeform=="ADD"){ echo " required"; } ?>>
                         </div>
                         <div class="form-group">
-                            <label for="konfirmasi_password">Konfirmasi Password</label>
-                            <input class="form-control" id="konfirmasi_password" name="konfirmasi_password" type="password" placeholder="Konfirmasi Password . . ." autocomplete="off">
+                            <label for="konfirmasi_password">Konfirmasi Password<span style="font-size:16px;"><?php if($modeform=="ADD"){ echo "*"; } ?></span></label>
+                            <input class="form-control" id="konfirmasi_password" onkeyup="validate_password()" name="konfirmasi_password" type="password" placeholder="Konfirmasi Password . . ." autocomplete="off" <?php if($modeform=="ADD"){ echo " required"; } ?>>
+                            <span id="pass-message"></span>
                         </div>
                         
                         <!-- foto -->
@@ -126,8 +149,16 @@
                                     <h5><b>Foto Anggota</b></h5>
                                     <!-- <small><span style="color:#e74c3c">*) Wajib Diisi</span></small> -->
                                     <br>
-                                    <br>
-                                    <img id="image-foto-anggota" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/all/images/thumbnail_picture.png') ?>" alt="">
+                                    <?php 
+                                    if(isset($data_anggota)){
+                                        if($data_anggota['foto']!=""){ ?>
+                                            <img id="image-foto-anggota" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/data/foto_anggota/'.$data_anggota['foto']) ?>" alt="">
+                                        <?php }else{ ?>
+                                            <img id="image-foto-anggota" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/all/images/foto_profil_default.png') ?>" alt="">
+                                        <?php }
+                                    }else{ ?>
+                                        <img id="image-foto-anggota" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/all/images/foto_profil_default.png') ?>" alt="">
+                                    <?php } ?>
                                     <br>
                                     <span id="format_foto_anggota"><small><i>Format : .jpg, .jpeg, .png</i></small></span>
                                     <a style="display:none;" href="javascript:;" class="btn-remove-image" id="remove_foto_anggota"><i class="fa fa-times"></i> Batal</a>
@@ -140,8 +171,8 @@
                         <br><br>
                         <hr>
                         <div class="pull-right">
-                            <a class="btn btn-dark" href="<?= site_url('Buku') ?>" ><i class="fa fa-times"></i>&nbsp;Batal</a>
-                            <button class="btn btn-primary" type="submit" id="lanjut_page5" style="background-color:#3867d6;color:white;"> <i class="fa fa-check"></i>&nbsp;Simpan</button>
+                            <a class="btn btn-secondary" href="<?= site_url('Anggota') ?>" ><i class="fa fa-times"></i>&nbsp;Batal</a>
+                            <button class="btn btn-primary" id="btn-simpan" type="submit"> <i class="fa fa-check"></i>&nbsp;Simpan</button>
                         </div>
       
                     </div>
@@ -152,10 +183,6 @@
         </div>
     </div>
 </div>
-<!-- DATA SORT -->
-<input type="hidden" name="input_id_th" id="input_id_th" value="#column_waktu">
-<input type="hidden" name="input_column" id="input_column" value="created_at">
-<input type="hidden" name="input_sort" id="input_sort" value="desc">
 <div id="div-modal"></div>
 
 <script src="<?php echo base_url('assets/themes/libs/jquery/jquery.min.js')?>"></script>
@@ -169,6 +196,11 @@
 
     $('.jenkel').select2({
         placeholder: "Pilih Jenis Kelamin . . . ",
+        allowClear: true,
+    });
+
+    $('.jenis_anggota').select2({
+        placeholder: "Pilih Jenis Anggota . . . ",
         allowClear: true,
     });
     
@@ -193,7 +225,7 @@
         $('#foto_anggota').val('');
         $('#format_foto_anggota').show();
         $('#remove_foto_anggota').hide();
-        $("#image-foto-anggota").attr('src', base_url+"assets/all/images/thumbnail_picture.png");
+        $("#image-foto-anggota").attr('src', base_url+"assets/all/images/foto_profil_default.png");
     });
 
     $('#form').submit(function (event) {
@@ -256,4 +288,24 @@
 		});
 		event.preventDefault();
     });
+
+    function validate_password(){
+        var pass = $('#password').val();
+        var confirm_pass = $('#konfirmasi_password').val();
+        if(pass!=confirm_pass){
+            $('#pass-message').show();
+            $('#pass-message').text('Password tidak cocok !');
+            $('#pass-message').css('color','red');
+            // $('#lanjut_page1').css('pointer-events','none');
+            // $('#lanjut_page1').css('cursor','default');
+            $('#btn-simpan').prop('disabled',true);
+        }else{
+            $('#pass-message').hide();
+            $('#pass-message').text('');
+            $('#pass-message').css('color','white');
+            // $('#lanjut_page1').css('pointer-events','auto');
+            // $('#btn-simpan').css('cursor','default');
+            $('#btn-simpan').prop('disabled',false);
+        }
+    }
 </script>

@@ -183,7 +183,16 @@
                                     <!-- <small><span style="color:#e74c3c">*) Wajib Diisi</span></small> -->
                                     <br>
                                     <br>
-                                    <img id="image-foto-sampul" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/all/images/thumbnail_picture.png') ?>" alt="">
+                                    <?php 
+                                    if(isset($data_buku)){
+                                        if($data_buku['foto']!=""){ ?>
+                                            <img id="image-foto-sampul" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/data/foto_buku/'.$data_buku['foto']) ?>" alt="">
+                                        <?php }else{ ?>
+                                            <img id="image-foto-sampul" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/all/images/thumbnail_picture.png') ?>" alt="">
+                                        <?php }
+                                    }else{ ?>
+                                        <img id="image-foto-sampul" style="width: 150px;height: 150px;" src="<?php echo base_url('assets/all/images/thumbnail_picture.png') ?>" alt="">
+                                    <?php } ?>
                                     <br>
                                     <span id="format_foto_sampul"><small><i>Format : .jpg, .jpeg, .png</i></small></span>
                                     <a style="display:none;" href="javascript:;" class="btn-remove-image" id="remove_foto_sampul"><i class="fa fa-times"></i> Batal</a>

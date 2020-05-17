@@ -22,7 +22,7 @@
     $no=($paging['current']-1)*$paging['limit']; 
     foreach ($list->result() as $row) { $no++; ?>
 
-<div class="col-xl-3 col-sm-6 col-xs-6">
+<div class="col-xl-3 col-sm-4 col-xs-6">
     <div class="card shade">
         <div class="card-body">
             <div class="product-img position-relative">
@@ -34,7 +34,7 @@
                 <img src="<?= base_url() ?>assets/data/foto_buku/<?= $row->foto ?>" style="width:100%; height:230px;" alt="" class="img-fluid mx-auto d-block">
             </div>
             <div class="mt-4 text-center">
-                <h5 class="mb-3 text-truncate"><a href="<?= site_url('Buku/detail_katalog') ?>" class="text-dark"><?= $row->judul ?></a></h5>
+                <h5 class="mb-3 text-truncate"><a href="<?= site_url('Buku/detail_katalog/'.$row->kode_buku) ?>" class="text-dark"><?= $row->judul ?></a></h5>
                 
                 <p class="text-muted">
                     <i class="bx bx-star text-warning"></i>
@@ -48,7 +48,6 @@
         </div>
     </div>
 </div>
-
 
 <?php } ?>
 
@@ -64,7 +63,7 @@
             $batas_akhir = $paging['count_row'];
         }
         echo ((($paging['current']-1)*$paging['limit'])+1).' - '.$batas_akhir.' dari total '.$paging['count_row']; ?>
-        data
+        Katalog
 	</div>
 	<br>
 	<div class="col-xs-12 col-md-6">
@@ -75,5 +74,13 @@
 </div>
 
 <?php }else{ ?>
-    Data Kosong
+<div class="col-lg-12 col-sm-12">
+    <center>
+    <div class="search-box mr-2">
+        <div class="position-relative">
+            <i><h6 style="font-size:14px;">Pencarian dengan Keyword : "<?= $key ?>", tidak ditemukan !</h6></i>
+        </div>
+    </div>
+    </center>
+</div>
 <?php } ?>
