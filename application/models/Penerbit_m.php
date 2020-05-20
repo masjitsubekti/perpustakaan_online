@@ -20,5 +20,5 @@
             return $query;
         }
     }
-    /* End of file Kategori_buku_m.php */    
+    /* End of file Penerbit_m.php */    
 ?>

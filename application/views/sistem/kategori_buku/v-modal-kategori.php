@@ -75,7 +75,7 @@
 	</div>
 </div>
 <script>
-	$('.tipe_kategori').select2({
+	  $('.tipe_kategori').select2({
         placeholder: "Pilih Tipe Kategori . . . ",
         allowClear: true,
     });

@@ -141,7 +141,7 @@
 	});
 
 	function pageAnggota() {
-        $('#div_dimscreen').show();
+    $('#div_dimscreen').show();
 		var id_anggota = $('#id_anggota').val();
 		$.ajax({
 			url: "<?php echo site_url('Peminjaman/read_anggota/')?>",
@@ -314,10 +314,10 @@
 									title: data.message
 								});
 								swal.hideLoading()
-                                $('#btn-save').prop('disabled',true);
-                                setTimeout(function(){ 
-                                    location.reload();
-                                }, 2000);
+                $('#btn-save').prop('disabled',true);
+                setTimeout(function(){ 
+                    location.reload();
+                }, 2000);
 							} else {
 								setTimeout(function(){ 
                                     Swal.fire({type: 'error',title: 'Oops...',text: data.message});

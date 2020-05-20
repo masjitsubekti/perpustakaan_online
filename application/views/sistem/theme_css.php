@@ -13,3 +13,4 @@
 <link href="<?php echo base_url('assets/themes/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css')?>" rel="stylesheet">
 <link href="<?php echo base_url('assets/themes/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')?>" rel="stylesheet">
 <link href="<?php echo base_url('assets/themes/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')?>" rel="stylesheet" />
+<link href="<?=base_url()?>assets/all/dual_selectboxs/dist/bootstrap-duallistbox.css" rel="stylesheet">

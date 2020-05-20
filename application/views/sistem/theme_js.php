@@ -16,7 +16,8 @@
 <script src="<?php echo base_url('assets/themes/libs/select2/js/select2.min.js')?>"></script>
 <script src="<?php echo base_url('assets/themes/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 <script src="<?php echo base_url('assets/themes/libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
-    
+<script src="<?=base_url()?>assets/all/dual_selectboxs/dist/jquery.bootstrap-duallistbox.js"></script>
+  
 <script>
     var Toast = Swal.mixin({
 		toast: true,
