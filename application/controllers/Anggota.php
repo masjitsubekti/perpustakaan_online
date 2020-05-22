@@ -32,23 +32,22 @@ class Anggota extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }    
 
-    public function read_data($pg=1)
-	{
-		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
-		$limit	= $this->input->post("limit");
-		$offset = ($limit*$pg)-$limit;
-		$column = $this->input->post('column');
-        $sort = $this->input->post('sort');
-		
-		$page              = array();
-		$page['limit']     = $limit;
-		$page['count_row'] = $this->Anggota_m->list_count($key)['jml'];
-        $page['current']   = $pg;
-		$page['list']      = gen_paging($page);
-		$data['paging']    = $page;
-		$data['list']      = $this->Anggota_m->list_data($key, $limit, $offset, $column, $sort);
+    public function read_data($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Anggota_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Anggota_m->list_data($key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/anggota/v-data-anggota',$data);
+      $this->load->view('sistem/anggota/v-data-anggota',$data);
     }
 
     public function form_add()

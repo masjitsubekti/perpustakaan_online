@@ -126,43 +126,41 @@ class Buku extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }
 
-    public function read_data($pg=1)
-	{
-		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
-		$limit	= $this->input->post("limit");
-		$offset = ($limit*$pg)-$limit;
-		$column = $this->input->post('column');
-        $sort = $this->input->post('sort');
-		
-		$page              = array();
-		$page['limit']     = $limit;
-		$page['count_row'] = $this->Buku_m->list_count($key)['jml'];
-        $page['current']   = $pg;
-		$page['list']      = gen_paging($page);
-		$data['paging']    = $page;
-		$data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
+    public function read_data($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Buku_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/buku/v-data-buku',$data);
+      $this->load->view('sistem/buku/v-data-buku',$data);
     }
 
-    public function read_katalog($pg=1)
-	{
-		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
-		$limit	= $this->input->post("limit");
-		$offset = ($limit*$pg)-$limit;
-		$column = $this->input->post('column');
-        $sort = $this->input->post('sort');
-        $data['key'] = $key;
-		
-		$page              = array();
-		$page['limit']     = $limit;
-		$page['count_row'] = $this->Buku_m->list_count($key)['jml'];
-        $page['current']   = $pg;
-		$page['list']      = gen_paging($page);
-		$data['paging']    = $page;
-		$data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
+    public function read_katalog($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      $data['key'] = $key;
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Buku_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/buku/v-data-katalog',$data);
+      $this->load->view('sistem/buku/v-data-katalog',$data);
     }
 
     public function simpan(){
@@ -192,7 +190,7 @@ class Buku extends CI_Controller {
             $data_object = array(
                 'kode_buku'     =>$kode_buku,
                 'judul'         =>$judul,
-                'id_pengarang'     =>$pengarang,
+                'id_pengarang'  =>$pengarang,
                 'id_kategori'   =>$kategori,
                 'id_sumber'     =>$sumber,
                 'id_rak'        =>$lokasi_rak,

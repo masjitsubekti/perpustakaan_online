@@ -87,28 +87,30 @@
 							class="form-control" 
 							id="password" 
 							name="password" 
-							type="text" 
+							type="password" 
 							placeholder="Password . . ." 
 							autocomplete="off" 
 							value=""
 						required >
 					</div>	
-                    <div class="form-group">
+          <div class="form-group">
 						<label for="title">Confirm Password</label>
 						<input 
 							class="form-control" 
 							id="confirm_password" 
 							name="confirm_password" 
-							type="text" 
+							type="password" 
 							placeholder="Confirm Password . . ." 
 							autocomplete="off" 
 							value=""
+              onkeyup="validate_password()"
 						required >
+            <span id="pass-message"></span>
 					</div>	
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-					<button class="btn btn-primary" style="background-color:#3867d6;color:white;" type="submit">Simpan</button>
+					<button class="btn btn-primary" id="btn-simpan" style="background-color:#3867d6;color:white;" type="submit">Simpan</button>
 				</div>
 			</form>
 		</div>
@@ -171,4 +173,24 @@
 		});
 		event.preventDefault();
     });
+
+    function validate_password(){
+        var pass = $('#password').val();
+        var confirm_pass = $('#confirm_password').val();
+        if(pass!=confirm_pass){
+            $('#pass-message').show();
+            $('#pass-message').text('Password tidak cocok !');
+            $('#pass-message').css('color','red');
+            // $('#lanjut_page1').css('pointer-events','none');
+            // $('#lanjut_page1').css('cursor','default');
+            $('#btn-simpan').prop('disabled',true);
+        }else{
+            $('#pass-message').hide();
+            $('#pass-message').text('');
+            $('#pass-message').css('color','white');
+            // $('#lanjut_page1').css('pointer-events','auto');
+            // $('#btn-simpan').css('cursor','default');
+            $('#btn-simpan').prop('disabled',false);
+        }
+    }
 </script>

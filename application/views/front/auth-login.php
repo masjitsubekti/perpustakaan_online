@@ -66,7 +66,7 @@
                                         <div v-show="loading">
                                         <br>
                                         <center>
-                                            <i style="font-size:22px;" class="fa fa-spinner fa-spin"></i>
+                                            <i style="font-size:24px;" class="bx bx-loader bx-spin font-size-20 align-middle mr-2 text-success"></i>
                                         </center>
                                         </div>
                                     </div>
@@ -113,17 +113,19 @@
 					})
 					.then(function (response){
 						if(response.data.success===true){
-                            Toast.fire({
-                                type: 'success',
-                                title: response.data.message
-                            });       
-                            setTimeout(function(){ 
-                                window.location.href = site_url+response.data.page;
-                                vm.loading = false;
-                            }, 2000);          
+              Toast.fire({
+                  type: 'success',
+                  title: response.data.message
+              });       
+              setTimeout(function(){ 
+                  window.location.href = site_url+response.data.page;
+                  vm.loading = false;
+              }, 2000);          
 						}else{
-                            Swal.fire({type: 'error',title: 'Oops...',text: response.data.message});
-							vm.loading = false;
+              setTimeout(function(){ 
+                Swal.fire({type: 'error',title: 'Oops...',text: response.data.message});
+                vm.loading = false;
+              }, 1000);
 						}
 					});
 				}

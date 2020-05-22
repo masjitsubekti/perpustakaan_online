@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Menu extends CI_Controller {
 
-    private $nama_menu  = "Menu";     
+    private $nama_menu  = "Setting Menu";     
 
     public function __construct()
     {
