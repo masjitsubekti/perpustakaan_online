@@ -83,7 +83,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="sumber">Sumber / Supplier<span style="font-size:16px;">*</span></label>
+                            <label for="sumber">Sumber<span style="font-size:16px;">*</span></label>
                             <select class="form-control sumber" name="sumber" id="sumber" required>
                                 <option value=""></option>
                                 <?php foreach ($sumber as $sb) {?>
@@ -121,6 +121,50 @@
                             </select>
                         </div>
                         <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="control-label">Jenis Koleksi<span style="font-size:16px;">*</span></label>
+                                <select class="form-control jenis_koleksi" name="jenis_koleksi" id="jenis_koleksi" required>
+                                    <option value=""></option>
+                                    <?php foreach ($jenis_koleksi as $jk) {?>
+                                    <option 
+                                        <?php 
+                                            if(isset($data_buku)){
+                                                if($data_buku['id_jenis_koleksi']==$jk->id_jenis_koleksi){
+                                                    echo " selected ";
+                                                }
+                                            } 
+                                            ?>	
+                                            value="<?=$jk->id_jenis_koleksi?>">
+                                        <?=$jk->nama_jenis_koleksi?>
+                                    </option>
+                                    <?php } ?>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-md-6">        
+                              <div class="form-group">
+                                  <label class="control-label">Bahasa<span style="font-size:16px;">*</span></label>
+                                  <select class="form-control bahasa" name="bahasa" id="bahasa" required>
+                                      <option value=""></option>
+                                      <?php foreach ($bahasa as $bhs) {?>
+                                      <option 
+                                          <?php 
+                                              if(isset($data_buku)){
+                                                  if($data_buku['id_bahasa']==$bhs->id_bahasa){
+                                                      echo " selected ";
+                                                  }
+                                              } 
+                                              ?>	
+                                              value="<?=$bhs->id_bahasa?>">
+                                          <?=$bhs->nama_bahasa?>
+                                      </option>
+                                      <?php } ?>
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tempat_terbit">Tempat Terbit</label>
@@ -152,12 +196,20 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tinggi">Tinggi</label>
+                                    <label for="tinggi">Tinggi (Example : 21x14)</label>
                                     <input class="form-control" id="tinggi" name="tinggi" type="text" placeholder="Tinggi . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['tinggi']; } ?>">
                                 </div>
                             </div>
                         </div>
-
+                        
+                        <div class="form-group">
+                            <label for="stok">DDC</label>
+                            <input class="form-control" id="ddc" name="ddc" type="text" placeholder="DDC . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['ddc']; } ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="stok">No Inventaris</label>
+                            <input class="form-control" id="no_inventaris" name="no_inventaris" type="text" placeholder="No inventaris . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['no_inventaris']; } ?>">
+                        </div>
                         <div class="form-group">
                             <label for="stok">Edisi</label>
                             <input class="form-control" id="edisi" name="edisi" type="text" placeholder="Edisi . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['edisi']; } ?>">
@@ -168,14 +220,40 @@
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
-                            <input class="form-control" id="keterangan" name="keterangan" type="text" placeholder="Keterangan . . ." autocomplete="off" value="<?php if(isset($data_buku)){ echo $data_buku['keterangan']; } ?>">
+                            <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan . . ." cols="30" rows="3"><?php if(isset($data_buku)){ echo $data_buku['keterangan']; } ?></textarea>
                         </div>
-                        <!-- foto -->
                         <br>
+                        <div class="form-group row">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<label for="" style="font-size:14px;"> <b> Bagikan Buku ? </b></label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="custom-control custom-radio mb-3">
+                              <input type="radio" id="customRadio1" 
+                                <?php if(isset($data_buku)){ 
+                                  if($data_buku['flag_bagikan']=="1"){
+                                    echo " checked";
+                                  } 
+                                } ?>
+                               value="1" name="bagikan" class="custom-control-input" style="cursor:pointer;">
+                              <label class="custom-control-label" for="customRadio1" style="cursor:pointer;">Public</label>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="custom-control custom-radio mb-3">
+                              <input type="radio" id="customRadio2" 
+                              <?php if(isset($data_buku)){ 
+                                  if($data_buku['flag_bagikan']=="2"){
+                                    echo " checked";
+                                  } 
+                              } ?>
+                              value="2" name="bagikan" class="custom-control-input" style="cursor:pointer;">
+                              <label class="custom-control-label" for="customRadio2" style="cursor:pointer;">Private</label>
+                            </div>
+                        </div>
+
+                        <!-- foto -->
+                        <!-- <br> -->
                         <h3 style="font-size:18px;"> <i class=""></i> Foto Sampul Buku</h3>
                         <br>
                         <!-- <div class="alert alert-info"><b>Ketentuan:</b><ol class="pl-3 mb-0"><li>Pas foto formal terbaru (bukan foto <i>selfie</i>!). Muka harus terlihat jelas.</li><li>Ukuran foto 3×4, format PNG atau JPEG.</li></ol></div> -->
-                        <br>
+                        <!-- <br> -->
                         <div class="row">
                             <div class="col-md-12 col-sm-12 box-upload">
                                 <center>
@@ -253,7 +331,17 @@
     });
 
     $('.sumber').select2({
-        placeholder: "Pilih Sumber / Supplier . . . ",
+        placeholder: "Pilih Sumber . . . ",
+        allowClear: true,
+    });
+
+    $('.jenis_koleksi').select2({
+        placeholder: "Pilih Jenis Koleksi . . . ",
+        allowClear: true,
+    });
+
+    $('.bahasa').select2({
+        placeholder: "Pilih Bahasa . . . ",
         allowClear: true,
     });
     
@@ -321,9 +409,9 @@
 									title: data.message
 								});
 								swal.hideLoading()
-                                setTimeout(function(){ 
-                                    window.location.href = "<?= site_url('Buku') ?>";
-                                }, 2000);
+                setTimeout(function(){ 
+                    window.location.href = "<?= site_url('Buku') ?>";
+                }, 2000);
                                 
 							} else {
 								Swal.fire({type: 'error',title: 'Oops...',text: data.message});

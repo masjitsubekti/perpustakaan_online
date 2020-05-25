@@ -93,6 +93,8 @@ class Buku extends CI_Controller {
         $data['rak'] = $this->M_main->get_where('m_rak','status','1')->result();
         $data['sumber'] = $this->M_main->get_where('m_sumber','status','1')->result();
         $data['pengarang'] = $this->M_main->get_where('m_pengarang','status','1')->result();
+        $data['bahasa'] = $this->M_main->get_where('m_bahasa','status','1')->result();
+        $data['jenis_koleksi'] = $this->M_main->get_where('m_jenis_koleksi','status','1')->result();
         
         $data['content'] = "buku/v-form-buku.php";
         $this->parser->parse('sistem/template', $data);
@@ -121,6 +123,8 @@ class Buku extends CI_Controller {
         $data['sumber'] = $this->M_main->get_where('m_sumber','status','1')->result();
         $data['data_buku'] = $this->M_main->get_where('t_buku','kode_buku',$kode_buku)->row_array();
         $data['pengarang'] = $this->M_main->get_where('m_pengarang','status','1')->result();
+        $data['bahasa'] = $this->M_main->get_where('m_bahasa','status','1')->result();
+        $data['jenis_koleksi'] = $this->M_main->get_where('m_jenis_koleksi','status','1')->result();
         
         $data['content'] = "buku/v-form-buku.php";
         $this->parser->parse('sistem/template', $data);
@@ -180,6 +184,11 @@ class Buku extends CI_Controller {
         $edisi = strip_tags(trim($this->input->post('edisi')));
         $stok = strip_tags(trim($this->input->post('stok')));
         $keterangan = strip_tags(trim($this->input->post('keterangan')));
+        $bahasa = strip_tags(trim($this->input->post('bahasa')));
+        $jenis_koleksi = strip_tags(trim($this->input->post('jenis_koleksi')));
+        $ddc = strip_tags(trim($this->input->post('ddc')));
+        $no_inventaris = strip_tags(trim($this->input->post('no_inventaris')));
+        $bagikan = $this->input->post('bagikan');
         $foto_sampul = lakukan_upload_file('foto_sampul','/assets/data/foto_buku/','jpg|png|jpeg');
         
         if($modeform == 'ADD'){
@@ -201,11 +210,16 @@ class Buku extends CI_Controller {
                 'tinggi'        =>$tinggi,
                 'stok'          =>$stok,
                 'edisi'         =>$edisi,
+                'ddc'           =>$ddc,
                 'isbn'          =>$isbn,
+                'no_inventaris' =>$no_inventaris,
+                'id_jenis_koleksi' =>$jenis_koleksi,
+                'id_bahasa'     =>$bahasa,
                 'tanggal'       =>date('Y-m-d'),
                 'foto'          =>(!empty($_FILES["foto_sampul"]["tmp_name"])) ? $foto_sampul['file_name'] : "",
                 'barcode'       =>$barcode,
                 'keterangan'    =>$keterangan,
+                'flag_bagikan'  =>$bagikan,
                 'status'        =>'1',
                 'created_at'    =>date('Y-m-d H:i:s')
             );
@@ -234,9 +248,14 @@ class Buku extends CI_Controller {
                 'tinggi'        =>$tinggi,
                 'stok'          =>$stok,
                 'edisi'         =>$edisi,
+                'ddc'           =>$ddc,
                 'isbn'          =>$isbn,
+                'no_inventaris' =>$no_inventaris,
+                'id_jenis_koleksi' =>$jenis_koleksi,
+                'id_bahasa'     =>$bahasa,
                 'foto'          =>(!empty($_FILES["foto_sampul"]["tmp_name"])) ? $foto_sampul['file_name'] : $cek_upload['foto'],
                 'keterangan'    =>$keterangan,    
+                'flag_bagikan'  =>$bagikan,
                 'updated_at'=>date('Y-m-d H:i:s')
             );
 				

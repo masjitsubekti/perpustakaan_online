@@ -17,7 +17,7 @@
     <thead>
     <tr class="tr-head">
         <th width="4%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
-        <th width="8%" class="sortable" id="column_kode_kategori" data-sort="asc" onclick="sort_table('#column_kode_kategori','kode_kategori')">Kode Kategori</th>
+        <th width="8%" class="sortable" id="column_kode_klasifikasi" data-sort="asc" onclick="sort_table('#column_kode_klasifikasi','kode_klasifikasi')">Kode Klasifikasi</th>
         <th width="25%" style="text-align:left;" class="sortable" id="column_nama_kategori" data-sort="asc" onclick="sort_table('#column_nama_kategori','nama_kategori')">Nama Kategori</th>
         <th width="10%" class="sortable" id="column_tipe_kategori" data-sort="asc" onclick="sort_table('#column_tipe_kategori','nama_tipe_kategori')">Tipe Kategori</th>
         <th width="8%" style="text-align:center;">Aksi</th>
@@ -29,7 +29,7 @@
     foreach ($list->result() as $row) { $no++; ?>
     <tr>
         <td style="text-align:center;" ><?=$no;?>.</td>
-        <td style="text-align:center;"><?=$row->kode_kategori?></td>
+        <td style="text-align:center;"><?=$row->kode_klasifikasi?></td>
         <td><?=$row->nama_kategori?></td>
         <td style="text-align:center;"><?=$row->nama_tipe_kategori?></td>
         <td style="text-align:center; padding-top:5px;">
@@ -67,7 +67,7 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;">NO. </th>
-        <th width="5%">Kode Kategori</th>
+        <th width="5%">Kode Klasifikasi</th>
         <th width="20%">Nama Kategori</th>
         <th width="10%">Tipe Kategori</th>
         <th width="10%" style="text-align:center;">Aksi</th>
@@ -75,7 +75,7 @@
     </thead>
 	<tbody>
 		<tr>
-			<td colspan="3">Data tidak ditemukan !</td>
+			<td colspan="5">Data tidak ditemukan !</td>
 		</tr>
 	</tbody>
 </table>

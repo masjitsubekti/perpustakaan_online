@@ -33,23 +33,22 @@ class Sumber extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }    
 
-    public function read_data($pg=1)
-	{
-		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
-		$limit	= $this->input->post("limit");
-		$offset = ($limit*$pg)-$limit;
-		$column = $this->input->post('column');
-        $sort = $this->input->post('sort');
-		
-		$page              = array();
-		$page['limit']     = $limit;
-		$page['count_row'] = $this->Sumber_m->list_count($key)['jml'];
-        $page['current']   = $pg;
-		$page['list']      = gen_paging($page);
-		$data['paging']    = $page;
-		$data['list']      = $this->Sumber_m->list_data($key, $limit, $offset, $column, $sort);
+    public function read_data($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Sumber_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Sumber_m->list_data($key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/sumber/v-data-sumber',$data);
+      $this->load->view('sistem/sumber/v-data-sumber',$data);
     }
 
     public function load_modal(){
@@ -67,18 +66,14 @@ class Sumber extends CI_Controller {
     public function simpan(){
         $modeform = $this->input->post('modeform');
         $nama_sumber = strip_tags(trim($this->input->post('nama_sumber')));
-        $no_telp = strip_tags(trim($this->input->post('no_telp')));
-        $email = strip_tags(trim($this->input->post('email')));
-        $alamat = strip_tags(trim($this->input->post('alamat')));
+        $keterangan = strip_tags(trim($this->input->post('keterangan')));
         if($modeform == 'ADD'){
             $id = $this->uuid->v4(false);
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
                 'id_sumber' => $id,
                 'nama_sumber'=>$nama_sumber,
-                'no_telp'=>$no_telp,
-                'email'=>$email,
-                'alamat'=>$alamat,
+                'keterangan'=>$keterangan,
                 'status'=>'1',
                 'created_at'=>date('Y-m-d H:i:s')
             );
@@ -95,9 +90,7 @@ class Sumber extends CI_Controller {
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
                 'nama_sumber'=>$nama_sumber,
-                'no_telp'=>$no_telp,
-                'email'=>$email,
-                'alamat'=>$alamat,
+                'keterangan'=>$keterangan,
                 'updated_at'=>date('Y-m-d H:i:s')
             );
 				

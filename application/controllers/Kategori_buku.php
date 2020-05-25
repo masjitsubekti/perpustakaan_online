@@ -33,72 +33,68 @@ class Kategori_buku extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }    
 
-    public function read_data($pg=1)
-	{
-		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
-		$limit	= $this->input->post("limit");
-		$offset = ($limit*$pg)-$limit;
-		$column = $this->input->post('column');
-        $sort = $this->input->post('sort');
-		
-		$page              = array();
-		$page['limit']     = $limit;
-		$page['count_row'] = $this->Kategori_buku_m->list_count($key)['jml'];
-        $page['current']   = $pg;
-		$page['list']      = gen_paging($page);
-		$data['paging']    = $page;
-		$data['list']      = $this->Kategori_buku_m->list_data($key, $limit, $offset, $column, $sort);
+    public function read_data($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Kategori_buku_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Kategori_buku_m->list_data($key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/kategori_buku/v-data-kategori-buku',$data);
+      $this->load->view('sistem/kategori_buku/v-data-kategori-buku',$data);
     }
 
     public function load_modal(){
-        $id = $this->input->post('id');
-        $data['tipe_kategori'] = $this->M_main->get_where('m_tipe_kategori','status','1')->result();
-        if ($id!=""){
-            $data['mode'] = "UPDATE";
-            $data['data_kategori'] = $this->M_main->get_where('m_kategori_buku','id_kategori',$id)->row_array();
-        }else{
-            $data['mode'] = "ADD";
-            $data['kosong'] = "";
-        }
-        $this->load->view('sistem/kategori_buku/v-modal-kategori',$data);
+      $id = $this->input->post('id');
+      $data['tipe_kategori'] = $this->M_main->get_where('m_tipe_kategori','status','1')->result();
+      $data['klasifikasi'] = $this->db->query("select * from m_klasifikasi where status = '1' order by kode_klasifikasi asc ")->result();
+      if ($id!=""){
+          $data['mode'] = "UPDATE";
+          $data['data_kategori'] = $this->M_main->get_where('m_kategori_buku','id_kategori',$id)->row_array();
+      }else{
+          $data['mode'] = "ADD";
+          $data['kosong'] = "";
+      }
+      $this->load->view('sistem/kategori_buku/v-modal-kategori',$data);
     }
 
     public function simpan(){
         $modeform = $this->input->post('modeform');
-        $kode_kategori = strip_tags(trim($this->input->post('kode_kategori')));
+        $kode_klasifikasi = strip_tags(trim($this->input->post('kode_klasifikasi')));
         $nama_kategori = strip_tags(trim($this->input->post('nama_kategori')));
         $tipe_kategori = strip_tags(trim($this->input->post('tipe_kategori')));
         if($modeform == 'ADD'){
-            $cek_kode = $this->M_main->get_where('m_kategori_buku','kode_kategori',$kode_kategori);
-            if($cek_kode->num_rows()!=0){
-                $response['success'] = FALSE;
-                $response['message'] = "Maaf, Kode Kategori Sudah Digunakan !";
-            }else{
-                $id = $this->uuid->v4(false);
-                date_default_timezone_set('Asia/Jakarta');
-                $data_object = array(
-                    'id_kategori' => $id,
-                    'kode_kategori'=>$kode_kategori,
-                    'nama_kategori'=>$nama_kategori,
-                    'id_tipe_kategori'=>$tipe_kategori,
-                    'status'=>'1',
-                    'created_at'=>date('Y-m-d H:i:s')
-                );
-                $this->db->insert('m_kategori_buku', $data_object);
-                $response['success'] = TRUE;
-                $response['message'] = "Data Kategori Buku Berhasil Disimpan";
-                
-                $username = $this->session->userdata('auth_username');
-                insert_log($username, "Tambah Kategori Buku", 'Berhasil Tambah Kategori Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
-            }
-        }else if($modeform == 'UPDATE'){
+
+            $id = $this->uuid->v4(false);
+            date_default_timezone_set('Asia/Jakarta');
+            $data_object = array(
+                'id_kategori' => $id,
+                'kode_klasifikasi'=>$kode_klasifikasi,
+                'nama_kategori'=>$nama_kategori,
+                'id_tipe_kategori'=>$tipe_kategori,
+                'status'=>'1',
+                'created_at'=>date('Y-m-d H:i:s')
+            );
+            $this->db->insert('m_kategori_buku', $data_object);
+            $response['success'] = TRUE;
+            $response['message'] = "Data Kategori Buku Berhasil Disimpan";
+            
+            $username = $this->session->userdata('auth_username');
+            insert_log($username, "Tambah Kategori Buku", 'Berhasil Tambah Kategori Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+        
+          }else if($modeform == 'UPDATE'){
             $id_kategori = $this->input->post('id_kategori');
             
             date_default_timezone_set('Asia/Jakarta');
             $data_object = array(
-                'kode_kategori'=>$kode_kategori,
+                'kode_klasifikasi'=>$kode_klasifikasi,
                 'nama_kategori'=>$nama_kategori,
                 'id_tipe_kategori'=>$tipe_kategori,
                 'updated_at'=>date('Y-m-d H:i:s')

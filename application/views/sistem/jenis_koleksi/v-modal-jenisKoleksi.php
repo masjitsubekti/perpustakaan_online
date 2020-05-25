@@ -3,37 +3,33 @@
 		<div class="modal-content">
 			<div class="modal-header modal-success">
 				<h5 class="modal-title" id="modal_title_add" style="display:none;"><i class="bx bx-layer"></i>
-					Tambah Sumber</h5>
+					Tambah Jenis Koleksi</h5>
 				<h5 class="modal-title" id="modal_title_update" style="display:none;"><i
-						class="bx bx-layer"></i> Edit Sumber</h5>
+						class="bx bx-layer"></i> Edit Jenis Koleksi</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
 			<form action="" id="form">
 				<div class="modal-body">
-          <input type="hidden" name="modeform" id="modeform">
-          <input type="hidden" name="id_sumber" id="id_sumber" value="<?php if(isset($data_sumber)){ echo $data_sumber['id_sumber']; } ?>">
-          <div class="form-group">
-						<label for="title">Sumber<span style="font-size:18px;">*</span></label>
+            <input type="hidden" name="modeform" id="modeform">
+            <input type="hidden" name="id_jenis_koleksi" id="id_jenis_koleksi" value="<?php if(isset($data_jenis_koleksi)){ echo $data_jenis_koleksi['id_jenis_koleksi']; } ?>">
+            <div class="form-group">
+						<label for="title">Nama Jenis Koleksi</label>
 						<input 
 							class="form-control" 
-							id="nama_sumber" 
-							name="nama_sumber" 
+							id="nama_jenis_koleksi" 
+							name="nama_jenis_koleksi" 
 							type="text" 
-							placeholder="Sumber . . ." 
+							placeholder="Nama Jenis Koleksi . . ." 
 							autocomplete="off" 
 							value="<?php 
-										if(isset($data_sumber)){
-											echo $data_sumber['nama_sumber'];
+										if(isset($data_jenis_koleksi)){
+											echo $data_jenis_koleksi['nama_jenis_koleksi'];
 										} 
 									?>"
 						required >
 					</div>	
-					<div class="form-group">
-						<label for="keterangan">Keterangan</label>
-						<textarea name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan . . ." cols="30" rows="5"><?php if(isset($data_sumber)){ echo $data_sumber['keterangan']; } ?></textarea>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
@@ -44,7 +40,7 @@
 	</div>
 </div>
 <script>
-    $('#form').submit(function (event) {
+  $('#form').submit(function (event) {
 		event.preventDefault();
     var modeform = $('#modeform').val();
     var ket1 = '';
@@ -58,8 +54,8 @@
     }
 
 		Swal.fire({
-			title: ket1 + ' sumber',
-			text: "Apakah Anda yakin "+ ket2 +" sumber !",
+			title: ket1 + ' Jenis Koleksi',
+			text: "Apakah Anda yakin "+ ket2 +" jenis koleksi !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3498db',
@@ -70,7 +66,7 @@
 			preConfirm: function () {
 				return new Promise(function (resolve) {
 						$.ajax({
-						url: '<?= site_url() ?>'+'Sumber/simpan',
+						url: '<?= site_url() ?>'+'Jenis_koleksi/simpan',
 						method: 'POST',
 						dataType: 'json',	
 						data: new FormData($('#form')[0]),

@@ -17,9 +17,8 @@
     <thead>
     <tr class="tr-head">
         <th width="5%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
-        <th width="30%" class="sortable" id="column_nama_sumber" data-sort="" onclick="sort_table('#column_nama_sumber','nama_sumber')">Nama Sumber</th>
-        <th width="25%" class="sortable" id="column_keterangan" data-sort="" onclick="sort_table('#column_keterangan','keterangan')">Keterangan</th>
-        <th width="8%" style="text-align:center;">Aksi</th>
+        <th width="50%" class="sortable" id="column_nama_jenis_koleksi" data-sort="" onclick="sort_table('#column_nama_jenis_koleksi','nama_jenis_koleksi')">Jenis Koleksi</th>
+        <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
     <tbody>
@@ -28,11 +27,10 @@
     foreach ($list->result() as $row) { $no++; ?>
     <tr>
         <td style="text-align:center;" ><?=$no;?>.</td>
-        <td><?=$row->nama_sumber?></td>
-        <td><?=$row->keterangan?></td>
+        <td><?=$row->nama_jenis_koleksi?></td>
         <td style="text-align:center; padding-top:5px;">
-            <a href="javascript:;" data-id="<?=$row->id_sumber?>" data-name="<?=$row->nama_sumber?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_sumber?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-			      <a href="javascript:;" data-id="<?=$row->id_sumber?>" data-name="<?=$row->nama_sumber?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_sumber?>"><i class="fa fa-trash"></i></a>	    
+            <a href="javascript:;" data-id="<?=$row->id_jenis_koleksi?>" data-name="<?=$row->nama_jenis_koleksi?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_jenis_koleksi?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
+			<a href="javascript:;" data-id="<?=$row->id_jenis_koleksi?>" data-name="<?=$row->nama_jenis_koleksi?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_jenis_koleksi?>"><i class="fa fa-trash"></i></a>	    
         </td>
     </tr>
     <?php } ?>
@@ -64,15 +62,14 @@
 <table class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead>
     <tr class="tr-head">
-        <th width="5%" style="text-align:center;">NO. </th>
-        <th width="30%">Nama Sumber</th>
-        <th width="25%">Keterangan</th>
+        <th width="5%" style="text-align:center;">No </th>
+        <th width="50%">Jenis Koleksi</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
 	<tbody>
 		<tr>
-			<td colspan="4">Data tidak ditemukan !</td>
+			<td colspan="3">Data tidak ditemukan !</td>
 		</tr>
 	</tbody>
 </table>
@@ -80,52 +77,51 @@
 <!-- pagination -->
 <script>
     function sort_table(id,column){
-        var sort = $(id).attr("data-sort");
- 
-        $('#input_id_th').val(id);
-        $('#input_column').val(column);
+      var sort = $(id).attr("data-sort");
+      $('#input_id_th').val(id);
+      $('#input_column').val(column);
         
-		if(sort=="asc"){
-            sort = 'desc';
-		}else if(sort=="desc"){
-            sort = 'asc';
-		}else{
-            sort = 'asc';
-		}
-        $('#input_sort').val(sort);
-        pageLoad(1);
+      if(sort=="asc"){
+              sort = 'desc';
+      }else if(sort=="desc"){
+              sort = 'asc';
+      }else{
+              sort = 'asc';
+      }
+      $('#input_sort').val(sort);
+      pageLoad(1);
     }
     
     var site_url = '<?= site_url() ?>/';
 
     $(".btn-ubah").click(function() {
-		$('#div_dimscreen').show();
-        var id = $(this).attr('data-id');
-		$.ajax({
-			url: "<?php echo site_url('Sumber/load_modal/')?>",
-			type: 'post',
-			dataType: 'html',
-            data:{id:id},
-			beforeSend: function () {},
-			success: function (result) {    
-				$('#div-modal').html(result);
-				$('#div_dimscreen').fadeOut('slow');
-				$('#modal_title_update').show();
-				$('#modeform').val('UPDATE');
-				$('#modal-color').addClass('modal-warning');
-				$('#modal').modal('show');
-			}
-		});
+		  $('#div_dimscreen').show();
+      var id = $(this).attr('data-id');
+		  $.ajax({
+        url: "<?php echo site_url('Jenis_koleksi/load_modal/')?>",
+        type: 'post',
+        dataType: 'html',
+              data:{id:id},
+        beforeSend: function () {},
+        success: function (result) {    
+          $('#div-modal').html(result);
+          $('#div_dimscreen').fadeOut('slow');
+          $('#modal_title_update').show();
+          $('#modeform').val('UPDATE');
+          $('#modal-color').addClass('modal-warning');
+          $('#modal').modal('show');
+        }
+		  });
     });
     
 	$('[data-toggle="tooltip"]').tooltip();   
 	$('.btn-hapus').click(function (e) {
 		var id = $(this).attr('data-id');
-        var title = $(this).attr('data-name');
+    var title = $(this).attr('data-name');
   
 		Swal.fire({
-			title: 'Nonaktifkan Sumber',
-			text: "Apakah Anda yakin menonaktifkan sumber  : " + title + " !",
+			title: 'Nonaktifkan Jenis Koleksi',
+			text: "Apakah Anda yakin menonaktifkan jenis koleksi  : " + title + " !",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',
@@ -138,7 +134,7 @@
 					$.ajax({
 						method: 'POST',
 						dataType: 'json',
-						url: site_url + 'Sumber/nonaktifkan',
+						url: site_url + 'Jenis_koleksi/nonaktifkan',
 						data: {
 							id: id
 						},

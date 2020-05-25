@@ -12,23 +12,26 @@
 			</div>
 			<form action="" id="form">
 				<div class="modal-body">
-                    <input type="hidden" name="modeform" id="modeform">
-                    <input type="hidden" name="id_kategori" id="id_kategori" value="<?php if(isset($data_kategori)){ echo $data_kategori['id_kategori']; } ?>">
-            	    <div class="form-group">
-						<label for="title">Kode Kategori<span style="font-size:16px;">*</span></label>
-						<input 
-							class="form-control" 
-							id="kode_kategori" 
-							name="kode_kategori" 
-							type="text" 
-							placeholder="Kode Kategori . . ." 
-							autocomplete="off" 
-							value="<?php 
-										if(isset($data_kategori)){
-											echo $data_kategori['kode_kategori'];
-										} 
-									?>"
-						required >
+          <input type="hidden" name="modeform" id="modeform">
+          <input type="hidden" name="id_kategori" id="id_kategori" value="<?php if(isset($data_kategori)){ echo $data_kategori['id_kategori']; } ?>">
+          <div class="form-group">
+						<label for="title">Kode Klasifikasi<span style="font-size:16px;"></span></label>
+						  <select class="form-control kode_klasifikasi" name="kode_klasifikasi" id="kode_klasifikasi">
+                  <option value=""></option>
+                  <?php foreach ($klasifikasi as $kl) {?>
+                  <option 
+                      <?php 
+                          if(isset($data_kategori)){
+                              if($data_kategori['kode_klasifikasi']==$kl->kode_klasifikasi){
+                                  echo " selected ";
+                              }
+                          } 
+                          ?>	
+                          value="<?=$kl->kode_klasifikasi?>">
+                        <?=$kl->kode_klasifikasi?> - <?=$kl->nama_klasifikasi?>
+                  </option>
+                  <?php } ?>
+              </select>
 					</div>	
 					<div class="form-group">
 						<label for="title">Nama Kategori<span style="font-size:16px;">*</span></label>
@@ -78,6 +81,13 @@
 	  $('.tipe_kategori').select2({
         placeholder: "Pilih Tipe Kategori . . . ",
         allowClear: true,
+        dropdownParent: $('#modal')
+    });
+
+    $('#kode_klasifikasi').select2({
+      placeholder: "Pilih Klasifikasi",
+      allowClear: true,
+      dropdownParent: $('#modal')
     });
 
     $('#form').submit(function (event) {
