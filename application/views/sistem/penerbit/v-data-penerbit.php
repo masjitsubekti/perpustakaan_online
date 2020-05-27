@@ -29,8 +29,8 @@
         <td style="text-align:center;" ><?=$no;?>.</td>
         <td><?=$row->nama_penerbit?></td>
         <td style="text-align:center; padding-top:5px;">
-            <a href="javascript:;" data-id="<?=$row->id_penerbit?>" data-name="<?=$row->nama_penerbit?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_penerbit?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-			<a href="javascript:;" data-id="<?=$row->id_penerbit?>" data-name="<?=$row->nama_penerbit?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_penerbit?>"><i class="fa fa-trash"></i></a>	    
+          <a href="javascript:;" data-id="<?=$row->id_penerbit?>" data-name="<?=$row->nama_penerbit?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_penerbit?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
+			    <a href="javascript:;" data-id="<?=$row->id_penerbit?>" data-name="<?=$row->nama_penerbit?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_penerbit?>"><i class="fa fa-trash"></i></a>	    
         </td>
     </tr>
     <?php } ?>
