@@ -124,7 +124,7 @@
 <script src="<?=base_url()?>assets/themes/libs/jquery/jquery.min.js"></script>
 <script src="<?=base_url()?>assets/all/js/sort-table.js"></script>
 <script>
-    $(document).ready(function () {
+  $(document).ready(function () {
 		button_save()
 	});
 

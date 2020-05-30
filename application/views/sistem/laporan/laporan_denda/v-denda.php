@@ -8,7 +8,7 @@
     <div class="col-12">
         <div class="card shade">
             <div class="card-body">
-                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Laporan Peminjaman</h4>
+                <h4 class="card-title" style="font-size:17px;"> <i class="bx bx-layer"></i> Laporan Denda</h4>
                 <!-- <br> -->
                 <br>
                 <div class="form-group row mb-4" id="box-id">
@@ -108,7 +108,7 @@
                 <hr>
                 <br>
                 <div id="box-list" style="display:none;">
-                <h4 style="text-align:center;" > LAPORAN PEMINJAMAN BUKU</h4>
+                <h4 style="text-align:center;" > LAPORAN DENDA </h4>
                 <h4 style="text-align:center;" id="narasi" ></h4>
                 <br>
                 <br>
@@ -122,7 +122,7 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                     <a href="javascript:;" id="btn-export" onclick="export_lap()" class="btn btn-success btn-box">  <i class="fas fa-file-excel"></i> &nbsp; Export Excel </a>
+                      <a href="javascript:;" onclick="export_lap()" class="btn btn-success btn-box">  <i class="fas fa-file-excel"></i> &nbsp; Export Excel </a>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
@@ -152,7 +152,7 @@
 <script src="<?=base_url()?>assets/all/js/sort-table.js"></script>
 <script src="<?=base_url()?>assets/all/js/format-date.js"></script>
 <script>
-  $(document).ready(function () {
+   $(document).ready(function () {
 		// pageLoad(1)
 	});
 
@@ -196,7 +196,7 @@
       }
 
       $.ajax({
-        url: "<?php echo site_url('Laporan/read_data_peminjaman/')?>" + i,
+        url: "<?php echo site_url('Laporan/read_data_denda/')?>" + i,
         type: 'post',
         dataType: 'html',
         data: {
@@ -314,7 +314,7 @@
       	param_tgl_akhir = tgl_akhir;
       }
 
-      window.location.href = "<?= site_url('Laporan/export_laporan_peminjaman/') ?>"+param_bulan+"/"+param_tahun+"/"+param_pertahun+"/"+param_pertanggal+"/"+param_tgl_awal+"/"+param_tgl_akhir;
+      window.location.href = "<?= site_url('Laporan/export_laporan_denda/') ?>"+param_bulan+"/"+param_tahun+"/"+param_pertahun+"/"+param_pertanggal+"/"+param_tgl_awal+"/"+param_tgl_akhir;
     }
   }
 </script>

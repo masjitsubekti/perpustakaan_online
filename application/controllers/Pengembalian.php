@@ -55,30 +55,39 @@ class Pengembalian extends CI_Controller {
         echo json_encode($response);
     }
 
-    public function read_data($pg=1)
-	{
-		$key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
-		$limit	= $this->input->post("limit");
-		$offset = ($limit*$pg)-$limit;
-		$column = $this->input->post('column');
-        $sort = $this->input->post('sort');
-        $id_anggota = $this->input->post('id_anggota');
-		
-		$page              = array();
-		$page['limit']     = $limit;
-		$page['count_row'] = $this->Pengembalian_m->list_count($id_anggota,$key)['jml'];
-        $page['current']   = $pg;
-		$page['list']      = gen_paging($page);
-		$data['paging']    = $page;
-		$data['list']      = $this->Pengembalian_m->list_data($id_anggota, $key, $limit, $offset, $column, $sort);
+    public function read_data($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      $id_anggota = $this->input->post('id_anggota');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Pengembalian_m->list_count($id_anggota,$key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Pengembalian_m->list_data($id_anggota, $key, $limit, $offset, $column, $sort);
 
-		$this->load->view('sistem/pengembalian/v-data-pengembalian',$data);
+      $this->load->view('sistem/pengembalian/v-data-pengembalian',$data);
     }
 
     public function kembali(){
         $id_detail_peminjaman = $this->input->post('id');
         $id_user = $this->session->userdata('auth_id_user');
         $peminjaman = $this->Pengembalian_m->detail_peminjaman($id_detail_peminjaman)->row_array();
+
+        $terlambat = $peminjaman['terlambat'];
+        $status = '';
+        if($terlambat==0){
+          // tidak terlambat
+          $status = '1';
+        }else{
+          // terlambat
+          $status = '2';
+        }
 
         //Simpan Pengembalian
         $id = $this->uuid->v4(false);
@@ -90,7 +99,7 @@ class Pengembalian extends CI_Controller {
             'tgl_pengembalian'=>date('Y-m-d'),
             'hari_terlambat'=>$peminjaman['terlambat'],
             'denda'=>$peminjaman['denda'],
-            'status'=>'1',
+            'status'=>$status,
             'created_at'=>date('Y-m-d H:i:s')
         );
         $this->db->insert('t_pengembalian', $data_object);
