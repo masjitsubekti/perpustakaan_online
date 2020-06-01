@@ -16,11 +16,10 @@
 <table class="table table-bordered dt-responsive mb-0" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead>
     <tr class="tr-head">
-        <th width="4%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
+        <th width="4%" style="text-align:left;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
         <th width="30%" style="text-align:left;" class="sortable" id="column_judul" data-sort="" onclick="sort_table('#column_judul','judul')">Judul</th>
         <th width="10%" class="sortable" id="column_judul" data-sort="" onclick="sort_table('#column_nama_kategori','nama_kategori')">Kategori</th>
         <th width="15%" class="sortable" id="column_penerbit" data-sort="" onclick="sort_table('#column_nama_penerbit','nama_penerbit')">Penerbit</th>
-        <th width="6%" class="sortable" id="column_stok" data-sort="" onclick="sort_table('#column_stok','stok')">Stok</th>
         <th width="8%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
@@ -29,7 +28,15 @@
     $no=($paging['current']-1)*$paging['limit']; 
     foreach ($list->result() as $row) { $no++; ?>
     <tr>
-      <td style="text-align:center;"><?=$no;?>.</td>
+      <td style="text-align:center;">
+        <!-- <center>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck<?= $no ?>">
+            <label class="custom-control-label" for="customCheck<?= $no ?>"></label>
+          </div>
+        </center> -->
+        <?= $no; ?>
+      </td>
       <td>
         <h5 class="font-size-14 text-truncate"><span href="javascript:;" class="text-dark"><?=$row->judul?></span></h5>
         <p class="text-muted mb-0">Kode Buku : <?= $row->kode_buku ?></p>
@@ -41,10 +48,17 @@
         <p class="text-muted mb-0">Tahun Terbit : <?= ($row->tahun_terbit!="") ? $row->tahun_terbit : "-" ?></p>
         <p class="text-muted mb-0">Pengarang : <?= $row->nama_pengarang ?></p>
       </td>
-      <td style="text-align:center;"><?=$row->stok?></td>
       <td style="text-align:center; padding-top:5px;">
-        <a href="<?= site_url('Buku/form_edit/'.$row->kode_buku) ?>" data-id="<?=$row->kode_buku?>" data-name="<?=$row->judul?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->judul?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-        <a href="javascript:;" data-id="<?=$row->kode_buku?>" data-name="<?=$row->judul?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->judul?>"><i class="fa fa-trash"></i></a>	    
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-dots-horizontal font-size-18"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" style="">
+              <a class="dropdown-item btn-cetak" href="javascript:;" data-id="<?=$row->kode_buku?>" data-name="CETAK_LABEL"><i class="bx bx-copy-alt"></i> Cetak Label</a>
+              <a class="dropdown-item btn-cetak" href="javascript:;" data-id="<?=$row->kode_buku?>" data-name="CETAK_BARCODE"><i class="bx bx-copy-alt"></i> Cetak Barcode</a>
+              <a class="dropdown-item" href="#"><i class="bx bx-copy-alt"></i> Cetak Katalog</a>
+          </div>
+        </div>
       </td>
     </tr>
     <?php } ?>
@@ -81,13 +95,12 @@
       <th width="30%" style="text-align:left;">Judul</th>
       <th width="10%">Kategori</th>
       <th width="15%">Penerbit</th>
-      <th width="6%">Stok</th>
       <th width="8%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
 	<tbody>
 		<tr>
-			<td colspan="6">Data tidak ditemukan !</td>
+			<td colspan="5">Data tidak ditemukan !</td>
 		</tr>
 	</tbody>
 </table>
@@ -97,7 +110,7 @@
   function sort_table(id,column){
     var sort = $(id).attr("data-sort");
     $('#input_id_th').val(id);
-    $('#input_column').val(column);
+    $('#input_column').val(column);  
     if(sort=="asc"){
       sort = 'desc';
     }else if(sort=="desc"){
@@ -111,22 +124,33 @@
   
   var site_url = '<?= site_url() ?>/';
 
-  $(".btn-ubah").click(function() {
-		$('#div_dimscreen').show();
+  $(".btn-cetak").click(function() {
     var id = $(this).attr('data-id');
+    var mode = $(this).attr('data-name');
+    var judul = "";
+    if(mode=="CETAK_LABEL"){
+      judul = "Cetak Label Buku";
+    }else if(mode=="CETAK_BARCODE"){
+      judul = "Cetak Barcode Buku";
+    }else if(mode=="CETAK_KATALOG"){
+      judul = "Cetak Katalog Buku";
+    }else{
+      judul = "";
+    }
+
 		$.ajax({
-			url: "<?php echo site_url('buku/load_modal/')?>",
+			url: "<?php echo site_url('Buku/load_modal_cetak/')?>",
 			type: 'post',
 			dataType: 'html',
-            data:{id:id},
+      data:{
+        id:id,
+        mode:mode,
+        judul:judul,
+      },
 			beforeSend: function () {},
 			success: function (result) {    
 				$('#div-modal').html(result);
-				$('#div_dimscreen').fadeOut('slow');
-				$('#modal_title_update').show();
-				$('#modeform').val('UPDATE');
-				$('#modal-color').addClass('modal-warning');
-				$('#modal').modal('show');
+				$('#modal-cetak').modal('show');
 			}
 		});
   });

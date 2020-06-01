@@ -51,6 +51,24 @@ class Buku extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }
 
+    public function cetak()
+    {
+        $this->Menu_m->role_has_access($this->nama_menu);
+
+        $data['app'] = $this->apl;
+        $data['nama_menu'] = $this->nama_menu;
+        $data['title'] = $this->nama_menu." | ".$this->apl['nama_sistem'];
+
+        // Breadcrumbs
+        $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
+        $this->mybreadcrumb->add('Cetak', site_url('Buku/cetak'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        // End Breadcrumbs
+ 
+        $data['content'] = "buku/v-cetak.php";
+        $this->parser->parse('sistem/template', $data);
+    }
+
     public function detail_katalog($kode_buku)
     {
         $this->Menu_m->role_has_access($this->nama_menu);
@@ -167,6 +185,34 @@ class Buku extends CI_Controller {
       $this->load->view('sistem/buku/v-data-katalog',$data);
     }
 
+    public function read_data_cetak($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Buku_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Buku_m->list_data($key, $limit, $offset, $column, $sort);
+
+      $this->load->view('sistem/buku/v-data-cetak',$data);
+    }
+
+    public function load_modal_cetak(){
+      $id = $this->input->post('id');
+      $mode = $this->input->post('mode');
+      $judul = $this->input->post('judul');
+      $data['kode_buku'] = $id;
+      $data['mode'] = $mode;
+      $data['judul'] = $judul;
+      $this->load->view('sistem/buku/modal-cetak',$data);
+    }
+
     public function simpan(){
         $modeform = $this->input->post('modeform');
         $kode_buku = strip_tags(trim($this->input->post('kode_buku')));
@@ -272,28 +318,28 @@ class Buku extends CI_Controller {
     }
 
     public function nonaktifkan(){
-		if($this->input->post('id')){
-			$id = $this->input->post('id');
-			date_default_timezone_set('Asia/Jakarta');
-			$object = array(
-				'status' => '0',
-				'deleted_at' => date('Y-m-d H:i:s'),
-			);
-			$this->db->where('kode_buku', $id);
-			$this->db->update('t_buku', $object);
-			
-			$response['success'] = true;
-            $response['message'] = "Data berhasil dinonaktifkan !";
-            
-            $username = $this->session->userdata('auth_username');
-            insert_log($username, "Hapus Buku", 'Berhasil Hapus Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());       
+      if($this->input->post('id')){
+        $id = $this->input->post('id');
+        date_default_timezone_set('Asia/Jakarta');
+        $object = array(
+          'status' => '0',
+          'deleted_at' => date('Y-m-d H:i:s'),
+        );
+        $this->db->where('kode_buku', $id);
+        $this->db->update('t_buku', $object);
         
-		}else{
-			$response['success'] = false;
-			$response['message'] = "Data tidak ditemukan !";
-		}
-		echo json_encode($response);
-	}
+        $response['success'] = true;
+        $response['message'] = "Data berhasil dinonaktifkan !";
+        
+        $username = $this->session->userdata('auth_username');
+        insert_log($username, "Hapus Buku", 'Berhasil Hapus Buku', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());        
+      }else{
+        $response['success'] = false;
+        $response['message'] = "Data tidak ditemukan !";
+      }
+      echo json_encode($response);
+    }
+    
 }
 
 /* End of file buku.php */
