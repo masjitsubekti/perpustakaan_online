@@ -32,6 +32,23 @@ class Anggota extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }    
 
+    public function cetak_kartu()
+    {
+        $this->Menu_m->role_has_access($this->nama_menu);
+
+        $data['app'] = $this->apl;
+        $data['nama_menu'] = $this->nama_menu;
+        $data['title'] = $this->nama_menu." | ".$this->apl['nama_sistem'];
+        
+        // Breadcrumbs
+        $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
+        $this->mybreadcrumb->add('Kartu Anggota', site_url('Anggota/cetak_kartu'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        // End Breadcrumbs
+        $data['content'] = "anggota/v-kartu-anggota.php";
+        $this->parser->parse('sistem/template', $data);
+    }    
+
     public function read_data($pg=1){
       $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
       $limit	= $this->input->post("limit");
@@ -48,6 +65,24 @@ class Anggota extends CI_Controller {
       $data['list']      = $this->Anggota_m->list_data($key, $limit, $offset, $column, $sort);
 
       $this->load->view('sistem/anggota/v-data-anggota',$data);
+    }
+
+    public function read_data_kartu($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Anggota_m->list_count($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Anggota_m->list_data($key, $limit, $offset, $column, $sort);
+
+      $this->load->view('sistem/anggota/v-data-kartu-anggota',$data);
     }
 
     public function form_add()

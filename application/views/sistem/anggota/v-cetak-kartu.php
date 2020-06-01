@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Document</title>
 <style>
-@font-face {
+/* @font-face {
   font-family: "Quicksand";
   src: url('/slims/files/membercard/classic/fonts/Quicksand/Quicksand-Regular.ttf') format('truetype');
   font-weight: 400;
@@ -17,7 +17,7 @@
   src: url('/slims/files/membercard/classic/fonts/Quicksand/Quicksand-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: bold;
-}
+} */
 
 body {
   font: 7pt/1.4 'Quicksand', sans-serif;
@@ -38,10 +38,20 @@ strong {
   flex-direction: column;
 }
 
-#front-card,
+#front-card {
+  /* width: 325px;
+  height: 204px; */
+  width: 8.6cm;
+  height: 5.4cm;
+  border: solid 1px #e4e4e4;
+  position: relative;
+}
+
 #back-card {
-  width: 325px;
-  height: 204px;
+  /* width: 325px;
+  height: 204px; */
+  width: 8.6cm;
+  height: 5.4cm;
   border: solid 1px #e4e4e4;
   position: relative;
 }
@@ -160,7 +170,7 @@ strong {
 }
 
 #back-card {
-  background: #ffffff url("/slims/files/membercard/classic/images/bg-back.svg") center center no-repeat;
+  /* background: #ffffff url("/slims/files/membercard/classic/images/bg-back.svg") center center no-repeat; */
   background-size: cover;
 }
 
@@ -229,13 +239,13 @@ strong {
 <body>
 <a class="print_btn" href="#" onclick="window.print()">Print Again</a>
 <table cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
+  <tr>
+    <td>
     <!-- Frontcard -->
     <section id="front-card">
       <header>
         <div class="logo">
-          <img src="/slims/files\membercard\classic\images\logo.png" alt="No Photo">
+          <!-- <img src="/slims/files\membercard\classic\images\logo.png" alt="No Photo"> -->
           <div class="sub-brand">Library Member Card</div>
           <div class="brand">My Library</div>
         </div>
@@ -243,30 +253,31 @@ strong {
       <main>
         <div class="identity">
           <h1>Masjit Subekti</h1>
-                    <div class="photo">
-            <img src="/slims/images/persons/member_1234.png" alt="">
-          </div>
-                              <div class="address">
-            <strong>Alamat</strong>
-            <p>Bojonegoro</p>
-          </div>
-                    <div class="personality">
-                        <div class="noid">
+            <div class="photo">
+              <img src="/slims/images/persons/member_1234.png" alt="">
+            </div>
+            <div class="address">
+              <strong>Alamat</strong>
+              <p>Bojonegoro</p>
+            </div>
+            <div class="personality">
+              <div class="noid">
               <strong>Nomor Identitas</strong>
               <p>23456</p>
             </div>
-                                    <div>
+            <div>
               <strong>Nomor Telepon</strong>
               <p>23456</p>
             </div>
-                        <div class="code">
+              <div class="code">
               <div class="expired">Exp. <strong>2021-05-02</strong></div>
               <div class="barcode">
-                <img src="/slims/images/barcodes/1234.png" alt="No  Barcode">
+                <!-- <img src="/slims/images/barcodes/1234.png" alt="No  Barcode"> -->
               </div>
             </div>
           </div>
         </div>
+        <div>lskdlksd</div>
       </main>
     </section>
     <!-- End Frontcard -->
@@ -277,31 +288,28 @@ strong {
         <div class="rules">
           <strong>Library Rules</strong>
           <ul>
-<li>This card is published by Library.</li>
-<li>Please return this card to its owner if you found it.</li>
-</ul>        </div>
-
+            <li>This card is published by Library.</li>
+            <li>Please return this card to its owner if you found it.</li>
+          </ul>   
+        </div>
         <div class="sign">
           <div class="time">City Name, 02 May 2020</div>
           <div class="position">Library Manager</div>
-          <img class="signature" src="/slims/files\membercard\classic\images\signature.png" alt="No signature">
-          <img class="stamp" src="/slims/files\membercard\classic\images\stamp.png" alt="No stamp">
+          <!-- <img class="signature" src="/slims/files\membercard\classic\images\signature.png" alt="No signature"> -->
+          <!-- <img class="stamp" src="/slims/files\membercard\classic\images\stamp.png" alt="No stamp"> -->
           <div class="librarian">Librarian Name</div>
           <div class="uid">Librarian ID</div>
         </div>
-
         <footer>
           <div class="title">My Library</div>
           <address>
             My Library Full Address and Website          </address>
         </footer>
-
     </section>
     <!-- End Backcard -->
     </td>
-      </tr>
-  </table>
-
+  </tr>
+</table>
 <script type="text/javascript">
   self.print();
 </script>

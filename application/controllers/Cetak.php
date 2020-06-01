@@ -37,8 +37,17 @@ class Cetak extends CI_Controller{
       
     }
 
-    public function cetak_kartu_anggota() {
+    public function cetak_kartu_anggota($id_anggota) {
+      $data['aplikasi'] = $this->apl;
+      $data['title'] = "Cetak Kartu Anggota | ".$this->apl['instansi'];
+      $data['detail_anggota'] = $this->Anggota_m->get_anggota($id_anggota)->row_array(); 
       
+      $this->load->library('pdf');
+      $this->pdf->setPaper('A4', 'potrait');
+      $this->pdf->filename = "CETAK KARTU ANGGOTA.pdf";
+      // $this->pdf->load_view('sistem/anggota/v-cetak-kartu.php', $data);    
+      $this->pdf->load_view('sistem/anggota/cetak-kartu-anggota.php', $data);    
+      // $this->load->view('sistem/anggota/cetak-kartu-anggota.php', $data);    
     }
 
     public function barcode(){

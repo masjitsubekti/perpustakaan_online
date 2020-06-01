@@ -42,8 +42,7 @@
         <p class="text-muted mb-0">No Telp : <?= $row->no_telp ?></p>
       </td>
       <td style="text-align:center; padding-top:5px;">
-        <a href="<?= site_url('Anggota/form_edit/'.$row->id_anggota) ?>" data-id="<?=$row->id_anggota?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_anggota?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
-        <a href="javascript:;" data-id="<?=$row->id_anggota?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_anggota?>"><i class="fa fa-trash"></i></a>	    
+        <a href="javascript:;" data-id="<?=$row->id_anggota?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-success btn-cetak-kartu" data-toggle="tooltip" title="Cetak Kartu <?=$row->nama_anggota?>"><i class="fa fa-copy"></i></a>	    
       </td>
     </tr>
     <?php } ?>
