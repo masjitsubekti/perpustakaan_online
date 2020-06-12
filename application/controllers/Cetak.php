@@ -37,17 +37,42 @@ class Cetak extends CI_Controller{
       
     }
 
-    public function cetak_kartu_anggota($id_anggota) {
+    public function cetak_kartu_anggota($id_anggota){
       $data['aplikasi'] = $this->apl;
-      $data['title'] = "Cetak Kartu Anggota | ".$this->apl['instansi'];
-      $data['detail_anggota'] = $this->Anggota_m->get_anggota($id_anggota)->row_array(); 
+
+      $pecahkan = explode('-', $id_anggota);
+      $jml = count($pecahkan);
       
-      $this->load->library('pdf');
-      $this->pdf->setPaper('A4', 'potrait');
-      $this->pdf->filename = "CETAK KARTU ANGGOTA.pdf";
-      // $this->pdf->load_view('sistem/anggota/v-cetak-kartu.php', $data);    
-      $this->pdf->load_view('sistem/anggota/cetak-kartu-anggota.php', $data);    
-      // $this->load->view('sistem/anggota/cetak-kartu-anggota.php', $data);    
+      for($i = 0; $i < $jml; $i++){
+        $detail = $this->Anggota_m->get_anggota($pecahkan[$i])->row_array(); 
+        $data['anggota'][] = array(
+          'id_anggota' => $detail['id_anggota'],
+          'nama_anggota' => $detail['nama_anggota'],
+          'nama_jenis_anggota' => $detail['nama_jenis_anggota'],
+          'foto' => $detail['foto'],
+          'barcode' => $detail['barcode'], 
+        );
+      }
+
+      $this->load->view('sistem/anggota/cetak-kartu-anggota.php', $data);    
+    }
+
+    public function cek_kartu(){
+      $dataId = json_decode($_POST['id'], true);
+      
+      $tampung = "";
+      $jml_array = count($dataId);
+      $no = 0;
+      foreach ($dataId as $id) {
+        $no++;
+        if($no==$jml_array){
+            $tampung .= $id;
+        }else{
+            $tampung .= $id."-";
+        }    
+      }
+      $data['id_anggota'] = $tampung;
+      $this->load->view('sistem/anggota/modal-cetak-anggota.php', $data);  
     }
 
     public function barcode(){

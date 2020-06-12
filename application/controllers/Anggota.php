@@ -302,7 +302,13 @@ class Anggota extends CI_Controller {
 			$response['message'] = "Data tidak ditemukan !";
 		}
 		echo json_encode($response);
-	}
+  }
+  
+  public function load_modal_cetak(){
+    $id = $this->input->post('id');
+    $data['id_anggota'] = $id;
+    $this->load->view('sistem/anggota/modal-cetak-anggota',$data);
+  }
 }
 
 /* End of file Anggota.php */
