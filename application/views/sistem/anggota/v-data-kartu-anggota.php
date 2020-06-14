@@ -142,19 +142,26 @@
       anggota.push($(this).val());
     });
 
-		$.ajax({
-			url: "<?php echo site_url('Cetak/cek_kartu')?>",
-			type: 'post',
-      dataType: 'html',
-      data:{
-        id:JSON.stringify(anggota),
-      },
-			beforeSend: function () {},
-			success: function (result) {    
-        $('#div-modal').html(result);
-        $('#modal-cetak').modal('show');
-			}
-		});
+    var jum_length = anggota.length;
+    if(jum_length==0){
+      Swal.fire({type: 'error',title: 'Oops...',text: 'Harap Pilih Anggota !'});
+    }else if(jum_length>8){
+      Swal.fire({type: 'error',title: 'Oops...',text: 'Batas Antrian Cetak Maksimal 8 Kartu Anggota !'});    
+    }else{
+      $.ajax({
+        url: "<?php echo site_url('Cetak/cek_kartu')?>",
+        type: 'post',
+        dataType: 'html',
+        data:{
+          id:JSON.stringify(anggota),
+        },
+        beforeSend: function () {},
+        success: function (result) {    
+          $('#div-modal').html(result);
+          $('#modal-cetak').modal('show');
+        }
+      });
+    }
   });
 
 </script>

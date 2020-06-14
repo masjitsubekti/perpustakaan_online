@@ -31,10 +31,25 @@ class Peminjaman extends CI_Controller {
         // End Breadcrumbs
         $data['content'] = "peminjaman/v-peminjaman.php";
         $this->parser->parse('sistem/template', $data);
-    }    
+    }
+    
+    public function terlambat(){
+        $this->Menu_m->role_has_access($this->nama_menu);
 
-    public function read_anggota()
-	{
+        $data['app'] = $this->apl;
+        $data['nama_menu'] = $this->nama_menu;
+        $data['title'] = $this->nama_menu." | ".$this->apl['nama_sistem'];
+        
+        // Breadcrumbs
+        $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
+        $this->mybreadcrumb->add('Terlambat', site_url('Peminjaman/terlambat'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        // End Breadcrumbs
+        $data['content'] = "peminjaman/v-terlambat.php";
+        $this->parser->parse('sistem/template', $data);
+    }
+
+    public function read_anggota(){
         $id_anggota = $this->input->post('id_anggota');
         $data_anggota = $this->Anggota_m->get_anggota($id_anggota);
         
@@ -172,6 +187,49 @@ class Peminjaman extends CI_Controller {
         $this->load->view('sistem/peminjaman/modal-max',$data);
     }
 
+    public function read_data_terlambat($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+      
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Peminjaman_m->list_count_terlambat($key)['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Peminjaman_m->list_data_terlambat($key, $limit, $offset, $column, $sort);
+  
+      $this->load->view('sistem/peminjaman/v-data-terlambat',$data);
+    }
+
+    public function load_modal_catatan(){
+      $id = $this->input->post('id');
+      $pecahkan = explode('/', $id);
+      $data['id_anggota'] = $pecahkan[0];
+      $data['id_detail_peminjaman'] = $pecahkan[1];
+      $data_pinjam = $this->Peminjaman_m->get_peminjaman_perid($pecahkan[1])->row_array();
+      $data['data_pinjam'] = $data_pinjam;
+      $this->load->view('sistem/peminjaman/modal-catatan',$data);
+    }
+
+    public function kirim_notif(){
+      $id_anggota = $this->input->post('id_anggota');
+      $id_detail_peminjaman = $this->input->post('id_detail_peminjaman');
+      $catatan = $this->input->post('catatan');
+      $data_pinjam = $this->Peminjaman_m->get_peminjaman_perid($id_detail_peminjaman)->row_array();
+      $anggota = $this->M_main->get_where('t_anggota', 'id_anggota', $id_anggota)->row_array();
+      $nama = $anggota['nama_anggota'];
+      $email = $anggota['email'];
+
+      $response['success'] = TRUE;
+      $response['message_email'] = api_notif_jatuh_tempo($nama,$email,$catatan,$data_pinjam);		    
+      $response['message'] = "Notifikasi Berhasil Dikirim !";
+      $response['page'] = "Auth";
+      echo json_encode($response);
+    }
 }
 
 /* End of file Beranda.php */

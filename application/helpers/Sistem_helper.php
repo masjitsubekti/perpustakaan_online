@@ -129,70 +129,70 @@ function validateDate($date, $format = 'd-m-Y')
 }
 
 function api_register($id_user,$nama,$email){
-    $CI =& get_instance();
-    $config = [
-        'mailtype'  => 'html',
-        'charset'   => 'utf-8',
-        'protocol'  => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_user' => $CI->apl['email_instansi'],
-        'smtp_pass' => $CI->apl['pass_instansi'],
-        'smtp_port' => 465,
-        'crlf'      => "\r\n",
-        'newline'   => "\r\n"
-    ];
+  $CI =& get_instance();
+  $config = [
+      'mailtype'  => 'html',
+      'charset'   => 'utf-8',
+      'protocol'  => 'smtp',
+      'smtp_host' => 'ssl://smtp.gmail.com',
+      'smtp_user' => $CI->apl['email_instansi'],
+      'smtp_pass' => $CI->apl['pass_instansi'],
+      'smtp_port' => 465,
+      'crlf'      => "\r\n",
+      'newline'   => "\r\n"
+  ];
 
-    $CI->load->library('email', $config); 
-    $CI->email->from($CI->apl['email_instansi'], $CI->apl['nama_sistem']);
-    $CI->email->to($email);
-    // $CI->email->attach('url_file');
-    $CI->email->subject('Verifikasi Pendaftaran | '.$CI->apl['nama_sistem']);
-    $data['id_user'] = $id_user;
-    $data['nama'] = $nama;
-    $data['root_apl'] = $CI->apl['url_root'];
-    $body = $CI->load->view('front/login/format-email',$data,TRUE);
-    $CI->email->message($body);
-    if ($CI->email->send()) {
-        $message = 'Sukses! email berhasil dikirim.';
-    } else {
-        $message =  'Error! email tidak dapat dikirim.';
-    }
-    return $message;
+  $CI->load->library('email', $config); 
+  $CI->email->from($CI->apl['email_instansi'], $CI->apl['nama_sistem']);
+  $CI->email->to($email);
+  // $CI->email->attach('url_file');
+  $CI->email->subject('Verifikasi Pendaftaran | '.$CI->apl['nama_sistem']);
+  $data['id_user'] = $id_user;
+  $data['nama'] = $nama;
+  $data['root_apl'] = $CI->apl['url_root'];
+  $body = $CI->load->view('front/login/format-email',$data,TRUE);
+  $CI->email->message($body);
+  if ($CI->email->send()) {
+      $message = 'Sukses! email berhasil dikirim.';
+  } else {
+      $message =  'Error! email tidak dapat dikirim.';
+  }
+  return $message;
 }
 
 function api_reset_pass($id_user,$nama,$email){
-    $CI =& get_instance();
-    $config = [
-        'mailtype'  => 'html',
-        'charset'   => 'utf-8',
-        'protocol'  => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_user' => $CI->apl['email_instansi'],
-        'smtp_pass' => $CI->apl['pass_instansi'],
-        'smtp_port' => 465,
-        'crlf'      => "\r\n",
-        'newline'   => "\r\n"
-    ];
+  $CI =& get_instance();
+  $config = [
+      'mailtype'  => 'html',
+      'charset'   => 'utf-8',
+      'protocol'  => 'smtp',
+      'smtp_host' => 'ssl://smtp.gmail.com',
+      'smtp_user' => $CI->apl['email_instansi'],
+      'smtp_pass' => $CI->apl['pass_instansi'],
+      'smtp_port' => 465,
+      'crlf'      => "\r\n",
+      'newline'   => "\r\n"
+  ];
 
-    $CI->load->library('email', $config); 
-    $CI->email->from($CI->apl['email_instansi'], $CI->apl['nama_sistem']);
-    $CI->email->to($email);
-    // $CI->email->attach('url_file');
-    $CI->email->subject('Reset Password | '.$CI->apl['nama_sistem']);
-    $data['id_user'] = $id_user;
-    $data['nama'] = $nama;
-    $data['root_apl'] = $CI->apl['url_root'];
-    $body = $CI->load->view('front/login/format-email-reset-pass',$data,TRUE);
-    $CI->email->message($body);
-    if ($CI->email->send()) {
-        $message = 'Sukses! email berhasil dikirim.';
-    } else {
-        $message =  'Error! email tidak dapat dikirim.';
-    }
-    return $message;
+  $CI->load->library('email', $config); 
+  $CI->email->from($CI->apl['email_instansi'], $CI->apl['nama_sistem']);
+  $CI->email->to($email);
+  // $CI->email->attach('url_file');
+  $CI->email->subject('Reset Password | '.$CI->apl['nama_sistem']);
+  $data['id_user'] = $id_user;
+  $data['nama'] = $nama;
+  $data['root_apl'] = $CI->apl['url_root'];
+  $body = $CI->load->view('front/login/format-email-reset-pass',$data,TRUE);
+  $CI->email->message($body);
+  if ($CI->email->send()) {
+      $message = 'Sukses! email berhasil dikirim.';
+  } else {
+      $message =  'Error! email tidak dapat dikirim.';
+  }
+  return $message;
 }
 
-function api_add_peserta($id_user,$nama,$email,$username){
+function api_notif_jatuh_tempo($nama,$email,$catatan,$data_pinjam = array()){
     $CI =& get_instance();
     $config = [
         'mailtype'  => 'html',
@@ -210,50 +210,13 @@ function api_add_peserta($id_user,$nama,$email,$username){
     $CI->email->from($CI->apl['email_instansi'], $CI->apl['nama_sistem']);
     $CI->email->to($email);
     // $CI->email->attach('url_file');
-    $CI->email->subject('Verifikasi Pendaftaran | '.$CI->apl['nama_sistem']);
-    $data['id_user'] = $id_user;
-    $data['username'] = $username;
+    $CI->email->subject('Jatuh Tempo Peminjaman | '.$CI->apl['nama_sistem']);
     $data['nama'] = $nama;
+    $data['catatan'] = $catatan;
+    $data['data_pinjam'] = $data_pinjam;
     $data['root_apl'] = $CI->apl['url_root'];
-    $body = $CI->load->view('admin_sistem/format_email/email-add-peserta',$data,TRUE);
-    $CI->email->message($body);
-    if ($CI->email->send()) {
-        $message = 'Sukses! email berhasil dikirim.';
-    } else {
-        $message =  'Error! email tidak dapat dikirim.';
-    }
-    return $message;
-}
-
-function api_usulan_pelatihan($id_user,$nama,$email,$username,$param,$data_pelatihan = array()){
-    $CI =& get_instance();
-    $config = [
-        'mailtype'  => 'html',
-        'charset'   => 'utf-8',
-        'protocol'  => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_user' => $CI->apl['email_instansi'],
-        'smtp_pass' => $CI->apl['pass_instansi'],
-        'smtp_port' => 465,
-        'crlf'      => "\r\n",
-        'newline'   => "\r\n"
-    ];
-
-    $CI->load->library('email', $config); 
-    $CI->email->from($CI->apl['email_instansi'], $CI->apl['nama_sistem']);
-    $CI->email->to($email);
-    // $CI->email->attach('url_file');
-    $CI->email->subject('Pengajuan Usulan Pelatihan | '.$CI->apl['nama_sistem']);
-    $data['id_user'] = $id_user;
-    $data['nama'] = $nama;
-    $data['username'] = $username;
-    $data['data_pelatihan'] = $data_pelatihan;
-    $data['root_apl'] = $CI->apl['url_root'];
-    if($param == "USULAN_PELATIHAN"){
-        $body = $CI->load->view('admin_sistem/format_email/email-usulan-pelatihan',$data,TRUE);     
-    }else if($param == "VERIFIKASI_USULAN_PELATIHAN"){
-        $body = $CI->load->view('admin_sistem/format_email/email-verifikasi-booking',$data,TRUE);
-    }
+    $data['nama_sistem'] = $CI->apl['nama_sistem'];
+    $body = $CI->load->view('sistem/format_email/email-jatuh-tempo',$data,TRUE);     
     $CI->email->message($body);
     if ($CI->email->send()) {
         $message = 'Sukses! email berhasil dikirim.';
