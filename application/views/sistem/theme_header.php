@@ -144,7 +144,7 @@
     </div>
 </header> 
 <script>
-    function logout() {
+  function logout() {
     Swal.fire({
         title: 'Keluar dari Sistem ?',
         text: "Apakah Anda yakin keluar dari sistem !",

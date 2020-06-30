@@ -33,7 +33,7 @@ class Peminjaman extends CI_Controller {
         $this->parser->parse('sistem/template', $data);
     }
     
-    public function terlambat(){
+    public function jatuh_tempo(){
         $this->Menu_m->role_has_access($this->nama_menu);
 
         $data['app'] = $this->apl;
@@ -42,7 +42,7 @@ class Peminjaman extends CI_Controller {
         
         // Breadcrumbs
         $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
-        $this->mybreadcrumb->add('Terlambat', site_url('Peminjaman/terlambat'));
+        $this->mybreadcrumb->add('Jatuh Tempo', site_url('Peminjaman/terlambat'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
         // End Breadcrumbs
         $data['content'] = "peminjaman/v-terlambat.php";
