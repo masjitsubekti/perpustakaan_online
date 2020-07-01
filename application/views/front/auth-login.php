@@ -34,7 +34,8 @@
                             </div>
                         </div>
                         <div class="card-body pt-0"> 
-                            <div>
+                            <br>
+                            <!-- <div>
                                 <a href="index.html">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
@@ -42,7 +43,7 @@
                                         </span>
                                     </div>
                                 </a>
-                            </div>
+                            </div> -->
                             <div class="p-2" id="login">
                                 <form class="form-horizontal" @submit.prevent="login">
     

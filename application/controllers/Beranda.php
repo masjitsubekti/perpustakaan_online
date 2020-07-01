@@ -27,8 +27,10 @@ class Beranda extends CI_Controller {
     $roles = $this->session->userdata("auth_id_role");
     if($roles=="HA05"){
       $data['content'] = "beranda/v-beranda-anggota.php";
+    }else if($roles=="HA01"){
+      $data['content'] = "beranda/v-dashboard.php";
     }else{
-      $data['content'] = "beranda/v-beranda.php";
+      $data['content'] = "beranda/v-beranda.php";    
     }
 
     $this->parser->parse('sistem/template', $data);

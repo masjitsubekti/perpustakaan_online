@@ -48,9 +48,13 @@
         <td style="text-align:center;"><?=$row->terlambat?> Hari</td>
         <td style="text-align:center;">Rp. <?= ($row->denda!="") ? number_format($row->denda) : 0 ?></td>
         <td style="text-align:center;">
-          <a href="javascript:;" data-id="<?=$row->id_anggota?>/<?=$row->id_detail_peminjaman?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-success btn-reminder" data-toggle="tooltip" title="<?=$row->nama_anggota?>"><i class="fa fa-bell"></i> Kirim Pesan</a>	    
+          <?php 
+          $role = $this->session->userdata("auth_id_role");
+          if($role=="HA01" || $role=="HA02"){ ?>
+            <a href="javascript:;" data-id="<?=$row->id_anggota?>/<?=$row->id_detail_peminjaman?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-success btn-reminder" data-toggle="tooltip" title="<?=$row->nama_anggota?>"><i class="fa fa-bell"></i> Kirim Pesan</a>	    
+          <?php } ?>
         </td>
-    </tr>
+      </tr>
     <?php } ?>
     </tbody>
 </table>

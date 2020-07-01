@@ -61,8 +61,52 @@
                     </li>
 
                 <?php }} ?>
+                <li>
+                    <a href="javascript:;"  onclick="logout_menu()" class=" waves-effect">
+                        <i class="bx bx-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
         </ul>
     </div>
     <!-- Sidebar -->
 </div>
 </div>
+<script>
+  function logout_menu() {
+    Swal.fire({
+        title: 'Keluar dari Sistem ?',
+        text: "Apakah Anda yakin keluar dari sistem !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Logout',
+        cancelButtonText: 'Batal',
+        showLoaderOnConfirm: true,
+        preConfirm: function () {
+            return new Promise(function (resolve) {
+                axios.post('<?= site_url() ?>'+'/Auth/logout')
+                .then((response) => {
+                    // success callback
+                    setTimeout(function(){
+                        if(response.data.success===true){
+                            Swal.fire('Berhasil',response.data.message,'success');
+                            swal.hideLoading()
+                            setTimeout(function(){ 
+                              window.location.href = '<?= site_url() ?>' + response.data.page;
+                            }, 1000);
+                        }else{
+                            Swal.fire({type: 'error',title: 'Oops...',text: response.data.message});
+                        }   
+                    }, 1000);
+                }, (response) => {
+                    // error callback
+                    Swal.fire({type: 'error',title: 'Oops...',text: 'error...'});
+                });
+            });
+        },
+        allowOutsideClick: false
+    });
+}
+</script>
