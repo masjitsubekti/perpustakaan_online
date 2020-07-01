@@ -77,7 +77,7 @@
       function list_data_peminjaman($limit="", $offset="", $column="", $sort="", $status="1"){
           $query = $this->db->query("
               select tp.*, ta.nama_anggota, tdp.id_detail_peminjaman, ta.no_identitas, mja.nama_jenis_anggota, tdp.kode_buku, tb.judul,
-              tdp.tgl_pinjam, tdp.tgl_kembali, datediff(tdp.tgl_kembali ,tdp.tgl_pinjam) as lama_pinjam from t_peminjaman tp 
+              tdp.tgl_pinjam, tdp.tgl_kembali, datediff(tdp.tgl_kembali ,tdp.tgl_pinjam) as lama_pinjam, tdp.status from t_peminjaman tp 
                 left join t_detail_peminjaman tdp on tp.id_peminjaman = tdp.id_peminjaman 
                 left join t_buku tb on tdp.kode_buku = tb.kode_buku 
                 left join t_anggota ta on tp.id_anggota = ta.id_anggota 

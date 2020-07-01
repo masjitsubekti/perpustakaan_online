@@ -22,13 +22,13 @@
                     <div class="card overflow-hidden">
                         <div class="bg-soft-primary">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <div class="text-primary p-4">
-                                        <h5 class="text-primary">Welcome Back !</h5>
-                                        <p>Sign in to continue to Skote.</p>
+                                        <h5 class="text-primary">Selamat Datang !</h5>
+                                        <p>Silahkan masuk dengan menggunakan Email dan password.</p>
                                     </div>
                                 </div>
-                                <div class="col-5 align-self-end">
+                                <div class="col-4 align-self-end">
                                     <img src="<?=base_url()?>assets/themes/images/profile-img.png" alt="" class="img-fluid">
                                 </div>
                             </div>
@@ -79,9 +79,9 @@
         
                         </div>
                     </div>
-                    <div class="mt-5 text-center">
+                    <div class="mt-2 text-center">
                         <p>Don't have an account ? <a href="auth-register.html" class="font-weight-medium text-primary"> Signup now </a> </p>
-                        <p>© 2020 Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                        <p>© 2020 Perpustakaan Online. <b> All rights reserved. </b></p>
                     </div>
 
                 </div>

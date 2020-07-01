@@ -56,7 +56,7 @@
           <div class="dropdown-menu dropdown-menu-right" style="">
               <a class="dropdown-item btn-cetak" href="javascript:;" data-id="<?=$row->kode_buku?>" data-name="CETAK_LABEL"><i class="bx bx-copy-alt"></i> Cetak Label</a>
               <a class="dropdown-item btn-cetak" href="javascript:;" data-id="<?=$row->kode_buku?>" data-name="CETAK_BARCODE"><i class="bx bx-copy-alt"></i> Cetak Barcode</a>
-              <a class="dropdown-item" href="#"><i class="bx bx-copy-alt"></i> Cetak Katalog</a>
+              <!-- <a class="dropdown-item" href="#"><i class="bx bx-copy-alt"></i> Cetak Katalog</a> -->
           </div>
         </div>
       </td>

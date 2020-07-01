@@ -35,6 +35,28 @@
           ";
           return $this->db->query($query);
       }
+
+      function get_peminjaman_aktif($id_anggota,$status="1"){
+        $query = "
+                select tp.*, tdp.*, tb.judul, tb.foto from t_peminjaman tp 
+                    left join t_detail_peminjaman tdp on tp.id_peminjaman = tdp.id_peminjaman 
+                    left join t_buku tb on tdp.kode_buku = tb.kode_buku 
+                where 
+                    tdp.status = '$status'
+                    and tp.id_anggota = '$id_anggota'
+        ";
+        return $this->db->query($query);
     }
+
+    function list_peminjaman($id_anggota){
+      $query = "
+              select * from t_peminjaman 
+              where 
+                id_anggota = '$id_anggota'
+              order by created_at desc
+      ";
+      return $this->db->query($query);
+    }
+  }
     /* End of file Histori_peminjaman_m.php */    
 ?>

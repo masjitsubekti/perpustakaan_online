@@ -32,6 +32,41 @@ class Peminjaman extends CI_Controller {
         $data['content'] = "peminjaman/v-peminjaman.php";
         $this->parser->parse('sistem/template', $data);
     }
+
+    public function data_peminjaman()
+    {
+        $this->Menu_m->role_has_access($this->nama_menu);
+
+        $data['app'] = $this->apl;
+        $data['nama_menu'] = $this->nama_menu;
+        $data['title'] = $this->nama_menu." | ".$this->apl['nama_sistem'];
+        
+        // Breadcrumbs
+        $this->mybreadcrumb->add('Beranda', site_url('Beranda'));
+        $this->mybreadcrumb->add('Data Peminjaman', site_url('Peminjaman/data_peminjaman'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        // End Breadcrumbs
+        $data['content'] = "peminjaman/list-peminjaman.php";
+        $this->parser->parse('sistem/template', $data);
+    }
+
+    public function read_data($pg=1){
+      $key	= ($this->input->post("cari") != "") ? strtoupper(quotes_to_entities($this->input->post("cari"))) : "";
+      $limit	= $this->input->post("limit");
+      $offset = ($limit*$pg)-$limit;
+      $column = $this->input->post('column');
+      $sort = $this->input->post('sort');
+		
+      $page              = array();
+      $page['limit']     = $limit;
+      $page['count_row'] = $this->Peminjaman_m->list_count_peminjaman()['jml'];
+      $page['current']   = $pg;
+      $page['list']      = gen_paging($page);
+      $data['paging']    = $page;
+      $data['list']      = $this->Peminjaman_m->list_data_peminjaman($limit, $offset, $column, $sort);
+
+      $this->load->view('sistem/peminjaman/data-peminjaman',$data);
+    }
     
     public function jatuh_tempo(){
         $this->Menu_m->role_has_access($this->nama_menu);

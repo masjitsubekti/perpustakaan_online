@@ -1,23 +1,4 @@
 <ul class="verti-timeline list-unstyled">
-
-  <!-- <li class="event-list active">
-    <div class="event-timeline-dot">
-        <i class="bx bx-right-arrow-circle bx-fade-right"></i>
-    </div>
-    <div class="media">
-        <div class="mr-3">
-            <i class="bx bx-car h2 text-primary"></i>
-        </div>
-        <div class="media-body">
-            <div>
-                <h5>Shipped</h5>
-                <p class="text-muted">It will be as simple as Occidental in fact, it will be Occidental..</p>
-                
-            </div>
-        </div>
-    </div>
-  </li> -->
-
 <?php if($list_peminjaman->num_rows()!=0){ 
   foreach ($list_peminjaman->result() as $row) { ?>
     <li class="event-list">
@@ -30,7 +11,7 @@
         </div>
         <div class="media-body">
           <div>
-            <h5> Peminjaman Tanggal <?= generate_tanggal_indonesia($row->created_at) ?> </h5>
+            <!-- <h5> Peminjaman Tanggal <?= generate_tanggal_indonesia($row->created_at) ?> </h5> -->
             <?php 
               $detail = $this->Histori_peminjaman_m->peminjaman_anggota($row->id_peminjaman)->result();
               foreach ($detail as $a) { ?>
@@ -53,7 +34,7 @@
     </li>
   <?php } ?>
 <?php }else{ ?>
-  Data Tidak Ditemukan !
+  <div class="alert alert-warning"> <i class="fa fa-info-circle"></i> Data Peminjaman Tidak Dutemukan ! </div>
 <?php } ?>
 </ul>
 

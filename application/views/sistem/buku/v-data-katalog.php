@@ -27,23 +27,23 @@
         <div class="card-body">
             <div class="product-img position-relative">
                 <div class="avatar-sm product-ribbon">
-                    <span class="avatar-title rounded-circle  bg-primary">
+                    <!-- <span class="avatar-title rounded-circle  bg-primary">
                         - 25 %
-                    </span>
+                    </span> -->
                 </div>
                 <img src="<?= base_url() ?>assets/data/foto_buku/<?= $row->foto ?>" style="width:100%; height:230px;" alt="" class="img-fluid mx-auto d-block">
             </div>
+            <hr>
             <div class="mt-4 text-center">
-                <h5 class="mb-3 text-truncate"><a href="<?= site_url('Buku/detail_katalog/'.$row->kode_buku) ?>" class="text-dark"><?= $row->judul ?></a></h5>
-                
-                <p class="text-muted">
+                <h5 class="mb-3 text-truncate"><a href="<?= site_url('Cari_buku/detail_katalog/'.$row->kode_buku) ?>" class="text-dark"><?= $row->judul ?></a></h5>
+                <!-- <p class="text-muted">
                     <i class="bx bx-star text-warning"></i>
                     <i class="bx bx-star text-warning"></i>
                     <i class="bx bx-star text-warning"></i>
                     <i class="bx bx-star text-warning"></i>
                     <i class="bx bx-star text-warning"></i>
-                </p>
-                <h5 class="my-0"><span class="text-muted mr-2"><del>$500</del></span> <b>$450</b></h5>
+                </p> -->
+                <!-- <h5 class="my-0"><span class="text-muted mr-2"><del>$500</del></span> <b>$450</b></h5> -->
             </div>
         </div>
     </div>

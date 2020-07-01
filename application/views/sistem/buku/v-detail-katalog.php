@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="col-xl-7">
-                        <div class="mt-4 mt-xl-3">
+                        <div class="">
                             <a href="#" class="text-primary"><?= $book['nama_kategori'] ?></a>
                             <h4 class="mt-1 mb-3"><?= $book['judul'] ?></h4>
 
@@ -60,13 +60,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php 
+                            $role = $this->session->userdata("auth_id_role");
+                            if($role=="HA05"){
+                              $id_user = $this->session->userdata("auth_id_user");
+                              $data_anggota = $this->M_main->get_where('t_anggota','id_user',$id_user)->row_array();
+                              $id_anggota = $data_anggota['id_anggota']; ?>
+                             
+                              <input type="hidden" name="id_anggota" id="id_anggota" value="<?= $id_anggota ?>">
+                              <a href="javascript:;" id="btn-pinjam" data-id="<?= $book['kode_buku'] ?>" data-name="<?= $book['judul'] ?>" class="btn btn-primary" data-toggle="tooltip" title="Pinjam"> <i class="bx bx-select-multiple"></i> Pinjam</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
                 <!-- end row -->
                 <div class="mt-5">
                     <h5 class="mb-3">Deskripsi Buku :</h5>
-
+                    
                     <div class="table-responsive">
                         <table class="table mb-0 table-bordered">
                             <tbody>
@@ -125,3 +135,59 @@
     </div>
 </div>
 <!-- end row -->
+<script src="<?=base_url()?>assets/themes/libs/jquery/jquery.min.js"></script>
+<script>
+
+	$('#btn-pinjam').click(function (e) {
+		var kode_buku = $(this).attr('data-id');
+		var id_anggota = $('#id_anggota').val();
+    var title = $(this).attr('data-name');
+  
+		Swal.fire({
+			title: 'Pinjam Buku',
+			text: "Apakah Anda yakin meminjam buku  : " + title + " !",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3498db',
+			cancelButtonColor: '#95a5a6',
+			confirmButtonText: 'Pinjam',
+			cancelButtonText: 'Batal',
+			showLoaderOnConfirm: true,
+			preConfirm: function () {
+				return new Promise(function (resolve) {
+					$.ajax({
+						method: 'POST',
+						dataType: 'json',
+						url: '<?= site_url() ?>' + 'Peminjaman_anggota/pinjam',
+						data: {
+							kode_buku: kode_buku,
+							id_anggota: id_anggota
+						},
+						success: function (data) {
+							if (data.success === true) {
+								Toast.fire({
+									type: 'success',
+									title: data.message
+                });
+								swal.hideLoading()
+								location.reload();
+							} else {
+								Swal.fire({
+									type: 'error',
+									title: 'Oops...',
+									text: data.message
+								});
+							}
+						},
+						fail: function (e) {
+							alert(e);
+						}
+					});
+				});
+			},
+			allowOutsideClick: false
+		});
+		e.preventDefault();
+	});
+</script>
+
