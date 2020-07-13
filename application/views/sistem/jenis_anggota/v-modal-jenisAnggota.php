@@ -94,6 +94,22 @@
 									?>"
 						required >
 					</div>	
+          <div class="form-group">
+						<label for="title">Notifikasi Terlambat</label>
+						<input 
+							class="form-control" 
+							id="notifikasi_terlambat" 
+							name="notifikasi_terlambat" 
+							type="text" 
+							placeholder="Notifikasi Terlambat . . ." 
+							autocomplete="off" 
+							value="<?php 
+										if(isset($data_jenis)){
+											echo $data_jenis['notifikasi_terlambat'];
+										} 
+									?>"
+						required >
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
@@ -192,6 +208,10 @@
   });
 
 	setInputFilter(document.getElementById("jumlah_denda"), function(value) {
+	return /^-?\d*$/.test(value); 
+  });
+
+  setInputFilter(document.getElementById("notifikasi_terlambat"), function(value) {
 	return /^-?\d*$/.test(value); 
   });
 

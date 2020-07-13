@@ -16,12 +16,13 @@
 <table class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead>
     <tr class="tr-head">
-        <th width="3%" style="text-align:center;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
+        <th width="3%" style="text-align:left;" class="sortable" id="column_waktu" data-sort="desc" onclick="sort_table('#column_waktu','created_at')">No </th>
         <th width="13%" class="sortable" id="column_nama_jenis_anggota" data-sort="" onclick="sort_table('#column_nama_jenis_anggota','nama_jenis_anggota')">Jenis Anggota</th>
-        <th width="8%" class="sortable" id="column_max_pinjam" data-sort="" onclick="sort_table('#column_max_pinjam','max_peminjaman')">Max Pinjam</th>
-        <th width="10%" class="sortable" id="column_max_perpanjangan" data-sort="" onclick="sort_table('#column_max_perpanjangan','max_perpanjangan')">Max Perpanjangan</th>
+        <th width="9%" class="sortable" id="column_max_pinjam" data-sort="" onclick="sort_table('#column_max_pinjam','max_peminjaman')">Max Pinjam</th>
+        <th width="10%" class="sortable" id="column_max_perpanjangan" data-sort="" onclick="sort_table('#column_max_perpanjangan','max_perpanjangan')">Perpanjangan</th>
         <th width="10%" class="sortable" id="column_lama_pinjam" data-sort="" onclick="sort_table('#column_lama_pinjam','lama_pinjam')">Lama Pinjam</th>
         <th width="10%" class="sortable" id="column_jumlah_denda" data-sort="" onclick="sort_table('#column_jumlah_denda','jumlah_denda')">Denda</th>
+        <th width="7%" class="sortable" id="column_notifikasi_terlambat" data-sort="" onclick="sort_table('#column_notifikasi_terlambat','notifikasi_terlambat')">Notifikasi</th>
         <th width="10%" style="text-align:center;">Aksi</th>
     </tr>
     </thead>
@@ -36,6 +37,7 @@
       <td style="text-align:center;"><?=$row->max_perpanjangan?> x</td>
       <td style="text-align:center;"><?=$row->lama_pinjam?> Hari</td>
       <td style="text-align:center;">Rp <?= ($row->jumlah_denda!="") ? number_format($row->jumlah_denda) : 0 ?></td>
+      <td style="text-align:center;"><?=$row->notifikasi_terlambat?></td>
       <td style="text-align:center; padding-top:5px;">
         <a href="javascript:;" data-id="<?=$row->id_jenis_anggota?>" data-name="<?=$row->nama_jenis_anggota?>" class="btn btn-sm btn-warning btn-ubah" data-toggle="tooltip" title="Edit <?=$row->nama_jenis_anggota?>"><i style="color:#fff;" class="fa fa-edit"></i></a>
         <a href="javascript:;" data-id="<?=$row->id_jenis_anggota?>" data-name="<?=$row->nama_jenis_anggota?>" class="btn btn-sm btn-danger btn-hapus" data-toggle="tooltip" title="Hapus <?=$row->nama_jenis_anggota?>"><i class="fa fa-trash"></i></a>	    
@@ -76,12 +78,13 @@
       <th width="10%">Max Perpanjangan</th>
       <th width="10%">Lama Pinjam</th>
       <th width="10%">Denda</th>
+      <th width="10%">Notifikasi</th>
       <th width="10%">Aksi</th>
     </tr>
     </thead>
 	<tbody>
 		<tr>
-			<td colspan="7">Data tidak ditemukan !</td>
+			<td colspan="8">Data tidak ditemukan !</td>
 		</tr>
 	</tbody>
 </table>

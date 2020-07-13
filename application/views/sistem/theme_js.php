@@ -5,7 +5,7 @@
 <script src="<?php echo base_url('assets/themes/libs/node-waves/waves.min.js')?>"></script>
 <!-- <script src="<?=base_url()?>assets/themes/libs/apexcharts/apexcharts.min.js"></script> -->
 <!-- <script src="<?=base_url()?>assets/themes/js/pages/dashboard.init.js"></script> -->
-<script src="<?php echo base_url('assets/themes/js/app.js')?>"></script>
+<!-- <script src="<?php echo base_url('assets/themes/js/app.js')?>"></script> -->
 <script src="<?php echo base_url('assets/all/js/app.js')?>"></script>
 <script src="<?php echo base_url('assets/themes/libs/sweetalert2/sweetalert2.min.js')?>"></script>
 <script src="<?php echo base_url('assets/themes/js/pages/sweet-alerts.init.js')?>"></script>

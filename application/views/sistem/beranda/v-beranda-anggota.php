@@ -82,7 +82,7 @@
   </div>
 
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <a href="" style="text-decoration: none; color:#3c4b64;">
+    <a href="javascript:;" style="text-decoration: none; color:#3c4b64;">
     <div class="info-box hvr-wobble-vertical" style="text-align: center;">
       <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
       <div class="info-box-content" style="text-align: center;">
@@ -91,7 +91,7 @@
       <div class="col-md-12">
         <hr>
       </div>
-      <p style="font-size: 16px;"><b>Data Diri</b></p>
+      <p style="font-size: 16px;"><b>Profil</b></p>
     </div>
     </a>
   </div>

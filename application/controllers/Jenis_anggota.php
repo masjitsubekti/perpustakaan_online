@@ -68,6 +68,7 @@ class jenis_anggota extends CI_Controller {
         $max_perpanjangan = strip_tags(trim($this->input->post('max_perpanjangan')));
         $lama_pinjam = strip_tags(trim($this->input->post('lama_pinjam')));
         $jum_denda = strip_tags(trim($this->input->post('jumlah_denda')));
+        $notifikasi_terlambat = strip_tags(trim($this->input->post('notifikasi_terlambat')));
         if($modeform == 'ADD'){
             $id_max = $this->db->query("select coalesce(max(id_jenis_anggota),0) as id from m_jenis_anggota")->row_array();
             $id = $id_max['id']+1;
@@ -79,6 +80,7 @@ class jenis_anggota extends CI_Controller {
                 'jumlah_denda'=>$jum_denda,
                 'max_peminjaman'=>$max_pinjam,
                 'lama_pinjam'=>$lama_pinjam,
+                'notifikasi_terlambat'=>$notifikasi_terlambat,
                 'status'=>'1',
                 'created_at'=>date('Y-m-d H:i:s')
             );
@@ -99,6 +101,7 @@ class jenis_anggota extends CI_Controller {
               'jumlah_denda'=>$jum_denda,
               'max_peminjaman'=>$max_pinjam,
               'lama_pinjam'=>$lama_pinjam,
+              'notifikasi_terlambat'=>$notifikasi_terlambat,
               'updated_at'=>date('Y-m-d H:i:s')
             );
 				

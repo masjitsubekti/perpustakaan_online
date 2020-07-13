@@ -28,7 +28,11 @@
         <th style="min-width: 160px;" class="sortable" id="column_tgl_kembali" data-sort="" onclick="sort_table('#column_tgl_kembali','tgl_kembali')">Tanggal Kembali</th>
         <th style="min-width: 120px;" class="sortable" id="column_terlambat" data-sort="" onclick="sort_table('#column_terlambat','terlambat')">Terlambat</th>
         <th style="min-width: 160px;" class="sortable" id="column_denda" data-sort="" onclick="sort_table('#column_denda','denda')">Denda</th>
-        <th style="min-width: 160px;">Aksi</th>
+        <?php 
+        $role = $this->session->userdata("auth_id_role");
+        if($role=="HA01" || $role=="HA02"){ ?>
+          <th style="min-width: 160px;">Aksi</th>
+        <?php } ?>
     </tr>
     </thead>
     <tbody>
@@ -47,13 +51,13 @@
         <td style="text-align:center;"><?= tgl_indo($row->tgl_kembali)?></td>
         <td style="text-align:center;"><?=$row->terlambat?> Hari</td>
         <td style="text-align:center;">Rp. <?= ($row->denda!="") ? number_format($row->denda) : 0 ?></td>
-        <td style="text-align:center;">
-          <?php 
-          $role = $this->session->userdata("auth_id_role");
-          if($role=="HA01" || $role=="HA02"){ ?>
-            <a href="javascript:;" data-id="<?=$row->id_anggota?>/<?=$row->id_detail_peminjaman?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-success btn-reminder" data-toggle="tooltip" title="<?=$row->nama_anggota?>"><i class="fa fa-bell"></i> Kirim Pesan</a>	    
-          <?php } ?>
-        </td>
+        <?php 
+        $role = $this->session->userdata("auth_id_role");
+        if($role=="HA01" || $role=="HA02"){ ?>
+          <td style="text-align:center;">
+              <a href="javascript:;" data-id="<?=$row->id_anggota?>/<?=$row->id_detail_peminjaman?>" data-name="<?=$row->nama_anggota?>" class="btn btn-sm btn-success btn-reminder" data-toggle="tooltip" title="<?=$row->nama_anggota?>"><i class="fa fa-bell"></i> Kirim Pesan</a>	    
+          </td>
+        <?php } ?>
       </tr>
     <?php } ?>
     </tbody>

@@ -34,14 +34,14 @@
                             <a href="#" class="text-primary"><?= $book['nama_kategori'] ?></a>
                             <h4 class="mt-1 mb-3"><?= $book['judul'] ?></h4>
 
-                            <p class="text-muted float-left mr-3">
+                            <!-- <p class="text-muted float-left mr-3">
                                 <span class="bx bx-star text-warning"></span>
                                 <span class="bx bx-star text-warning"></span>
                                 <span class="bx bx-star text-warning"></span>
                                 <span class="bx bx-star text-warning"></span>
                                 <span class="bx bx-star"></span>
                             </p>
-                            <p class="text-muted mb-4">( 152 Members Review )</p>
+                            <p class="text-muted mb-4">( 152 Members Review )</p> -->
 
                             <!-- <h6 class="text-success text-uppercase">New</h6> -->
                             <h5 class="mb-4">Stok : <span class="text-muted mr-2"></span> <?= $book['stok'] ?> Items</h5>
@@ -49,14 +49,14 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div>
-                                        <p class="text-muted"><i class="bx bx-shape-triangle font-size-16 align-middle text-primary mr-1"></i> Tebal Halaman : <?= $book['halaman'] ?> Halaman</p>
+                                        <p class="text-muted"><i class="bx bx-menu-alt-left font-size-16 align-middle text-primary mr-1"></i> Tebal Halaman : <?= $book['halaman'] ?> Halaman</p>
                                         <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary mr-1"></i> Tinggi : <?= $book['tinggi'] ?> </p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
                                         <p class="text-muted"><i class="bx bx-user-voice font-size-16 align-middle text-primary mr-1"></i> Edisi Ke <?= $book['edisi'] ?> </p>
-                                        <p class="text-muted"><i class="bx bx-cog font-size-16 align-middle text-primary mr-1"></i> Tahun Terbit : <?= $book['tahun_terbit'] ?> </p>
+                                        <p class="text-muted"><i class="bx bx-calendar font-size-16 align-middle text-primary mr-1"></i> Tahun Terbit : <?= $book['tahun_terbit'] ?> </p>
                                     </div>
                                 </div>
                             </div>

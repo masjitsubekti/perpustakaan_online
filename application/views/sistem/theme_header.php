@@ -4,23 +4,15 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="<?= site_url('Beranda') ?>" class="logo logo-dark">
+                <div style="font-color:white; text-align:left;" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="<?=base_url()?>assets/themes/images/logo.svg" alt="" height="22">
+                      <img src="<?=base_url('assets/data/aplikasi/'.$app['logo'])?>" alt="" height="22">
                     </span>
-                    <span class="logo-lg">
-                        <img src="<?=base_url()?>assets/themes/images/logo-dark.png" alt="" height="17">
+                    <span class="logo-lg" style="color:white; padding-top: 18px;">
+                      <img src="<?=base_url('assets/data/aplikasi/'.$app['logo'])?>" alt="" style="width:40px; height:40px;">
+                      PERPUSTAKAAN ONLINE
                     </span>
-                </a>
-
-                <a href="<?= site_url('Beranda') ?>" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="<?=base_url()?>assets/themes/images/logo-light.svg" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="<?=base_url()?>assets/themes/images/logo-light.png" alt="" height="19">
-                    </span>
-                </a>
+                </div>
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">

@@ -8,7 +8,7 @@
                 <form action="" id="form">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="alert alert-info"><b>PENTING!</b><ol class="pl-3 mb-0"><li>Lengkapi data formulir berikut. Kolom yang memiliki tanda bintang "*", maka wajib diisi.</li><li>Sesuaikan identitas pribadi dengan data di KTP-el.</li><li>Isilah sesuai dengan kaidah-kaidah penulisan bahasa Indonesia untuk mempermudah proses verifikasi.</li></ol></div>
+                        <div class="alert alert-info"><b>PENTING!</b><ol class="pl-3 mb-0"><li>Lengkapi data formulir berikut. Kolom yang memiliki tanda bintang "*", maka wajib diisi.</li><li>Isilah sesuai dengan kaidah-kaidah penulisan bahasa Indonesia untuk mempermudah pencarian anggota.</li></ol></div>
                         <input type="hidden" id="modeform" name="modeform" value="<?= $modeform ?>">
                         <input type="hidden" id="id_anggota_ubah" name="id_anggota_ubah" value="<?php if(isset($data_anggota)){ echo $data_anggota['id_anggota']; } ?>">
                         <?php if($modeform=="ADD"){ ?>

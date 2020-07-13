@@ -15,7 +15,8 @@
     <div class="home-btn d-none d-sm-block">
         <!-- <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a> -->
     </div>
-    <div class="account-pages my-5 pt-sm-5">
+    <!-- my-5 -->
+    <div class="account-pages pt-sm-5">
         <div class="container" id="app">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
@@ -73,7 +74,7 @@
                                     </div>
         
                                     <div class="mt-4 text-center">
-                                        <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Forgot your password?</a>
+                                        <a href="javascript:;" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Forgot your password?</a>
                                     </div>
                                 </form>
                             </div>
@@ -81,7 +82,7 @@
                         </div>
                     </div>
                     <div class="mt-2 text-center">
-                        <p>Don't have an account ? <a href="auth-register.html" class="font-weight-medium text-primary"> Signup now </a> </p>
+                        <p>Don't have an account ? <a href="javascript:;" class="font-weight-medium text-primary"> Signup now </a> </p>
                         <p>© 2020 Perpustakaan Online. <b> All rights reserved. </b></p>
                     </div>
 
