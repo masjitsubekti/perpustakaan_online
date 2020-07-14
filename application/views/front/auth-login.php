@@ -7,7 +7,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Subekti Devcode" name="Abdul Masjit Subekti" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="<?=base_url()?>assets/themes/images/favicon.ico">
+    <link rel="shortcut icon" href="<?=base_url('assets/data/aplikasi/'.$aplikasi['favicon'])?>">
     <!-- CSS -->
     <?php $this->load->view('sistem/theme_css') ?>
 </head>

@@ -9,6 +9,7 @@ class Beranda extends CI_Controller {
     parent::__construct();
     $this->apl = get_apl();
     $this->load->model('Menu_m');
+    $this->load->model('Dashboard_m');
     must_login();
   }
   
@@ -36,8 +37,22 @@ class Beranda extends CI_Controller {
     $this->parser->parse('sistem/template', $data);
   }    
 
-
-
+  public function load_dashboard(){
+    // dashboard atas
+    $data['anggota'] = $this->Dashboard_m->count_anggota()->row_array();
+    $data['buku'] = $this->Dashboard_m->count_buku()->row_array();
+    $data['rak'] = $this->Dashboard_m->count_rak()->row_array();
+    $data['jenis_koleksi'] = $this->Dashboard_m->count_jenis_koleksi()->row_array();
+    
+    // chart perbulan
+    date_default_timezone_set('Asia/Jakarta');
+    $tahun = date('Y');
+    $bulan = date('m');
+    $data['tahun'] = $tahun;
+    $data['bulan'] = $bulan;
+    $data['pie'] = $this->Dashboard_m->chart_perbulan($bulan, $tahun)->row_array();
+    $this->load->view('sistem/beranda/data-dashboard.php',$data);
+  }
 }
 
 /* End of file Beranda.php */
