@@ -14,8 +14,15 @@ class Auth extends CI_Controller {
 	public function index()
 	{
 		$data['aplikasi'] = $this->apl;
-		$data['title'] = "LOGIN | ".$this->apl['nama_sistem'];
+		$data['title'] = "Selamat Datang | ".$this->apl['nama_sistem'];
 		$this->load->view('front/auth-login', $data);
+  }
+  
+	public function lupa_password()
+	{
+		$data['aplikasi'] = $this->apl;
+		$data['title'] = "Lupa Password | ".$this->apl['nama_sistem'];
+		$this->load->view('front/lupa_password/lupa-password', $data);
 	}
 
 	public function check_auth(){
@@ -142,7 +149,57 @@ class Auth extends CI_Controller {
 		$response['page'] = 'Beranda';
 		insert_log($username, "Login Aplikasi", 'Berhasil Login', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());
 		echo json_encode($response);
-	}
+  }
+  
+  public function email_reset_password(){
+    $email = $this->input->post('email_reset');
+    $cek_email = $this->M_main->get_where('users','email',$email);
+    $num_email = $cek_email->num_rows();
+    if($num_email==0){
+      $response['success'] = FALSE;
+      $response['message'] = "Maaf email anda tidak terdaftar !";
+      insert_log($email, "Reset Password", 'Gagal Kirim Email Verifikasi', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());	
+    }else{
+      $data_user = $cek_email->row_array();
+      $id_user = $data_user['id_user'];
+      $nama_lengkap = $data_user['name'];
+      $response['success'] = TRUE;
+      $response['message'] = "Silahkan cek email anda untuk melanjutkan permintaan reset password !";
+      $response['message_email'] = api_reset_pass($id_user,$nama_lengkap, $email);
+      insert_log($email, "Reset Password", 'Berhasil Kirim Email Verifikasi', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());			      
+    }
+    echo json_encode($response);
+  }
+
+  public function form_reset($id_user){
+    $data['aplikasi'] = $this->apl;
+    $data['title'] = "Reset Password | ".$this->apl['nama_sistem'];
+    $data['id_user'] = $id_user;
+    $this->load->view('front/lupa_password/form-reset.php',$data);
+  }   
+
+  public function simpan_pass(){
+    $id_user = $this->input->post('id_user');
+    $pass_baru = md5(md5(strip_tags($this->input->post('pass_baru'))));
+    $confirm_pass_baru = $this->input->post('confirm_pass_baru');
+
+    $data_user = $this->M_main->get_where('users','id_user',$id_user)->row_array();
+    $email = $data_user['email'];
+    
+    date_default_timezone_set('Asia/Jakarta');
+    $object_update = array(
+      'password'=>$pass_baru,
+      'updated_at' => date('Y-m-d H:i:s')
+    );
+    $this->db->where('id_user',$id_user);
+    $this->db->update('users',$object_update);
+    
+    $response['success'] = TRUE;
+    $response['message'] = "Ubah password berhasil, silahkan login dengan password baru anda !";
+    $response['page'] = "Auth";
+    insert_log($email, "Reset Password", 'Berhasil Ubah Password', $this->input->ip_address(), $this->agent->browser(), $this->agent->agent_string());			      
+    echo json_encode($response);
+  }
 	
 	function logout(){
 		$username = $this->session->userdata('auth_username');

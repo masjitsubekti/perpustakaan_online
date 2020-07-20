@@ -1,3 +1,19 @@
+<?php 
+  $id_user = $this->session->userdata('auth_id_user');
+  $users =  $this->db->query("
+    select * from users
+    where id_user = '$id_user' 
+  ");
+  
+  $data_user = $users->row_array();
+  $foto_user = $data_user['foto'];
+  $foto_url = '';
+  if($foto_user!=""){
+    $foto_url = base_url().'assets/data/pp_user/'.$foto_user; 
+  }else{ 
+    $foto_url = base_url().'assets/all/images/superadmin.png';
+  }
+?>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -6,7 +22,7 @@
                     <div class="col-lg-12">
                         <div class="media">
                             <div class="mr-3">
-                                <img src="<?=base_url()?>assets/all/images/superadmin.png" alt="" class="avatar-md rounded-circle img-thumbnail">
+                                <img src="<?= $foto_url ?>" alt="" class="avatar-md rounded-circle img-thumbnail">
                             </div>
                             <div class="media-body align-self-center">
                                 <div class="text-muted">

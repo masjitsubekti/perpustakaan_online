@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <title><?= $title ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Subekti Devcode" name="Abdul Masjit Subekti" />
+    <meta content="Perpustakaan Online" name="description" />
+    <meta content="Soebekti Devcode" name="Abdul Masjit Subekti" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="<?=base_url('assets/data/aplikasi/'.$aplikasi['favicon'])?>">
     <!-- CSS -->
@@ -74,28 +74,25 @@
                                     </div>
         
                                     <div class="mt-4 text-center">
-                                        <a href="javascript:;" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Forgot your password?</a>
+                                        <a href="<?= site_url('Auth/Lupa_password') ?>" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Lupa Password ?</a>
                                     </div>
                                 </form>
                             </div>
-        
                         </div>
                     </div>
                     <div class="mt-2 text-center">
-                        <p>Don't have an account ? <a href="javascript:;" class="font-weight-medium text-primary"> Signup now </a> </p>
-                        <p>© 2020 Perpustakaan Online. <b> All rights reserved. </b></p>
+                      <!-- <p>Don't have an account ? <a href="javascript:;" class="font-weight-medium text-primary"> Signup now </a> </p> -->
+                      <p>© 2020 Perpustakaan Online. <b> All rights reserved. </b></p>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <!-- JAVASCRIPT -->
-    <?php $this->load->view('sistem/theme_js') ?>
-    <script>
-        const site_url = "<?=site_url()?>";
-        
-        var vm = new Vue({
+<?php $this->load->view('sistem/theme_js') ?>
+<script>
+    const site_url = "<?=site_url()?>";  
+      var vm = new Vue({
 			el: '#login',
 			data: {
 				user_login: "",
@@ -132,7 +129,7 @@
 					});
 				}
 			}
-        })        
-	</script>
+    })        
+</script>
 </body>
 </html>

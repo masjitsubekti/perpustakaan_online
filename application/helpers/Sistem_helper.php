@@ -182,7 +182,7 @@ function api_reset_pass($id_user,$nama,$email){
   $data['id_user'] = $id_user;
   $data['nama'] = $nama;
   $data['root_apl'] = $CI->apl['url_root'];
-  $body = $CI->load->view('front/login/format-email-reset-pass',$data,TRUE);
+  $body = $CI->load->view('front/lupa_password/format-email-reset-pass',$data,TRUE);
   $CI->email->message($body);
   if ($CI->email->send()) {
       $message = 'Sukses! email berhasil dikirim.';
