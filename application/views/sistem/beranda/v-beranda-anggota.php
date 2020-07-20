@@ -52,7 +52,7 @@
       <div class="col-md-12">
         <hr>
       </div>
-      <p style="font-size: 16px;"><b>Histori Peminjaman</b></p>
+      <p style="font-size: 16px;"><b>Histori Peminjaman </b></p>
     </div>
     </a>
   </div>
